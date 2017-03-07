@@ -2,25 +2,19 @@ package com.example.nguyennam.financialbook.recordtab;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ListCategoryAdapter;
 import com.example.nguyennam.financialbook.model.CategoryChild;
 import com.example.nguyennam.financialbook.model.CategoryGroup;
-import com.example.nguyennam.financialbook.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,10 +24,9 @@ import java.util.List;
 public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     Context context;
-    private SearchView search;
     private ListCategoryAdapter listAdapter;
     private ExpandableListView myList;
-    private ArrayList<CategoryGroup> categoryGroupList = new ArrayList<CategoryGroup>();
+    private ArrayList<CategoryGroup> categoryGroupList = new ArrayList<>();
 
     @Override
     public void onAttach(Context context) {
@@ -52,7 +45,7 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.expense_category, container, false);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        search = (SearchView) view.findViewById(R.id.search);
+        SearchView search = (SearchView) view.findViewById(R.id.search);
         search.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         search.setIconifiedByDefault(false);
         search.setOnQueryTextListener(this);

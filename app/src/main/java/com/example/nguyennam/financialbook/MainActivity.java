@@ -27,6 +27,8 @@ public class MainActivity extends FragmentActivity {
 
     SharedPreferences prefs = null;
     private FragmentTabHost mTabHost;
+    ImageView image;
+    TextView iconTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class MainActivity extends FragmentActivity {
             allAcount.addAccount(new AccountRecyclerView(2, "ATM", 0));
             allAcount.addAccount(new AccountRecyclerView(3, "Tiết Kiệm", 0));
             // using the following line to edit/commit prefs
-            prefs.edit().putBoolean("firstrun", false).commit();
+            prefs.edit().putBoolean("firstrun", false).apply();
         }
     }
 
@@ -71,15 +73,13 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                ImageView image = null;
-                TextView iconTitle = null;
                 int selectedIndex = mTabHost.getCurrentTab();
-                setColorImage(image, iconTitle, selectedIndex);
+                setColorImage(selectedIndex);
             }
         });
     }
 
-    private void setColorImage(ImageView image, TextView iconTitle, int selectedIndex) {
+    private void setColorImage(int selectedIndex) {
         for (int i = 0; i < mTabHost.getTabWidget().getTabCount(); i++) {
             image = (ImageView) mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.img_icon);
             iconTitle = (TextView) mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.text_icon);
@@ -110,23 +110,23 @@ public class MainActivity extends FragmentActivity {
                 switch (i) {
                     case 0:
                         image.setImageResource(R.drawable.note_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceBlue, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
                         break;
                     case 1:
                         image.setImageResource(R.drawable.wallet_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceBlue, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
                         break;
                     case 2:
                         image.setImageResource(R.drawable.tab_budget_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceBlue, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
                         break;
                     case 3:
                         image.setImageResource(R.drawable.pie_chart_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceBlue, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
                         break;
                     case 4:
                         image.setImageResource(R.drawable.more_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceBlue, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
                         break;
                 }
             }
@@ -140,7 +140,7 @@ public class MainActivity extends FragmentActivity {
         TextView tv = (TextView) view.findViewById(R.id.text_icon);
         tv.setText(title);
         if (title == R.string.Records) {
-            tv.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceBlue, null));
+            tv.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
         }
         return view;
     }

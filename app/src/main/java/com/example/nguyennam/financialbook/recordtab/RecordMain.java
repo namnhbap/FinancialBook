@@ -24,7 +24,7 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
     ImageView imgHistory;
     public ArrayList<SpinnerModel> CustomListViewValuesArr = new ArrayList<>();
     CustomSpinnerAdapter adapter;
-    Bundle bundle;
+//    Bundle bundle;
 
     @Override
     public void onAttach(Context context) {
@@ -78,7 +78,7 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
+//        String item = parent.getItemAtPosition(position).toString();
         ExpenseFormInput expenseFormInput = new ExpenseFormInput();
         IncomeFormInput incomeFormInput = new IncomeFormInput();
         TransferFormInput transferFormInput = new TransferFormInput();
