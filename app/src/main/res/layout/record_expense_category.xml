@@ -27,7 +27,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true">
-
             <ImageView
                 android:id="@+id/btnAddCategory"
                 android:layout_width="wrap_content"
@@ -50,6 +49,7 @@
             android:text="@string/Category"
             android:gravity="center"
             style="@style/TextViewStyleBold"/>
+
     </RelativeLayout>
 
     <SearchView
@@ -57,14 +57,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="@string/search">
-
     </SearchView>
 
     <ExpandableListView
         android:id="@+id/expandableCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </ExpandableListView>
 
 </LinearLayout>

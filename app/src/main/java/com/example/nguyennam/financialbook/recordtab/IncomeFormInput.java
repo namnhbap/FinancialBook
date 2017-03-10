@@ -28,8 +28,8 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     TextView txtAccountName;
     TextView txtIncomeTime;
     TextView txtIncomeEvent;
-//    final Calculator calculator = new Calculator();
-//    final Description description = new Description();
+//    final Calculator record_calculator = new Calculator();
+//    final Description record_description = new Description();
 //    final ExpenseEvent expenseEvent = new ExpenseEvent();
 //    final ListAccount listAccount = new ListAccount();
 //    ExpenseBEAN expenseBEAN = new ExpenseBEAN();
@@ -42,7 +42,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_input_income, container, false);
+        View view = inflater.inflate(R.layout.record_input_income, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
         txtAmount.setOnClickListener(this);
         txtIncomeType = (TextView) view.findViewById(R.id.txtCategory);

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_accounts"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundForm"
+    tools:context="com.example.nguyennam.financialbook.accounttab.AccountMain">
 
     <RelativeLayout
-        android:id="@+id/tabHeader"
+        android:id="@+id/accountHeader"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/size40dp"
         android:background="@drawable/selector_layout_green">
 
         <ImageView
@@ -15,31 +18,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/previous"
-            android:contentDescription="@string/financialHistory"
+            android:contentDescription="@string/previous"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
 
         <TextView
-            android:id="@+id/lbDescription"
+            android:id="@+id/lbSelectAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/txtCancel"
             android:layout_toEndOf="@id/txtCancel"
+            android:layout_marginRight="@dimen/size48dp"
+            android:layout_marginEnd="@dimen/size48dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="48dp"
-            android:layout_marginEnd="48dp"
-            android:text="@string/financialHistory"
+            android:text="@string/selecteAccount"
             android:gravity="center"
             style="@style/TextViewStyleBold"/>
+
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewHistory"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+        android:layout_below="@id/accountHeader">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerviewSelectAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

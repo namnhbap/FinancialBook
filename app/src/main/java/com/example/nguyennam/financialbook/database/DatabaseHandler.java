@@ -27,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     class ExpenseColumn implements BaseColumns {
         static final String KEY_AMOUNTMONEY = "amountmoney";
         static final String KEY_EXPENSECATEGORY = "expensecategory";
-        static final String KEY_DESCRIPTION = "description";
+        static final String KEY_DESCRIPTION = "record_description";
         static final String KEY_FROMACCOUNT = "fromaccount";
         static final String KEY_EXPENSEDATE = "expensedate";
         static final String KEY_EXPENSEEVENT = "expenseevent";

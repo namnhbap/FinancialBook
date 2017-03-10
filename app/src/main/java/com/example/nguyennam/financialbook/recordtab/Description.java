@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.example.nguyennam.financialbook.R;
 
-public class Description extends Fragment implements View.OnClickListener {
+public class Description extends Fragment{
 
     EditText editText;
 
@@ -24,21 +24,8 @@ public class Description extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.description, container, false);
-        editText = (EditText) view.findViewById(R.id.description);
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.lnDoneDescription);
-        linearLayout.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.record_description, container, false);
+        editText = (EditText) view.findViewById(R.id.txtDescription);
         return view;
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.lnDoneDescription:
-//                String message = String.valueOf(editText.getText());
-
-                break;
-        }
-    }
-
 }

@@ -43,7 +43,7 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.expense_category, container, false);
+        View view = inflater.inflate(R.layout.record_expense_category, container, false);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) view.findViewById(R.id.search);
         search.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));

@@ -32,8 +32,8 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
     TextView txtDescription;
     TextView txtTransferTime;
 
-    //    final Calculator calculator = new Calculator();
-//    final Description description = new Description();
+    //    final Calculator record_calculator = new Calculator();
+//    final Description record_description = new Description();
 //    final ExpenseEvent expenseEvent = new ExpenseEvent();
 //    final ListAccount listAccount = new ListAccount();
 //    ExpenseBEAN expenseBEAN = new ExpenseBEAN();
@@ -47,7 +47,7 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_input_transfer, container, false);
+        View view = inflater.inflate(R.layout.record_input_transfer, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
         txtAmount.setOnClickListener(this);
         txtFromAccount = (TextView) view.findViewById(R.id.txtFromAccount);

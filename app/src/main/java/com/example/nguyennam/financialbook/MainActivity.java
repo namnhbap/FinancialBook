@@ -16,9 +16,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.accounttab.AccountMain;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.budgettab.BudgetMain;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.recordtab.RecordMain;
 import com.example.nguyennam.financialbook.reporttab.ReportMain;
 import com.example.nguyennam.financialbook.settingtab.SettingMain;
@@ -41,12 +43,17 @@ public class MainActivity extends FragmentActivity {
     private void checkFirstRun() {
         prefs = getSharedPreferences("com.example.nguyennam.financialbook", MODE_PRIVATE);
         AccountRecyclerViewDAO allAcount = new AccountRecyclerViewDAO(this);
+        ExpenseDAO expenseDAO = new ExpenseDAO(this);
         //check the first time run app (install?)
         if (prefs.getBoolean("firstrun", true)) {
             // Do first run stuff here then set 'firstrun' as false
             allAcount.addAccount(new AccountRecyclerView(1, "Ví", 0));
             allAcount.addAccount(new AccountRecyclerView(2, "ATM", 0));
             allAcount.addAccount(new AccountRecyclerView(3, "Tiết Kiệm", 0));
+            //data for financial history
+            expenseDAO.addExpense(new Expense(1, "100000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense(2, "200000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense(3, "350000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
             // using the following line to edit/commit prefs
             prefs.edit().putBoolean("firstrun", false).apply();
         }
@@ -56,20 +63,20 @@ public class MainActivity extends FragmentActivity {
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab1").setIndicator(getTabIndicator(mTabHost.getContext(), R.string.Records, R.drawable.note_selected)),
-                RecordMain.class, null);
+                mTabHost.newTabSpec("tab1").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.string.Records, R.drawable.note_selected)), RecordMain.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab2").setIndicator(getTabIndicator(mTabHost.getContext(), R.string.Accounts, R.drawable.wallet)),
-                AccountMain.class, null);
+                mTabHost.newTabSpec("tab2").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.string.Accounts, R.drawable.wallet)), AccountMain.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab3").setIndicator(getTabIndicator(mTabHost.getContext(), R.string.Budget, R.drawable.tab_budget)),
-                BudgetMain.class, null);
+                mTabHost.newTabSpec("tab3").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.string.Budget, R.drawable.tab_budget)), BudgetMain.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab4").setIndicator(getTabIndicator(mTabHost.getContext(), R.string.Reports, R.drawable.pie_chart)),
-                ReportMain.class, null);
+                mTabHost.newTabSpec("tab4").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.string.Reports, R.drawable.pie_chart)), ReportMain.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab5").setIndicator(getTabIndicator(mTabHost.getContext(), R.string.Setting, R.drawable.more)),
-                SettingMain.class, null);
+                mTabHost.newTabSpec("tab5").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.string.Setting, R.drawable.more)), SettingMain.class, null);
         mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
@@ -148,14 +155,23 @@ public class MainActivity extends FragmentActivity {
     public void replaceFragment(Fragment someFragment, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //if (true) allow back else pop everything
-        if (addToBackStack) {
-            fragmentTransaction.addToBackStack(null);
+        if (!someFragment.isAdded()) {
+            //if (true) allow back else pop everything
+            if (addToBackStack) {
+                fragmentTransaction.addToBackStack(null);
+            } else {
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+            fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
         } else {
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentTransaction.show(someFragment);
         }
-        fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
+//        if (addToBackStack) {
+//            fragmentTransaction.addToBackStack(null);
+//        } else {
+//            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        }
+//        fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
         fragmentTransaction.commit();
     }
-
 }

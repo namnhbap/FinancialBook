@@ -10,11 +10,11 @@
     <RelativeLayout
         android:id="@+id/accountHeader"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size40dp"
+        android:layout_height="@dimen/size48dp"
         android:background="@drawable/selector_layout_green">
 
         <ImageView
-            android:id="@+id/btnChangeAccount"
+            android:id="@+id/txtCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/edit"
@@ -50,8 +50,8 @@
             android:id="@+id/lbAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnChangeAccount"
-            android:layout_toEndOf="@id/btnChangeAccount"
+            android:layout_toRightOf="@id/txtCancel"
+            android:layout_toEndOf="@id/txtCancel"
             android:layout_toLeftOf="@id/lnAddAccount"
             android:layout_toStartOf="@id/lnAddAccount"
             android:layout_alignParentTop="true"

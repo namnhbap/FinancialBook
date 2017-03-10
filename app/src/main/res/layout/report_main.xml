@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/tabHeader"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/size48dp"
         android:background="@drawable/selector_layout_green">
 
         <TextView

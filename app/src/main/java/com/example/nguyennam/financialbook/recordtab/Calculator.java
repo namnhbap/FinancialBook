@@ -1,7 +1,6 @@
 package com.example.nguyennam.financialbook.recordtab;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
-import com.example.nguyennam.financialbook.utils.Constant;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -63,7 +61,7 @@ public class Calculator extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.calculator, container, false);
+        View view = inflater.inflate(R.layout.record_calculator, container, false);
         edtTinh = (EditText) view.findViewById(R.id.edtDisplay);
         txtExpression = (TextView) view.findViewById(R.id.txtExpression);
         btn0 = (Button) view.findViewById(R.id.btnKey0);

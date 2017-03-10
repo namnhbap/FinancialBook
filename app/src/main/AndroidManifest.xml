@@ -21,7 +21,6 @@
         <activity android:name=".reporttab.ReportMain" />
         <activity android:name=".settingtab.SettingMain" />
         <activity android:name=".recordtab.Calculator"/>
-        <activity android:name=".recordtab.ChildActivity"/>
     </application>
 
 </manifest>

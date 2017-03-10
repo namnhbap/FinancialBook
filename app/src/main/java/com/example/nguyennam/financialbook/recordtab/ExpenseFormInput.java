@@ -2,7 +2,6 @@ package com.example.nguyennam.financialbook.recordtab;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,8 +31,8 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     TextView txtExpenseTime;
     TextView txtExpenseEvent;
 
-    //    final Calculator calculator = new Calculator();
-//    final Description description = new Description();
+    //    final Calculator record_calculator = new Calculator();
+//    final Description record_description = new Description();
 //    final ExpenseEvent expenseEvent = new ExpenseEvent();
 //    final ListAccount listAccount = new ListAccount();
 //    ExpenseBEAN expenseBEAN = new ExpenseBEAN();
@@ -46,7 +45,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_input_expense, container, false);
+        View view = inflater.inflate(R.layout.record_input_expense, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
         txtAmount.setOnClickListener(this);
         txtExpenseType = (TextView) view.findViewById(R.id.txtCategory);
@@ -119,7 +118,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 ((MainActivity)context).replaceFragment(new Description(), true);
                 break;
             case R.id.rlSelectAccount:
-                ((MainActivity)context).replaceFragment(new Calculator(), true);
+                ((MainActivity)context).replaceFragment(new Accounts(), true);
                 break;
             case R.id.rlSelectTime:
                 new DatePickerDialog(context, date, myCalendar.get(Calendar.YEAR),
