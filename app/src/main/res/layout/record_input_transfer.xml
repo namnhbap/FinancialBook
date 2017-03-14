@@ -181,7 +181,7 @@
                 android:clickable="true">
 
                 <ImageView
-                    android:id="@+id/igmDescription"
+                    android:id="@+id/imgDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -210,9 +210,9 @@
                     android:layout_centerVertical="true"
                     android:gravity="end"
                     android:layout_toEndOf="@id/lbDescription"
-                    android:layout_toLeftOf="@id/igmDescription"
+                    android:layout_toLeftOf="@id/imgDescription"
                     android:layout_toRightOf="@id/lbDescription"
-                    android:layout_toStartOf="@id/igmDescription"
+                    android:layout_toStartOf="@id/imgDescription"
                     android:clickable="false"
                     android:padding="4dp" />
 

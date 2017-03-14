@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/BackgroundForm"
     tools:context="com.example.nguyennam.financialbook.budgettab.BudgetMain">
+
     <RelativeLayout
         android:id="@+id/budgetHeader"
         android:layout_width="match_parent"
@@ -18,16 +19,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
             <ImageView
                 android:id="@+id/imgAddBudget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="-20dp"
                 android:paddingRight="-20dp"
-                android:src="@drawable/add"/>
+                android:src="@drawable/add"
+                android:contentDescription="@string/addBudget"/>
         </LinearLayout>
 
         <TextView
@@ -35,12 +38,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/lnAddBudget"
+            android:layout_toStartOf="@id/lnAddBudget"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:text="@string/Budget"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="@dimen/size48dp"
+            android:layout_marginStart="@dimen/size48dp"
             android:gravity="center"
             style="@style/TextViewStyleBold"/>
 
     </RelativeLayout>
+
 </RelativeLayout>

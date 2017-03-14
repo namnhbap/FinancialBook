@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:baselineAligned="false"
     android:layout_margin="10dp">
 
     <LinearLayout
@@ -13,26 +14,29 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chi tiền:"
+                android:text="@string/expenseHistory"
                 style="@style/FormEditTitle"/>
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ăn uống"
+                android:text="@string/Category"
                 style="@style/FormEditTitle"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"/>
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10/10/2010"
+            android:text="@string/Date"
             style="@style/FormEditTitle"/>
 
     </LinearLayout>
@@ -42,22 +46,40 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="right">
+        android:gravity="end">
 
         <TextView
             android:id="@+id/tvMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1000000"
+            android:text="@string/SoTien"
             style="@style/FormEditTitle"/>
 
-        <TextView
-            android:id="@+id/tvTypeAccount"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ví"
-            style="@style/FormEditTitle"
-            android:layout_marginLeft="10dp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTypeAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Accounts"
+                style="@style/FormEditTitle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:paddingLeft="4dp"
+                android:paddingStart="4dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
+                android:src="@drawable/wallet"
+                android:contentDescription="@string/Accounts"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

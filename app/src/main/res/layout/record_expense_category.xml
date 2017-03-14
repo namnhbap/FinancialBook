@@ -6,19 +6,21 @@
     <RelativeLayout
         android:id="@+id/tabHeader"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/size48dp"
         android:background="@drawable/selector_layout_green">
 
         <ImageView
-            android:id="@+id/btnBack"
+            android:id="@+id/btnPrevious"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_back"
-            android:paddingLeft="-10dp"
-            android:paddingRight="-10dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/previous"
+            android:contentDescription="@string/Category"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
         <LinearLayout
             android:id="@+id/lnAddCategory"
@@ -26,24 +28,28 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
             <ImageView
                 android:id="@+id/btnAddCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="-20dp"
                 android:paddingRight="-20dp"
-                android:src="@drawable/add"/>
+                android:src="@drawable/add"
+                android:contentDescription="@string/Category"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/lbCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnBack"
+            android:layout_toRightOf="@id/btnPrevious"
+            android:layout_toEndOf="@id/btnPrevious"
             android:layout_toLeftOf="@id/lnAddCategory"
+            android:layout_toStartOf="@id/lnAddCategory"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:text="@string/Category"

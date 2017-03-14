@@ -14,10 +14,6 @@ import com.example.nguyennam.financialbook.model.CategoryGroup;
 
 import java.util.ArrayList;
 
-/**
- * Created by NguyenNam on 1/14/2017.
- */
-
 public class ListCategoryAdapter extends BaseExpandableListAdapter {
 
     private Context context;
@@ -26,9 +22,9 @@ public class ListCategoryAdapter extends BaseExpandableListAdapter {
 
     public ListCategoryAdapter(Context context, ArrayList<CategoryGroup> categoryGroups){
         this.context = context;
-        this.categoryGroups = new ArrayList<CategoryGroup>();
+        this.categoryGroups = new ArrayList<>();
         this.categoryGroups.addAll(categoryGroups);
-        this.originalList = new ArrayList<CategoryGroup>();
+        this.originalList = new ArrayList<>();
         this.originalList.addAll(categoryGroups);
     }
     @Override
@@ -108,7 +104,7 @@ public class ListCategoryAdapter extends BaseExpandableListAdapter {
             for(CategoryGroup categoryGroup: originalList){
 
                 ArrayList<CategoryChild> categoryChildArrayList = categoryGroup.getCategoryChildList();
-                ArrayList<CategoryChild> newList = new ArrayList<CategoryChild>();
+                ArrayList<CategoryChild> newList = new ArrayList<>();
                 for(CategoryChild categoryChildList: categoryChildArrayList){
                     if(categoryChildList.getName().toLowerCase().contains(query)){
                         newList.add(categoryChildList);

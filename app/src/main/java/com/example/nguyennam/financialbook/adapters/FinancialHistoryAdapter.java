@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.model.Expense;
@@ -12,11 +13,8 @@ import com.example.nguyennam.financialbook.R;
 
 import java.util.List;
 
-/**
- * Created by NguyenNam on 1/17/2017.
- */
-
 public class FinancialHistoryAdapter extends RecyclerView.Adapter<FinancialHistoryAdapter.HolderHistory> {
+
     Context context;
     List<Expense> data;
     MyOnClick myOnClick;
@@ -43,6 +41,7 @@ public class FinancialHistoryAdapter extends RecyclerView.Adapter<FinancialHisto
         holder.tvMoney.setText(expense.get_amountMoney());
         holder.tvTypeAccount.setText(expense.get_fromAccount());
         holder.tvDate.setText(expense.get_expenseDate());
+
     }
 
     @Override

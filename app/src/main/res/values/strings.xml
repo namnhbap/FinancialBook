@@ -54,6 +54,8 @@
     <string name="description">Diễn giải</string>
     <string name="done">Xong</string>
     <string name="cancel">Hủy</string>
+    <string name="addBudget">Thêm hạn mức chi</string>
+    <string name="expenseHistory">Chi:</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>
