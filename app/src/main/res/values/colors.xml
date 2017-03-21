@@ -8,7 +8,7 @@
     <color name="white">#ffffff</color>
     <color name="Line">#ffcdcdcd</color>
     <color name="black">#ff000000</color>
-    <color name="niceGreen">#128c5e</color>
+    <color name="niceGreen">#009f63</color>
     <color name="darkBlack">#6e000000</color>
     <color name="BackgroundForm">#ffe1e1e1</color>
 </resources>

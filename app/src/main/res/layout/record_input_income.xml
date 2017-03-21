@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/BackgroundForm"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:src="@drawable/disclosure" />
 
                 <TextView
-                    android:id="@+id/lbCategory"
+                    android:id="@+id/lbDescription"
                     style="@style/FormEditTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,15 +94,15 @@
                     android:text="@string/MucThu" />
 
                 <TextView
-                    android:id="@+id/txtCategory"
+                    android:id="@+id/txtDescription"
                     style="@style/FormEditValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="end"
-                    android:layout_toEndOf="@id/lbCategory"
+                    android:layout_toEndOf="@id/lbDescription"
                     android:layout_toLeftOf="@id/imgCategory"
-                    android:layout_toRightOf="@id/lbCategory"
+                    android:layout_toRightOf="@id/lbDescription"
                     android:layout_toStartOf="@id/imgCategory"
                     android:clickable="false"
                     android:padding="4dp" />
@@ -173,7 +173,7 @@
             android:paddingBottom="0.5dp">
 
             <RelativeLayout
-                android:id="@+id/rlSelectAccount"
+                android:id="@+id/rlAccountName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size48dp"
                 android:layout_margin="2dp"
@@ -191,7 +191,7 @@
                     android:src="@drawable/disclosure" />
 
                 <TextView
-                    android:id="@+id/lbAccount"
+                    android:id="@+id/lbAccountName"
                     style="@style/FormEditTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -209,9 +209,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="end"
-                    android:layout_toEndOf="@id/lbAccount"
+                    android:layout_toEndOf="@id/lbAccountName"
                     android:layout_toLeftOf="@id/igmSelectAccount"
-                    android:layout_toRightOf="@id/lbAccount"
+                    android:layout_toRightOf="@id/lbAccountName"
                     android:layout_toStartOf="@id/igmSelectAccount"
                     android:clickable="false"
                     android:padding="4dp" />
@@ -226,7 +226,7 @@
                 android:background="@color/Line" />
 
             <RelativeLayout
-                android:id="@+id/rlSelectTime"
+                android:id="@+id/rlAccountType"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size48dp"
                 android:layout_margin="2dp"
@@ -234,7 +234,7 @@
                 android:clickable="true">
 
                 <ImageView
-                    android:id="@+id/igmSelectTime"
+                    android:id="@+id/imgAccoutType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -244,7 +244,7 @@
                     android:src="@drawable/disclosure" />
 
                 <TextView
-                    android:id="@+id/lbDate"
+                    android:id="@+id/lbAccountType"
                     style="@style/FormEditTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -256,16 +256,16 @@
                     android:text="@string/Date" />
 
                 <TextView
-                    android:id="@+id/txtTime"
+                    android:id="@+id/txtAccountType"
                     style="@style/FormEditValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="end"
-                    android:layout_toEndOf="@id/lbDate"
-                    android:layout_toLeftOf="@id/igmSelectTime"
-                    android:layout_toRightOf="@id/lbDate"
-                    android:layout_toStartOf="@id/igmSelectTime"
+                    android:layout_toEndOf="@id/lbAccountType"
+                    android:layout_toLeftOf="@id/imgAccoutType"
+                    android:layout_toRightOf="@id/lbAccountType"
+                    android:layout_toStartOf="@id/imgAccoutType"
                     android:clickable="false"
                     android:padding="4dp" />
 
@@ -287,7 +287,7 @@
                 android:clickable="true">
 
                 <ImageView
-                    android:id="@+id/igmEvent"
+                    android:id="@+id/imgMoneyType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -297,7 +297,7 @@
                     android:src="@drawable/disclosure" />
 
                 <TextView
-                    android:id="@+id/lbEvent"
+                    android:id="@+id/lbMoneyType"
                     style="@style/FormEditTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -309,16 +309,16 @@
                     android:text="@string/Event" />
 
                 <TextView
-                    android:id="@+id/txtEvent"
+                    android:id="@+id/txtMoneyType"
                     style="@style/FormEditValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="end"
-                    android:layout_toEndOf="@id/lbEvent"
-                    android:layout_toLeftOf="@id/igmEvent"
-                    android:layout_toRightOf="@id/lbEvent"
-                    android:layout_toStartOf="@id/igmEvent"
+                    android:layout_toEndOf="@id/lbMoneyType"
+                    android:layout_toLeftOf="@id/imgMoneyType"
+                    android:layout_toRightOf="@id/lbMoneyType"
+                    android:layout_toStartOf="@id/imgMoneyType"
                     android:clickable="false"
                     android:padding="4dp" />
 

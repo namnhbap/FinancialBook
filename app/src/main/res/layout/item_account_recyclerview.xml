@@ -2,18 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     android:baselineAligned="true"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/size48dp"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="match_parent"
@@ -24,7 +25,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/size48dp"
             android:layout_weight="4"
             android:gravity="center"
             android:orientation="vertical">
@@ -41,7 +42,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:paddingEnd="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -76,13 +76,13 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/size48dp"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/btnEditAccount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/EditAccount"
+                android:contentDescription="@string/editAccount"
                 android:src="@drawable/edit_account_blue" />
         </LinearLayout>
 
@@ -91,6 +91,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
         android:background="@color/Line" />

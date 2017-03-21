@@ -53,7 +53,7 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
         txtFromAccount = (TextView) view.findViewById(R.id.txtFromAccount);
         txtToAccount = (TextView) view.findViewById(R.id.txtToAccount);
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
-        txtTransferTime = (TextView) view.findViewById(R.id.txtTime);
+        txtTransferTime = (TextView) view.findViewById(R.id.txtAccountType);
         txtTransferTime.setText(getDate());
         RelativeLayout rlFromAccount = (RelativeLayout) view.findViewById(R.id.rlFromAccount);
         rlFromAccount.setOnClickListener(this);
@@ -61,7 +61,7 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
         rlToAccount.setOnClickListener(this);
         RelativeLayout rlDescription = (RelativeLayout) view.findViewById(R.id.rlDescription);
         rlDescription.setOnClickListener(this);
-        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlSelectTime);
+        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlAccountType);
         rlSelectTime.setOnClickListener(this);
         LinearLayout lnAddTransfer = (LinearLayout) view.findViewById(R.id.lnSave);
         lnAddTransfer.setOnClickListener(this);
@@ -112,7 +112,7 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
                 break;
             case R.id.rlDescription:
                 break;
-            case R.id.rlSelectTime:
+            case R.id.rlAccountType:
                 new DatePickerDialog(context, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;

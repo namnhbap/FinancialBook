@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.AccountRecyclerViewAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
@@ -50,6 +51,8 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
 
     @Override
     public void onClick(int position) {
+        //test account_edit
+        ((MainActivity) context).replaceFragment(new EditAccount(), true);
 
     }
 }

@@ -48,19 +48,19 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.record_input_expense, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
         txtAmount.setOnClickListener(this);
-        txtExpenseType = (TextView) view.findViewById(R.id.txtCategory);
+        txtExpenseType = (TextView) view.findViewById(R.id.txtDescription);
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
-        txtExpenseTime = (TextView) view.findViewById(R.id.txtTime);
+        txtExpenseTime = (TextView) view.findViewById(R.id.txtAccountType);
         txtExpenseTime.setText(getDate());
-        txtExpenseEvent = (TextView) view.findViewById(R.id.txtEvent);
+        txtExpenseEvent = (TextView) view.findViewById(R.id.txtMoneyType);
         RelativeLayout rlSelectCategory = (RelativeLayout) view.findViewById(R.id.rlSelectCategory);
         rlSelectCategory.setOnClickListener(this);
         RelativeLayout rlDescription = (RelativeLayout) view.findViewById(R.id.rlDescription);
         rlDescription.setOnClickListener(this);
-        RelativeLayout rlSelectAccount = (RelativeLayout) view.findViewById(R.id.rlSelectAccount);
+        RelativeLayout rlSelectAccount = (RelativeLayout) view.findViewById(R.id.rlAccountName);
         rlSelectAccount.setOnClickListener(this);
-        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlSelectTime);
+        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlAccountType);
         rlSelectTime.setOnClickListener(this);
         RelativeLayout rlExpenseEvent = (RelativeLayout) view.findViewById(R.id.rlEvent);
         rlExpenseEvent.setOnClickListener(this);
@@ -117,10 +117,10 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
             case R.id.rlDescription:
                 ((MainActivity)context).replaceFragment(new Description(), true);
                 break;
-            case R.id.rlSelectAccount:
+            case R.id.rlAccountName:
                 ((MainActivity)context).replaceFragment(new Accounts(), true);
                 break;
-            case R.id.rlSelectTime:
+            case R.id.rlAccountType:
                 new DatePickerDialog(context, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;

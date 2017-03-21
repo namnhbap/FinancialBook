@@ -42,9 +42,9 @@
     <string name="Category">Hạng mục chi</string>
     <string name="search">Tìm kiếm</string>
     <string name="changePositionAccount">Change position Account</string>
-    <string name="addAccount">Add Account</string>
+    <string name="addAccount">Thêm tài khoản</string>
     <string name="money">đ</string>
-    <string name="EditAccount">Edit Account</string>
+    <string name="editAccount">Sửa tài khoản</string>
     <string name="Balance">Còn:</string>
     <string name="Save">Ghi</string>
     <string name="fromAccount">Từ tài khoản</string>
@@ -56,6 +56,12 @@
     <string name="cancel">Hủy</string>
     <string name="addBudget">Thêm hạn mức chi</string>
     <string name="expenseHistory">Chi:</string>
+    <string name="soTienBanDau">Số tiền ban đầu</string>
+    <string name="name">Tên</string>
+    <string name="accountType">Loại tài khoản</string>
+    <string name="moneyType">Loại tiền tệ</string>
+    <string name="accountName">Tên tài khoản</string>
+    <string name="Delete">Xóa</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>
