@@ -81,7 +81,7 @@
                     android:src="@drawable/disclosure" />
 
                 <TextView
-                    android:id="@+id/lbDescription"
+                    android:id="@+id/lbCategory"
                     style="@style/FormEditTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,15 +93,15 @@
                     android:text="@string/MucChi" />
 
                 <TextView
-                    android:id="@+id/txtDescription"
+                    android:id="@+id/txtCategory"
                     style="@style/FormEditValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="end"
-                    android:layout_toEndOf="@id/lbDescription"
+                    android:layout_toEndOf="@id/lbCategory"
                     android:layout_toLeftOf="@id/imgCategory"
-                    android:layout_toRightOf="@id/lbDescription"
+                    android:layout_toRightOf="@id/lbCategory"
                     android:layout_toStartOf="@id/imgCategory"
                     android:clickable="false"
                     android:padding="4dp" />

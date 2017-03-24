@@ -70,7 +70,7 @@ public class ListCategoryAdapter extends BaseExpandableListAdapter {
         CategoryGroup categoryGroup = (CategoryGroup) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.group_row_category, null);
+            convertView = layoutInflater.inflate(R.layout.category_group, parent, false);
         }
         ImageView imgGroup = (ImageView) convertView.findViewById(R.id.imgGroup);
         if (isExpanded) {
@@ -88,7 +88,7 @@ public class ListCategoryAdapter extends BaseExpandableListAdapter {
         CategoryChild categoryChild = (CategoryChild) getChild(groupPosition, childPosition);
         if (convertView == null){
             LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.child_row_category, null);
+            convertView = layoutInflater.inflate(R.layout.category_child, parent, false);
         }
         TextView name = (TextView) convertView.findViewById(R.id.childrow);
         name.setText(categoryChild.getName().trim());

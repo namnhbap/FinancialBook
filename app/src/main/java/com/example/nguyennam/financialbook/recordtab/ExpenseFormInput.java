@@ -25,7 +25,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     Context context;
     Calendar myCalendar;
     TextView txtAmount;
-    TextView txtExpenseType;
+    TextView txtCategory;
     TextView txtDescription;
     TextView txtAccountName;
     TextView txtExpenseTime;
@@ -48,7 +48,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.record_input_expense, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
         txtAmount.setOnClickListener(this);
-        txtExpenseType = (TextView) view.findViewById(R.id.txtDescription);
+        txtCategory = (TextView) view.findViewById(R.id.txtCategory);
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
         txtExpenseTime = (TextView) view.findViewById(R.id.txtAccountType);
@@ -82,7 +82,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         Bundle bundle = getArguments();
         if (bundle != null) {
             txtAmount.setText(bundle.getString(Constant.KEY_MONEY));
-//            txtExpenseType.setText(bundle.getString(Constant.KEY_CATEGORY));
+//            txtCategory.setText(bundle.getString(Constant.KEY_CATEGORY));
 //            txtDescription.setText(bundle.getString(Constant.KEY_DIENGIAI));
 //            txtExpenseEvent.setText(bundle.getString(Constant.KEY_EVENT));
 //            txtAccountName.setText(bundle.getString(Constant.KEY_ACCOUNT));

@@ -38,10 +38,16 @@
             style="@style/TextViewStyleBold"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewHistory"
+    <SearchView
+        android:id="@+id/searchHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="@string/search"/>
+
+    <ExpandableListView
+        android:id="@+id/expandableHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+        android:groupIndicator="@null"/>
 
 </LinearLayout>

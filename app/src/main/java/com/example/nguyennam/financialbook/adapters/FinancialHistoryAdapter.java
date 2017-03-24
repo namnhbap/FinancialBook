@@ -1,75 +1,140 @@
 package com.example.nguyennam.financialbook.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.nguyennam.financialbook.model.Expense;
+import com.example.nguyennam.financialbook.model.CategoryChild;
+import com.example.nguyennam.financialbook.model.CategoryGroup;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
+import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class FinancialHistoryAdapter extends RecyclerView.Adapter<FinancialHistoryAdapter.HolderHistory> {
+public class FinancialHistoryAdapter extends BaseExpandableListAdapter {
 
-    Context context;
-    List<Expense> data;
-    MyOnClick myOnClick;
+    private Context context;
+    private ArrayList<FinancialHistoryGroup> financialHistoryGroups;
+    private ArrayList<FinancialHistoryGroup> originalList;
 
-    public void setMyOnClick(MyOnClick myOnClick) {
-        this.myOnClick = myOnClick;
-    }
-
-    public FinancialHistoryAdapter(Context context, List<Expense> data) {
+    public FinancialHistoryAdapter(Context context, ArrayList<FinancialHistoryGroup> financialHistoryGroups){
         this.context = context;
-        this.data = data;
+        this.financialHistoryGroups = new ArrayList<>();
+        this.financialHistoryGroups.addAll(financialHistoryGroups);
+        this.originalList = new ArrayList<>();
+        this.originalList.addAll(financialHistoryGroups);
+    }
+    @Override
+    public int getGroupCount() {
+        return financialHistoryGroups.size();
     }
 
     @Override
-    public HolderHistory onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_financial_history, parent, false);
-        return new HolderHistory(view);
+    public int getChildrenCount(int groupPosition) {
+        ArrayList<FinancialHistoryChild> financialHistoryChildList = financialHistoryGroups.get(groupPosition).getFinancialHistoryChildList();
+        return financialHistoryChildList.size();
     }
 
     @Override
-    public void onBindViewHolder(HolderHistory holder, int position) {
-        Expense expense = data.get(position);
-        holder.tvCategory.setText(expense.get_expenseCategory());
-        holder.tvMoney.setText(expense.get_amountMoney());
-        holder.tvTypeAccount.setText(expense.get_fromAccount());
-        holder.tvDate.setText(expense.get_expenseDate());
-
+    public Object getGroup(int groupPosition) {
+        return financialHistoryGroups.get(groupPosition);
     }
 
     @Override
-    public int getItemCount() {
-        return data.size();
+    public Object getChild(int groupPosition, int childPosition) {
+        ArrayList<FinancialHistoryChild> financialHistoryChildList = financialHistoryGroups.get(groupPosition).getFinancialHistoryChildList();
+        return financialHistoryChildList.get(childPosition);
     }
 
-    class HolderHistory extends RecyclerView.ViewHolder{
-        TextView tvCategory;
-        TextView tvMoney;
-        TextView tvTypeAccount;
-        TextView tvDate;
-        public HolderHistory(View itemView) {
-            super(itemView);
-            tvCategory = (TextView) itemView.findViewById(R.id.tvCategory);
-            tvMoney = (TextView) itemView.findViewById(R.id.tvMoney);
-            tvTypeAccount = (TextView) itemView.findViewById(R.id.tvTypeAccount);
-            tvDate = (TextView) itemView.findViewById(R.id.tvDate);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnClick.onClick(data.get(getAdapterPosition()));
-                }
-            });
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        FinancialHistoryGroup financialHistoryGroup = (FinancialHistoryGroup) getGroup(groupPosition);
+        if (convertView == null) {
+            LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.financial_history_group, parent, false);
         }
+        TextView dateOfMonth = (TextView) convertView.findViewById(R.id.dateOfMonth);
+        dateOfMonth.setText(financialHistoryGroup.getDateOfMonth().trim());
+        TextView dateOfWeek = (TextView) convertView.findViewById(R.id.dateOfWeek);
+        dateOfWeek.setText(financialHistoryGroup.getDateOfWeek().trim());
+        TextView date = (TextView) convertView.findViewById(R.id.date);
+        date.setText(financialHistoryGroup.getDate().trim());
+        TextView txtIncome = (TextView) convertView.findViewById(R.id.txtIncome);
+        txtIncome.setText(financialHistoryGroup.getMoneyIncome().trim());
+        TextView txtExpense = (TextView) convertView.findViewById(R.id.txtExpense);
+        txtExpense.setText(financialHistoryGroup.getMoneyExpense().trim());
+        return convertView;
     }
 
-    public interface MyOnClick{
-        void onClick(Expense expense);
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        FinancialHistoryChild financialHistoryChild = (FinancialHistoryChild) getChild(groupPosition, childPosition);
+        if (convertView == null){
+            LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.financial_history_child, parent, false);
+        }
+        TextView txtCategory = (TextView) convertView.findViewById(R.id.txtCategory);
+        txtCategory.setText(financialHistoryChild.getCategory().trim());
+        TextView txtDescription = (TextView) convertView.findViewById(R.id.txtDescription);
+        txtDescription.setText(financialHistoryChild.getDescription().trim());
+        TextView txtMoney = (TextView) convertView.findViewById(R.id.txtMoney);
+        txtMoney.setText(financialHistoryChild.getMoneyAmount().trim());
+        TextView txtAccountType = (TextView) convertView.findViewById(R.id.txtAccountType);
+        txtAccountType.setText(financialHistoryChild.getAccount().trim());
+        return convertView;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
+
+    public void filterData(String query){
+        query = query.toLowerCase();
+        Log.v("MyListAdapter", String.valueOf(financialHistoryGroups.size()));
+        financialHistoryGroups.clear();
+        if(query.isEmpty()){
+            financialHistoryGroups.addAll(originalList);
+        }
+        else {
+            for(FinancialHistoryGroup financialHistoryGroup: originalList){
+                ArrayList<FinancialHistoryChild> financialHistoryChildList = financialHistoryGroup.getFinancialHistoryChildList();
+                ArrayList<FinancialHistoryChild> newList = new ArrayList<>();
+                for(FinancialHistoryChild financialHistoryChild: financialHistoryChildList){
+                    if(financialHistoryChild.getCategory().toLowerCase().contains(query)){
+                        newList.add(financialHistoryChild);
+                    }
+                }
+                if(newList.size() > 0){
+                    FinancialHistoryGroup ncategoryGroup =
+                            new FinancialHistoryGroup(financialHistoryGroup.getDateOfWeek(),financialHistoryGroup.getDateOfMonth(),
+                                    financialHistoryGroup.getDate(),financialHistoryGroup.getMoneyExpense(),financialHistoryGroup.getMoneyIncome(),newList);
+                    financialHistoryGroups.add(ncategoryGroup);
+                }
+            }
+        }
+        Log.v("MyListAdapter", String.valueOf(financialHistoryGroups.size()));
+        notifyDataSetChanged();
     }
 }

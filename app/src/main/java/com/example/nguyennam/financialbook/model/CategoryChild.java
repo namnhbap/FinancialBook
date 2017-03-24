@@ -1,8 +1,5 @@
 package com.example.nguyennam.financialbook.model;
 
-/**
- * Created by NguyenNam on 1/14/2017.
- */
 
 public class CategoryChild {
     private String name;

@@ -59,11 +59,10 @@
     </RelativeLayout>
 
     <SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="@string/search">
-    </SearchView>
+        android:queryHint="@string/search"/>
 
     <ExpandableListView
         android:id="@+id/expandableCategory"

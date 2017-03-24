@@ -62,6 +62,9 @@
     <string name="moneyType">Loại tiền tệ</string>
     <string name="accountName">Tên tài khoản</string>
     <string name="Delete">Xóa</string>
+    <string name="tvIncome">Thu:</string>
+    <string name="tvExpense">Chi:</string>
+    <string name="dateOfWeek">Thứ</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>
