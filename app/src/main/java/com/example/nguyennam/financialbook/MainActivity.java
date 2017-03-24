@@ -117,23 +117,23 @@ public class MainActivity extends FragmentActivity {
                 switch (i) {
                     case 0:
                         image.setImageResource(R.drawable.note_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
                         break;
                     case 1:
                         image.setImageResource(R.drawable.wallet_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
                         break;
                     case 2:
                         image.setImageResource(R.drawable.tab_budget_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
                         break;
                     case 3:
                         image.setImageResource(R.drawable.pie_chart_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
                         break;
                     case 4:
                         image.setImageResource(R.drawable.more_selected);
-                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
+                        iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
                         break;
                 }
             }
@@ -147,7 +147,7 @@ public class MainActivity extends FragmentActivity {
         TextView tv = (TextView) view.findViewById(R.id.text_icon);
         tv.setText(title);
         if (title == R.string.Records) {
-            tv.setTextColor(ResourcesCompat.getColor(getResources(), R.color.niceGreen, null));
+            tv.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
         }
         return view;
     }
