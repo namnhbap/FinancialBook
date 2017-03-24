@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
@@ -70,6 +71,12 @@ public class ListCategoryAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.group_row_category, null);
+        }
+        ImageView imgGroup = (ImageView) convertView.findViewById(R.id.imgGroup);
+        if (isExpanded) {
+            imgGroup.setImageResource(R.drawable.group_expand);
+        } else {
+            imgGroup.setImageResource(R.drawable.group_collapse);
         }
         TextView name = (TextView) convertView.findViewById(R.id.groupname);
         name.setText(categoryGroup.getName().trim());
