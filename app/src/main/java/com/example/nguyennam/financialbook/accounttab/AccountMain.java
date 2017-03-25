@@ -9,16 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.AccountRecyclerViewAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.recordtab.FinancialHistory;
 
 import java.util.List;
 
-public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.AccountOnClickListener{
+public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.AccountOnClickListener, View.OnClickListener {
 
     List<AccountRecyclerView> data;
     Context context;
@@ -38,6 +40,8 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.account_main, container, false);
+        ImageView btnAddAccount = (ImageView) v.findViewById(R.id.btnAddAccount);
+        btnAddAccount.setOnClickListener(this);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         AccountRecyclerViewDAO allAcount = new AccountRecyclerViewDAO(context);
         data = allAcount.getAllAccount();
@@ -54,5 +58,14 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
         //test account_edit
         ((MainActivity) context).replaceFragment(new EditAccount(), true);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnAddAccount:
+                ((MainActivity) context).replaceFragment(new AddAccount(), true);
+                break;
+        }
     }
 }

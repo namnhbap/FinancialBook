@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/tabHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size48dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/selector_layout_green">
+
+        <TextView
+            android:id="@+id/txtCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+        <TextView
+            android:id="@+id/lbAddAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txtCancel"
+            android:layout_toEndOf="@id/txtCancel"
+            android:layout_toLeftOf="@id/done"
+            android:layout_toStartOf="@id/done"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/addAccount"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BackgroundForm"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customeditmoney"
+                android:orientation="vertical"
+                android:paddingBottom="0.5dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlAccountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac">
+
+                    <TextView
+                        android:id="@+id/lbAccountName"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageView
+                        android:id="@+id/imgAccountName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/Date"
+                        android:src="@drawable/disclosure" />
+
+                    <EditText
+                        android:id="@+id/txtAccountName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/FormEditValue"
+                        android:layout_toRightOf="@id/lbAccountName"
+                        android:layout_toEndOf="@id/lbAccountName"
+                        android:layout_toLeftOf="@id/imgAccountName"
+                        android:layout_toStartOf="@id/imgAccountName"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:inputType="text"
+                        android:hint="@string/accountName"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/Line" />
+
+                <RelativeLayout
+                    android:id="@+id/rlAccountType"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imgAccoutType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/Date"
+                        android:src="@drawable/disclosure" />
+
+                    <TextView
+                        android:id="@+id/lbAccountType"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/accountType" />
+
+                    <TextView
+                        android:id="@+id/txtAccountType"
+                        style="@style/FormEditValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:layout_toEndOf="@id/lbAccountType"
+                        android:layout_toLeftOf="@id/imgAccoutType"
+                        android:layout_toRightOf="@id/lbAccountType"
+                        android:layout_toStartOf="@id/imgAccoutType"
+                        android:clickable="false"
+                        android:padding="4dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/Line" />
+
+                <RelativeLayout
+                    android:id="@+id/rlMoneyType"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imgMoneyType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/Event"
+                        android:src="@drawable/disclosure" />
+
+                    <TextView
+                        android:id="@+id/lbMoneyType"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/moneyType" />
+
+                    <TextView
+                        android:id="@+id/txtMoneyType"
+                        style="@style/FormEditValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:layout_toEndOf="@id/lbMoneyType"
+                        android:layout_toLeftOf="@id/imgMoneyType"
+                        android:layout_toRightOf="@id/lbMoneyType"
+                        android:layout_toStartOf="@id/imgMoneyType"
+                        android:clickable="false"
+                        android:padding="4dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/FormEditTitle"
+                android:text="@string/soTienBanDau"/>
+
+            <RelativeLayout
+                android:id="@+id/rlInputMoney"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size58dp"
+                android:background="@drawable/customeditmoney"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/btnSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/selector_common_gray"
+                    android:minWidth="30dp"
+                    android:text="@string/money"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtAmount"
+                    style="@style/InputMoneyKeyboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/btnSymbol"
+                    android:layout_toStartOf="@id/btnSymbol"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    android:gravity="end"
+                    android:hint="@string/SoTien"
+                    android:paddingEnd="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customeditmoney"
+                android:orientation="vertical"
+                android:paddingBottom="0.5dp">
+                <RelativeLayout
+                    android:id="@+id/rlSelectCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/lbDescription"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/description" />
+
+                    <EditText
+                        android:id="@+id/txtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:gravity="end|center_vertical"
+                        android:layout_toEndOf="@id/lbDescription"
+                        android:layout_toRightOf="@id/lbDescription"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="10dp"
+                        android:padding="4dp"
+                        android:inputType="textMultiLine"
+                        style="@style/FormEditValue"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size48dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/BackgroundForm"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:id="@+id/lnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/selector_button_green"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@string/Save"
+                        android:src="@drawable/save_icon_button" />
+
+                    <TextView
+                        android:id="@+id/txtSave"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Save" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
