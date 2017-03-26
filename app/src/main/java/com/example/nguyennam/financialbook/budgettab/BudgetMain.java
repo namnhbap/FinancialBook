@@ -1,19 +1,27 @@
 package com.example.nguyennam.financialbook.budgettab;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.accounttab.AddAccount;
 
-/**
- * Created by NguyenNam on 2/10/2017.
- */
+public class BudgetMain extends Fragment implements View.OnClickListener {
 
-public class BudgetMain extends Fragment {
+    Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +31,18 @@ public class BudgetMain extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.budget_main, container, false);
+        View v = inflater.inflate(R.layout.budget_main, container, false);
+        ImageView imgAddBudget = (ImageView) v.findViewById(R.id.imgAddBudget);
+        imgAddBudget.setOnClickListener(this);
+        return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgAddBudget:
+                ((MainActivity) context).replaceFragment(new AddBudget(), true);
+                break;
+        }
     }
 }

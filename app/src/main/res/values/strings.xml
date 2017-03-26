@@ -54,7 +54,7 @@
     <string name="description">Diễn giải</string>
     <string name="done">Xong</string>
     <string name="cancel">Hủy</string>
-    <string name="addBudget">Thêm hạn mức chi</string>
+    <string name="addBudget">Thêm hạn mức</string>
     <string name="expenseHistory">Chi:</string>
     <string name="soTienBanDau">Số tiền ban đầu</string>
     <string name="name">Tên</string>
@@ -65,6 +65,12 @@
     <string name="tvIncome">Thu:</string>
     <string name="tvExpense">Chi:</string>
     <string name="dateOfWeek">Thứ</string>
+    <string name="budgetName">Tên hạn mức</string>
+    <string name="frequency">Lặp lại</string>
+    <string name="dateStart">Ngày bắt đầu</string>
+    <string name="moveNextBudget">Dồn sang kỳ sau</string>
+    <string name="checkedDescription">(Số tiền dư hoặc bội chi sẽ được chuyển sang kỳ sau)</string>
+    <string name="editBudget">Sửa hạn mức</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>

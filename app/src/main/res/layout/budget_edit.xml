@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/tabHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size48dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/selector_layout_green">
+
+        <TextView
+            android:id="@+id/txtCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+        <TextView
+            android:id="@+id/lbEditBudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txtCancel"
+            android:layout_toEndOf="@id/txtCancel"
+            android:layout_toLeftOf="@id/done"
+            android:layout_toStartOf="@id/done"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/editBudget"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BackgroundForm"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customeditmoney"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:paddingBottom="0.5dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlBudgetName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/lbBudgetName"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/budgetName" />
+
+                    <EditText
+                        android:id="@+id/txtBudgetName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:gravity="end|center_vertical"
+                        android:layout_toEndOf="@id/lbBudgetName"
+                        android:layout_toRightOf="@id/lbBudgetName"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="10dp"
+                        android:padding="4dp"
+                        android:hint="@string/budgetName"
+                        android:inputType="text"
+                        style="@style/FormEditValue"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlInputMoney"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size58dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customeditmoney"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/btnSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/selector_common_gray"
+                    android:minWidth="30dp"
+                    android:text="@string/money"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtAmount"
+                    style="@style/InputMoneyKeyboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/btnSymbol"
+                    android:layout_toStartOf="@id/btnSymbol"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    android:gravity="end"
+                    android:hint="@string/SoTien"
+                    android:paddingEnd="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customeditmoney"
+                android:orientation="vertical"
+                android:paddingBottom="0.5dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imgCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/Date"
+                        android:src="@drawable/disclosure" />
+
+                    <TextView
+                        android:id="@+id/lbCategory"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/Category" />
+
+                    <TextView
+                        android:id="@+id/txtCategory"
+                        style="@style/FormEditValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:layout_toEndOf="@id/lbCategory"
+                        android:layout_toLeftOf="@id/imgCategory"
+                        android:layout_toRightOf="@id/lbCategory"
+                        android:layout_toStartOf="@id/imgCategory"
+                        android:clickable="false"
+                        android:padding="4dp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/customeditmoney"
+                android:orientation="vertical"
+                android:paddingBottom="0.5dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlFrequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imgFrequency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/Date"
+                        android:src="@drawable/disclosure" />
+
+                    <TextView
+                        android:id="@+id/lbFrequency"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/frequency" />
+
+                    <TextView
+                        android:id="@+id/txtFrequency"
+                        style="@style/FormEditValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:layout_toEndOf="@id/lbFrequency"
+                        android:layout_toLeftOf="@id/imgFrequency"
+                        android:layout_toRightOf="@id/lbFrequency"
+                        android:layout_toStartOf="@id/imgFrequency"
+                        android:clickable="false"
+                        android:padding="4dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/Line" />
+
+                <RelativeLayout
+                    android:id="@+id/rlDateStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size48dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/selector_listview_ismac"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imgDateStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/Event"
+                        android:src="@drawable/disclosure" />
+
+                    <TextView
+                        android:id="@+id/lbDateStart"
+                        style="@style/FormEditTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/dateStart" />
+
+                    <TextView
+                        android:id="@+id/txtDateStart"
+                        style="@style/FormEditValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:layout_toEndOf="@id/lbDateStart"
+                        android:layout_toLeftOf="@id/imgDateStart"
+                        android:layout_toRightOf="@id/lbDateStart"
+                        android:layout_toStartOf="@id/imgDateStart"
+                        android:clickable="false"
+                        android:padding="4dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cbNextBudget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/FormEditTitle"
+                        android:text="@string/moveNextBudget"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="italic"
+                        style="@style/ReportNormal"
+                        android:text="@string/checkedDescription"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size48dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/BackgroundForm"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:id="@+id/lnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/selector_button_green"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@string/Save"
+                        android:src="@drawable/save_icon_button" />
+
+                    <TextView
+                        android:id="@+id/txtSave"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Save" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/selector_button_delete"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@string/Save"
+                        android:src="@drawable/back_trash" />
+
+                    <TextView
+                        android:id="@+id/txtDelete"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Delete" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
