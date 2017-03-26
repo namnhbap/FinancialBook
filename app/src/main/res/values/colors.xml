@@ -11,4 +11,6 @@
     <color name="textTab">#ff37a3a0</color>
     <color name="darkBlack">#6e000000</color>
     <color name="BackgroundForm">#ffe1e1e1</color>
+    <color name="LineDark">#ffc6c6c6</color>
+    <color name="incomeColor">#ff37a3a0</color>
 </resources>

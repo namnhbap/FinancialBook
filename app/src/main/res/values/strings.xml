@@ -71,6 +71,10 @@
     <string name="moveNextBudget">Dồn sang kỳ sau</string>
     <string name="checkedDescription">(Số tiền dư hoặc bội chi sẽ được chuyển sang kỳ sau)</string>
     <string name="editBudget">Sửa hạn mức</string>
+    <string name="budgetCategory">Hạng mục:</string>
+    <string name="budgetExpense">Đã chi:</string>
+    <string name="budgetRemain">Còn:</string>
+    <string name="budgetMoney">Hạn mức:</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>

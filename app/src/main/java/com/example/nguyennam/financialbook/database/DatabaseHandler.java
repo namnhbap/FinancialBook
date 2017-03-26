@@ -18,6 +18,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "financialBook";
     public static final String TABLE_ACCOUNTS = "accounts";
     public static final String TABLE_EXPENSE = "expense";
+    public static final String TABLE_BUDGET = "budget";
 
     class AccountColumn implements BaseColumns {
         static final String KEY_NAME = "name";
@@ -33,6 +34,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         static final String KEY_EXPENSEEVENT = "expenseevent";
     }
 
+    class BudgetCollumn implements BaseColumns {
+        static final String KEY_NAME = "name";
+        static final String KEY_BALANCE = "balance";
+    }
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -41,6 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + AccountColumn._ID + " INTEGER PRIMARY KEY," + AccountColumn.KEY_NAME + " TEXT,"
             + AccountColumn.KEY_BALANCE + " TEXT" + ")";
     private static final String DROP_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + TABLE_ACCOUNTS;
+
     private static final String CREATE_EXPENSE_TABLE = "CREATE TABLE " + TABLE_EXPENSE + "("
             + ExpenseColumn._ID + " INTEGER PRIMARY KEY," + ExpenseColumn.KEY_AMOUNTMONEY + " TEXT,"
             + ExpenseColumn.KEY_EXPENSECATEGORY + " TEXT," + ExpenseColumn.KEY_DESCRIPTION + " TEXT,"
@@ -48,16 +55,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + ExpenseColumn.KEY_EXPENSEEVENT + " TEXT" + ")";
     private static final String DROP_EXPENSE_TABLE = "DROP TABLE IF EXISTS " + TABLE_EXPENSE;
 
+    private static final String CREATE_BUDGET_TABLE = "CREATE TABLE " + TABLE_BUDGET + "("
+            + BudgetCollumn._ID + " INTEGER PRIMARY KEY," + BudgetCollumn.KEY_NAME + " TEXT,"
+            + BudgetCollumn.KEY_BALANCE + " TEXT" + ")";
+    private static final String DROP_BUDGET_TABLE = "DROP TABLE IF EXISTS " + TABLE_BUDGET;
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(CREATE_EXPENSE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_BUDGET_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         sqLiteDatabase.execSQL(DROP_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(DROP_EXPENSE_TABLE);
+        sqLiteDatabase.execSQL(DROP_BUDGET_TABLE);
         // Create tables again
         onCreate(sqLiteDatabase);
     }

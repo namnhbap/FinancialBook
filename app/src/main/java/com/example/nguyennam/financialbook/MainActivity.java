@@ -16,10 +16,12 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.accounttab.AccountMain;
+import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.budgettab.BudgetMain;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.recordtab.RecordMain;
 import com.example.nguyennam.financialbook.reporttab.ReportMain;
@@ -42,18 +44,22 @@ public class MainActivity extends FragmentActivity {
 
     private void checkFirstRun() {
         prefs = getSharedPreferences("com.example.nguyennam.financialbook", MODE_PRIVATE);
-        AccountRecyclerViewDAO allAcount = new AccountRecyclerViewDAO(this);
-        ExpenseDAO expenseDAO = new ExpenseDAO(this);
         //check the first time run app (install?)
         if (prefs.getBoolean("firstrun", true)) {
             // Do first run stuff here then set 'firstrun' as false
+            AccountRecyclerViewDAO allAcount = new AccountRecyclerViewDAO(this);
             allAcount.addAccount(new AccountRecyclerView(1, "Ví", 0));
             allAcount.addAccount(new AccountRecyclerView(2, "ATM", 0));
             allAcount.addAccount(new AccountRecyclerView(3, "Tiết Kiệm", 0));
             //data for financial history
+            ExpenseDAO expenseDAO = new ExpenseDAO(this);
             expenseDAO.addExpense(new Expense(1, "100000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
             expenseDAO.addExpense(new Expense(2, "200000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
             expenseDAO.addExpense(new Expense(3, "350000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
+            //date for test budget
+            BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
+            allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
+            allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
             // using the following line to edit/commit prefs
             prefs.edit().putBoolean("firstrun", false).apply();
         }

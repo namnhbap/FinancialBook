@@ -26,7 +26,7 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
 
     @Override
     public AccountRecyclerViewAdapter.AccountViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_recyclerview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_item_recyclerview, parent, false);
         AccountViewHolder myViewHolder = new AccountViewHolder(view);
         return myViewHolder;
     }

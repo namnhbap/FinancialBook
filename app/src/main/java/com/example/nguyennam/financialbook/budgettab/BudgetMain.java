@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +14,17 @@ import android.widget.ImageView;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.accounttab.AddAccount;
+import com.example.nguyennam.financialbook.adapters.BudgetRecyclerViewAdapter;
+import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
+import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
+import com.example.nguyennam.financialbook.utils.Constant;
 
-public class BudgetMain extends Fragment implements View.OnClickListener {
+import java.util.List;
+
+public class BudgetMain extends Fragment implements View.OnClickListener, BudgetRecyclerViewAdapter.BudgetOnClickListener {
 
     Context context;
+    List<BudgetRecyclerView> data;
 
     @Override
     public void onAttach(Context context) {
@@ -34,6 +43,17 @@ public class BudgetMain extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.budget_main, container, false);
         ImageView imgAddBudget = (ImageView) v.findViewById(R.id.imgAddBudget);
         imgAddBudget.setOnClickListener(this);
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewBudget);
+        BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(context);
+//        allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
+//        allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
+        data = allBudget.getAllBudget();
+        Log.d(Constant.TAG, "onCreateView: " + data);
+        BudgetRecyclerViewAdapter myAdapter = new BudgetRecyclerViewAdapter(context, data);
+        myAdapter.setMyOnClickListener(this);
+        recyclerView.setAdapter(myAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
         return v;
     }
 
@@ -44,5 +64,10 @@ public class BudgetMain extends Fragment implements View.OnClickListener {
                 ((MainActivity) context).replaceFragment(new AddBudget(), true);
                 break;
         }
+    }
+
+    @Override
+    public void onClick(int position) {
+
     }
 }
