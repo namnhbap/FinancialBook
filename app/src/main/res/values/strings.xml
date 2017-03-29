@@ -75,6 +75,8 @@
     <string name="budgetExpense">Đã chi:</string>
     <string name="budgetRemain">Còn:</string>
     <string name="budgetMoney">Hạn mức:</string>
+    <string name="viewBy">Xem theo</string>
+    <string name="expense">CHI</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>

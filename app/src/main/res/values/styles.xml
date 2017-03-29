@@ -48,6 +48,11 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#ffffffff</item>
     </style>
+    <style name="TextViewByStyle">
+        <item name="android:textSize">20.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
     <style name="KeyPassCode">
         <item name="android:textSize">30.0sp</item>
         <item name="android:textStyle">normal</item>

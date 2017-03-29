@@ -18,15 +18,13 @@
             android:id="@+id/txtBudgetName"
             style="@style/FormEditValue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tiền ăn 1 tháng" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/txtBudgetDetailTime"
             style="@style/FormEditTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" (1/3 - 31/3)" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -46,8 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:text="Ăn uống" />
+            android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 
@@ -68,8 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:text="1.200.000" />
+            android:layout_marginStart="5dp"/>
 
         <TextView
             style="@style/ReportNormal"
@@ -103,8 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:text="200.000" />
+                android:layout_marginStart="5dp"/>
 
             <TextView
                 style="@style/ReportNormal"
@@ -136,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
-                android:text="1.000.000"
                 android:textColor="@color/textTab" />
 
             <TextView
@@ -201,7 +195,6 @@
             android:layout_height="36dp"
             android:background="@drawable/budget_today"
             android:gravity="center"
-            android:text="15/3"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </LinearLayout>
