@@ -2,7 +2,6 @@ package com.example.nguyennam.financialbook.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +10,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.recordtab.RecordMain;
-import com.example.nguyennam.financialbook.recordtab.SpinnerModel;
+import com.example.nguyennam.financialbook.model.RecordSpinner;
 
-public class CustomSpinnerAdapter extends ArrayAdapter<String> {
+public class RecordSpinnerAdapter extends ArrayAdapter<String> {
 
     private Activity activity;
     private ArrayList data;
-    SpinnerModel tempValues = null;
+    RecordSpinner tempValues = null;
     LayoutInflater inflater;
 
-    public CustomSpinnerAdapter(
+    public RecordSpinnerAdapter(
             Activity activitySpinner,
             int textViewResourceId,
             ArrayList objects
@@ -52,12 +49,12 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     // This funtion called for each row ( Called data.size() times )
     public View getCustomView(int position, View convertView, ViewGroup parent) {
 
-        /********** Inflate spinner_rows.xml file for each row ( Defined below ) ************/
-        View row = inflater.inflate(R.layout.spinner_rows, parent, false);
+        /********** Inflate record_spinner_rowser_rows.xml file for each row ( Defined below ) ************/
+        View row = inflater.inflate(R.layout.record_spinner_rows, parent, false);
 
         /***** Get each Model object from Arraylist ********/
         tempValues = null;
-        tempValues = (SpinnerModel) data.get(position);
+        tempValues = (RecordSpinner) data.get(position);
 
         TextView label = (TextView) row.findViewById(R.id.recordName);
         TextView sub = (TextView) row.findViewById(R.id.description);
@@ -69,11 +66,11 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     }
 
     public View getRecordName(int position, View convertView, ViewGroup parent) {
-        /********** Inflate spinner_rows.xml file for each row ( Defined below ) ************/
+        /********** Inflate record_spinner_rows.xmlows.xml file for each row ( Defined below ) ************/
         View row = inflater.inflate(R.layout.spinner_selected, parent, false);
         /***** Get each Model object from Arraylist ********/
         tempValues = null;
-        tempValues = (SpinnerModel) data.get(position);
+        tempValues = (RecordSpinner) data.get(position);
         TextView label = (TextView) row.findViewById(R.id.recordNameSelected);
         label.setText(tempValues.getRecordName());
         return row;

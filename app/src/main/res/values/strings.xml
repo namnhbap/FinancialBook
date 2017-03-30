@@ -77,6 +77,9 @@
     <string name="budgetMoney">Hạn mức:</string>
     <string name="viewBy">Xem theo</string>
     <string name="expense">CHI</string>
+    <string name="ReportExpenseIncome">Tình hình thu chi</string>
+    <string name="ReportExpenseAnalysis">Phân tích chi tiêu</string>
+    <string name="time">Thời gian</string>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>

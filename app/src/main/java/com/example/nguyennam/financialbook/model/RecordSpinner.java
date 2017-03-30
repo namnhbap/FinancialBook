@@ -1,10 +1,10 @@
-package com.example.nguyennam.financialbook.recordtab;
+package com.example.nguyennam.financialbook.model;
 
-public class SpinnerModel {
+public class RecordSpinner {
     private  String recordName ="";
     private  String description ="";
 
-    public SpinnerModel(String recordName, String description) {
+    public RecordSpinner(String recordName, String description) {
         this.recordName = recordName;
         this.description = description;
     }

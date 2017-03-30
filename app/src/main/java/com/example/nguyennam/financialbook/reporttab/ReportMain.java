@@ -1,163 +1,88 @@
 package com.example.nguyennam.financialbook.reporttab;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import com.example.nguyennam.financialbook.R;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
+import com.example.nguyennam.financialbook.adapters.ReportSpinnerAdapter;
+import com.example.nguyennam.financialbook.model.ReportSpinner;
 
 import java.util.ArrayList;
 
-/**
- * Created by NguyenNam on 2/10/2017.
- */
+public class ReportMain extends Fragment implements AdapterView.OnItemSelectedListener {
 
-public class ReportMain extends Fragment implements OnChartValueSelectedListener {
+    Context context;
+    public ArrayList<ReportSpinner> customListViewValuesArr = new ArrayList<>();
+    ReportSpinnerAdapter adapter;
 
-    PieChart mChart;
-    float[] yData = {5, 10, 15, 30, 20, 20};
-    String[] xData = {"Sony", "Samsung", "Apple", "Huawei", "BPhone", "LG"};
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setListData();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_main, container, false);
-        mChart = (PieChart) v.findViewById(R.id.pieChart);
-        mChart.setUsePercentValues(true);
-        mChart.getDescription().setEnabled(false);
-        mChart.setExtraOffsets(5, 10, 5, 5);
-
-        mChart.setDragDecelerationFrictionCoef(0.95f);
-
-        mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColor(Color.WHITE);
-
-        mChart.setTransparentCircleColor(Color.WHITE);
-        mChart.setTransparentCircleAlpha(110);
-
-        mChart.setHoleRadius(58f);
-        mChart.setTransparentCircleRadius(61f);
-
-        mChart.setDrawCenterText(true);
-
-        mChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChart.setRotationEnabled(true);
-        mChart.setHighlightPerTapEnabled(true);
-
-        // mChart.setUnit(" €");
-        // mChart.setDrawUnitsInChart(true);
-
-        // add a selection listener
-        mChart.setOnChartValueSelectedListener(this);
-
-        setData();
-
-        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-
-        Legend l = mChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);
-
-        // entry label styling
-        mChart.setEntryLabelColor(Color.WHITE);
-        mChart.setEntryLabelTextSize(12f);
+        Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
+        // Create custom adapter object ( see below RecordSpinnerAdapter.java )
+        adapter = new ReportSpinnerAdapter(getActivity(), R.layout.report_spinner_rows, customListViewValuesArr);
+        // Set adapter to spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         return v;
     }
 
-    private void setData() {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        insertNestedFragment(new ReportExpenseIncome());
+    }
 
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for (int i = 0; i < yData.length; i++)
-            entries.add(new PieEntry(yData[i], xData[i]));
-
-//        ArrayList<String> xVals = new ArrayList<>();
-//
-//        for (int i = 0; i < xData.length; i++)
-//            xVals.add(xData[i]);
-
-        PieDataSet dataSet = new PieDataSet(entries, "");
-
-        dataSet.setDrawIcons(false);
-
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
-
-        // add a lot of colors
-
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
-//        data.setValueTypeface(mTfLight);
-        mChart.setData(data);
-
-        // undo all highlights
-        mChart.highlightValues(null);
-
-        mChart.invalidate();
+    // Embeds the child fragment dynamically
+    private void insertNestedFragment(Fragment fragment) {
+//        Fragment childFragment = new ExpenseFormInput();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.reportExpenseIncome, fragment).commit();
     }
 
     @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-        if (e == null)
-            return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+//        String item = parent.getItemAtPosition(position).toString();
+        ReportExpenseIncome reportExpenseIncome = new ReportExpenseIncome();
+        ReportExpenseAnalysis reportExpenseAnalysis = new ReportExpenseAnalysis();
+        switch (position) {
+            case 0:
+                insertNestedFragment(reportExpenseIncome);
+                break;
+            case 1:
+                insertNestedFragment(reportExpenseAnalysis);
+                break;
+        }
     }
 
     @Override
-    public void onNothingSelected() {
-        Log.i("PieChart", "nothing selected");
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
+    public void setListData() {
+        customListViewValuesArr.add(new ReportSpinner(getResources().getString(R.string.ReportExpenseIncome)));
+        customListViewValuesArr.add(new ReportSpinner(getResources().getString(R.string.ReportExpenseAnalysis)));
+    }
 }

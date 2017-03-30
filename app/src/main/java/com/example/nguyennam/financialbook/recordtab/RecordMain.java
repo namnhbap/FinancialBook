@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,8 @@ import android.widget.Spinner;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.adapters.CustomSpinnerAdapter;
+import com.example.nguyennam.financialbook.adapters.RecordSpinnerAdapter;
+import com.example.nguyennam.financialbook.model.RecordSpinner;
 
 import java.util.ArrayList;
 
@@ -24,8 +23,8 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
 
     Context context;
     ImageView imgHistory;
-    public ArrayList<SpinnerModel> CustomListViewValuesArr = new ArrayList<>();
-    CustomSpinnerAdapter adapter;
+    public ArrayList<RecordSpinner> customListViewValuesArr = new ArrayList<>();
+    RecordSpinnerAdapter adapter;
 //    Bundle bundle;
 
     @Override
@@ -48,8 +47,8 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
         imgHistory = (ImageView) v.findViewById(R.id.imgHistory);
         imgHistory.setOnClickListener(this);
         Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
-        // Create custom adapter object ( see below CustomSpinnerAdapter.java )
-        adapter = new CustomSpinnerAdapter(getActivity(), R.layout.spinner_rows, CustomListViewValuesArr);
+        // Create custom adapter object ( see below RecordSpinnerAdapter.java )
+        adapter = new RecordSpinnerAdapter(getActivity(), R.layout.record_spinner_rows, customListViewValuesArr);
         // Set adapter to spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -105,8 +104,8 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
     }
 
     public void setListData() {
-        CustomListViewValuesArr.add(new SpinnerModel(getResources().getString(R.string.Expense), getResources().getString(R.string.ExpenseDescription)));
-        CustomListViewValuesArr.add(new SpinnerModel(getResources().getString(R.string.Income), getResources().getString(R.string.IncomeDescription)));
-        CustomListViewValuesArr.add(new SpinnerModel(getResources().getString(R.string.Transfer), getResources().getString(R.string.TransferDescription)));
+        customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Expense), getResources().getString(R.string.ExpenseDescription)));
+        customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Income), getResources().getString(R.string.IncomeDescription)));
+        customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Transfer), getResources().getString(R.string.TransferDescription)));
     }
 }
