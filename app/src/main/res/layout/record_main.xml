@@ -47,6 +47,7 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:dropDownWidth="match_parent"
             android:layout_toRightOf="@id/imgHistory"
             android:layout_toEndOf="@id/imgHistory"
             android:layout_toLeftOf="@id/lnSave"
