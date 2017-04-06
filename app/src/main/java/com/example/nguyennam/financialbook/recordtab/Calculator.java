@@ -2,6 +2,7 @@ package com.example.nguyennam.financialbook.recordtab;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -185,7 +187,10 @@ public class Calculator extends Fragment implements View.OnClickListener {
                     edtTinh.setText(result);
                     txtExpression.setText(inputNumber);
                 } else {
-                    ((MainActivity) context).replaceFragment(new RecordMain(), false);
+                    String filename = "temp_calculator.tmp";
+                    FileHelper.writeFile(context, filename, edtTinh.getText().toString());
+                    getActivity().getSupportFragmentManager().popBackStack();
+//                    ((MainActivity) context).replaceFragment(new RecordMain(), false);
                 }
                 break;
         }
@@ -199,6 +204,22 @@ public class Calculator extends Fragment implements View.OnClickListener {
             btnEqual.setText(bang);
         }
         edtTinh.setSelection(edtTinh.length()); //set cursor cuoi text
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
     }
 
     private void clickOperationButton(String operation) {

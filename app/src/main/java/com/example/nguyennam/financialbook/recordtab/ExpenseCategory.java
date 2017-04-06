@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ListCategoryAdapter;
 import com.example.nguyennam.financialbook.model.CategoryChild;
 import com.example.nguyennam.financialbook.model.CategoryGroup;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +39,6 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -63,8 +64,11 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
         myList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                TextView textView = (TextView) v.findViewById(R.id.groupname);
-//                String groupname = (String) textView.getText();
+                TextView textView = (TextView) v.findViewById(R.id.groupname);
+                String groupname = (String) textView.getText();
+                String filename = "temp_category.tmp";
+                FileHelper.writeFile(context, filename, groupname);
+                getActivity().getSupportFragmentManager().popBackStack();
 //                Toast.makeText(getActivity().getApplicationContext(), "child clicked " + groupname , Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent();
 //                intent.putExtra(Constant.KEY_CATEGORY, groupname);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.RecordSpinnerAdapter;
 import com.example.nguyennam.financialbook.model.RecordSpinner;
+import com.example.nguyennam.financialbook.utils.Constant;
 
 import java.util.ArrayList;
 
@@ -55,14 +57,13 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
         return v;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        insertNestedFragment(new ExpenseFormInput());
-    }
+//    @Override
+//    public void onViewCreated(View view, Bundle savedInstanceState) {
+//        insertNestedFragment(new ExpenseFormInput());
+//    }
 
     // Embeds the child fragment dynamically
     private void insertNestedFragment(Fragment fragment) {
-//        Fragment childFragment = new ExpenseFormInput();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.formInputExpenseIncome, fragment).commit();
     }

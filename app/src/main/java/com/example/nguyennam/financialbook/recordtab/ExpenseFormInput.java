@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,10 @@ import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,6 +35,13 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     TextView txtAccountName;
     TextView txtExpenseTime;
     TextView txtExpenseEvent;
+    Expense expense = new Expense();
+
+    String temp_calculator = "temp_calculator.tmp";
+    String temp_category = "temp_category.tmp";
+    String temp_account = "temp_account.tmp";
+    String temp_description = "temp_description";
+    String temp_event = "temp_event.tmp";
 
     //    final Calculator record_calculator = new Calculator();
 //    final Description record_description = new Description();
@@ -40,6 +52,11 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -79,14 +96,18 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            txtAmount.setText(bundle.getString(Constant.KEY_MONEY));
-//            txtCategory.setText(bundle.getString(Constant.KEY_CATEGORY));
-//            txtDescription.setText(bundle.getString(Constant.KEY_DIENGIAI));
-//            txtExpenseEvent.setText(bundle.getString(Constant.KEY_EVENT));
-//            txtAccountName.setText(bundle.getString(Constant.KEY_ACCOUNT));
-        }
+
+        expense.set_amountMoney(FileHelper.readFile(context, temp_calculator));
+        expense.set_expenseCategory(FileHelper.readFile(context, temp_category));
+        expense.set_fromAccount(FileHelper.readFile(context, temp_account));
+        expense.set_description(FileHelper.readFile(context, temp_description));
+        expense.set_expenseEvent(FileHelper.readFile(context, temp_event));
+
+        txtAmount.setText(expense.get_amountMoney());
+        txtCategory.setText(expense.get_expenseCategory());
+        txtAccountName.setText(expense.get_fromAccount());
+        txtDescription.setText(expense.get_description());
+        txtExpenseEvent.setText(expense.get_expenseEvent());
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -103,6 +124,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         txtExpenseTime.setText(sdf.format(myCalendar.getTime()));
+        expense.set_expenseDate(txtExpenseTime.getText().toString());
     }
 
     @Override
@@ -128,6 +150,15 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 ((MainActivity)context).replaceFragment(new Event(), true);
                 break;
             case R.id.lnSave:
+                FileHelper.deleteFile(context, temp_calculator);
+                FileHelper.deleteFile(context, temp_description);
+                FileHelper.deleteFile(context, temp_event);
+                ExpenseDAO expenseDAO = new ExpenseDAO(context);
+                expenseDAO.addExpense(expense);
+                txtAmount.setText("");
+                txtExpenseEvent.setText("");
+                txtDescription.setText("");
+                txtExpenseTime.setText(getDate());
                 break;
         }
     }

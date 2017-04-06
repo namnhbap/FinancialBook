@@ -22,15 +22,15 @@ public class Expense {
         this._expenseDate = _expenseDate;
         this._expenseEvent = _expenseEvent;
     }
-//
-//    public Expense(String _amountMoney, String _expenseCategory, String _description, String _fromAccount, String _expenseDate, String _expenseEvent) {
-//        this._amountMoney = _amountMoney;
-//        this._expenseCategory = _expenseCategory;
-//        this._description = _description;
-//        this._fromAccount = _fromAccount;
-//        this._expenseDate = _expenseDate;
-//        this._expenseEvent = _expenseEvent;
-//    }
+
+    public Expense(String _amountMoney, String _expenseCategory, String _description, String _fromAccount, String _expenseDate, String _expenseEvent) {
+        this._amountMoney = _amountMoney;
+        this._expenseCategory = _expenseCategory;
+        this._description = _description;
+        this._fromAccount = _fromAccount;
+        this._expenseDate = _expenseDate;
+        this._expenseEvent = _expenseEvent;
+    }
 
     public String toString() {
         return _id + ";" + _amountMoney +";" + _expenseCategory

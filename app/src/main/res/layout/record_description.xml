@@ -25,7 +25,7 @@
             style="@style/TextViewStyleBold"/>
 
         <TextView
-            android:id="@+id/done"
+            android:id="@+id/txtDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/done"
@@ -42,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/txtCancel"
             android:layout_toEndOf="@id/txtCancel"
-            android:layout_toLeftOf="@id/done"
-            android:layout_toStartOf="@id/done"
+            android:layout_toLeftOf="@id/txtDone"
+            android:layout_toStartOf="@id/txtDone"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:text="@string/description"

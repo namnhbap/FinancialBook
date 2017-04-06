@@ -9,18 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.RecordAccountAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
 
-public class Accounts extends Fragment implements RecordAccountAdapter.RecordAccountOnClickListener{
+public class Accounts extends Fragment implements RecordAccountAdapter.RecordAccountOnClickListener, View.OnClickListener {
 
     List<AccountRecyclerView> data;
     Context context;
+    AccountRecyclerViewDAO account;
 
     @Override
     public void onAttach(Context context) {
@@ -37,9 +40,11 @@ public class Accounts extends Fragment implements RecordAccountAdapter.RecordAcc
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.record_account, container, false);
+        ImageView txtCancel = (ImageView) v.findViewById(R.id.txtCancel);
+        txtCancel.setOnClickListener(this);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewSelectAccount);
-        AccountRecyclerViewDAO allAcount = new AccountRecyclerViewDAO(context);
-        data = allAcount.getAllAccount();
+        account = new AccountRecyclerViewDAO(context);
+        data = account.getAllAccount();
         RecordAccountAdapter myAdapter = new RecordAccountAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
@@ -50,6 +55,18 @@ public class Accounts extends Fragment implements RecordAccountAdapter.RecordAcc
 
     @Override
     public void onClick(int position) {
+        String accountType = account.getAccountById(position+1).getAccountType();
+        String filename = "temp_account.tmp";
+        FileHelper.writeFile(context, filename, accountType);
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.txtCancel:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
     }
 }

@@ -8,17 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
-public class Description extends Fragment{
+public class Description extends Fragment implements View.OnClickListener {
 
     EditText editText;
+    Context context;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.context = context;
     }
 
     @Nullable
@@ -26,6 +29,24 @@ public class Description extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.record_description, container, false);
         editText = (EditText) view.findViewById(R.id.txtDescription);
+        TextView txtCancel = (TextView) view.findViewById(R.id.txtCancel);
+        txtCancel.setOnClickListener(this);
+        TextView txtDone = (TextView) view.findViewById(R.id.txtDone);
+        txtDone.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.txtCancel:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+            case R.id.txtDone:
+                String filename = "temp_description.tmp";
+                FileHelper.writeFile(context, filename, editText.getText().toString());
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
     }
 }

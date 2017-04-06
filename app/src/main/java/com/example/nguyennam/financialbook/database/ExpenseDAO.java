@@ -18,9 +18,6 @@ import static com.example.nguyennam.financialbook.database.DatabaseHandler.Expen
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.ExpenseColumn.KEY_FROMACCOUNT;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_EXPENSE;
 
-/**
- * Created by NguyenNam on 1/16/2017.
- */
 
 public class ExpenseDAO {
 
@@ -87,7 +84,7 @@ public class ExpenseDAO {
         return expenseList;
     }
 
-    public int getContactsCount() {
+    public int getExpenseCount() {
         String countQuery = "SELECT  * FROM " + TABLE_EXPENSE;
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -96,7 +93,7 @@ public class ExpenseDAO {
         return cursor.getCount();
     }
 
-    public int updateContact(Expense expenseBEAN) {
+    public int updateExpense(Expense expenseBEAN) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_AMOUNTMONEY, expenseBEAN.get_amountMoney());
@@ -110,7 +107,7 @@ public class ExpenseDAO {
                 new String[] { String.valueOf(expenseBEAN.get_id()) });
     }
 
-    public void deleteContact(Expense expenseBEAN) {
+    public void deleteExpense(Expense expenseBEAN) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         db.delete(TABLE_EXPENSE, DatabaseHandler.ExpenseColumn._ID + " = ?",
                 new String[] { String.valueOf(expenseBEAN.get_id()) });

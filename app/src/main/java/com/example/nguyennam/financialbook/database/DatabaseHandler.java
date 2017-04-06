@@ -5,21 +5,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-
-/**
- * Created by Mac on 1/5/17.
- */
-
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
     private static final String DATABASE_NAME = "financialBook";
+
+    // Table Name
     public static final String TABLE_ACCOUNTS = "accounts";
     public static final String TABLE_EXPENSE = "expense";
     public static final String TABLE_BUDGET = "budget";
 
+    // Table Column
     class AccountColumn implements BaseColumns {
         static final String KEY_NAME = "name";
         static final String KEY_BALANCE = "balance";
@@ -43,6 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Create & Drop Table
     private static final String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNTS + "("
             + AccountColumn._ID + " INTEGER PRIMARY KEY," + AccountColumn.KEY_NAME + " TEXT,"
             + AccountColumn.KEY_BALANCE + " TEXT" + ")";
@@ -62,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        // Create Table
         sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(CREATE_EXPENSE_TABLE);
         sqLiteDatabase.execSQL(CREATE_BUDGET_TABLE);
@@ -69,9 +69,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        //Upgrade Table
         sqLiteDatabase.execSQL(DROP_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(DROP_EXPENSE_TABLE);
         sqLiteDatabase.execSQL(DROP_BUDGET_TABLE);
+
         // Create tables again
         onCreate(sqLiteDatabase);
     }

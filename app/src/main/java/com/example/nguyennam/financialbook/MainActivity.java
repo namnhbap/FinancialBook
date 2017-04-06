@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,9 @@ import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.recordtab.RecordMain;
 import com.example.nguyennam.financialbook.reporttab.ReportMain;
 import com.example.nguyennam.financialbook.settingtab.SettingMain;
+import com.example.nguyennam.financialbook.utils.Constant;
+
+import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
@@ -38,6 +42,11 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ExpenseDAO expenseDAO123 = new ExpenseDAO(this);
+        List<Expense> listExp = expenseDAO123.getAllExpense();
+        for(Expense s : listExp){
+            Log.d(Constant.TAG, "onCreate: " + s.get_id() + "/" + s.get_amountMoney() + "/" + s.get_expenseCategory()+ "/" + s.get_fromAccount()+ "/" + s.get_expenseDate() );
+        }
         checkFirstRun();
         initView();
     }

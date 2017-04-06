@@ -15,12 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".accounttab.AccountMain" />
-        <activity android:name=".budgettab.BudgetMain" />
-        <activity android:name=".recordtab.RecordMain" />
-        <activity android:name=".reporttab.ReportMain" />
-        <activity android:name=".settingtab.SettingMain" />
-        <activity android:name=".recordtab.Calculator"/>
     </application>
 
 </manifest>
