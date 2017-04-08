@@ -37,7 +37,7 @@
             style="@style/TextViewStyleBold"/>
 
         <TextView
-            android:id="@+id/lbMoneyType"
+            android:id="@+id/lbEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/txtCancel"
@@ -58,7 +58,7 @@
         android:orientation="vertical"
         android:background="@color/BackgroundForm">
         <EditText
-            android:id="@+id/txtMoneyType"
+            android:id="@+id/txtEvent"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:inputType="text"

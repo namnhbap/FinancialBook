@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     String temp_calculator = "temp_calculator.tmp";
     String temp_category = "temp_category.tmp";
     String temp_account = "temp_account.tmp";
-    String temp_description = "temp_description";
+    String temp_description = "temp_description.tmp";
     String temp_event = "temp_event.tmp";
 
     //    final Calculator record_calculator = new Calculator();
@@ -68,16 +67,16 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         txtCategory = (TextView) view.findViewById(R.id.txtCategory);
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
-        txtExpenseTime = (TextView) view.findViewById(R.id.txtAccountType);
+        txtExpenseTime = (TextView) view.findViewById(R.id.txtExpenseTime);
         txtExpenseTime.setText(getDate());
-        txtExpenseEvent = (TextView) view.findViewById(R.id.txtMoneyType);
+        txtExpenseEvent = (TextView) view.findViewById(R.id.txtEvent);
         RelativeLayout rlSelectCategory = (RelativeLayout) view.findViewById(R.id.rlSelectCategory);
         rlSelectCategory.setOnClickListener(this);
         RelativeLayout rlDescription = (RelativeLayout) view.findViewById(R.id.rlDescription);
         rlDescription.setOnClickListener(this);
         RelativeLayout rlSelectAccount = (RelativeLayout) view.findViewById(R.id.rlAccountName);
         rlSelectAccount.setOnClickListener(this);
-        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlAccountType);
+        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlExpenseTime);
         rlSelectTime.setOnClickListener(this);
         RelativeLayout rlExpenseEvent = (RelativeLayout) view.findViewById(R.id.rlEvent);
         rlExpenseEvent.setOnClickListener(this);
@@ -98,16 +97,16 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         super.onStart();
 
         expense.set_amountMoney(FileHelper.readFile(context, temp_calculator));
-        expense.set_expenseCategory(FileHelper.readFile(context, temp_category));
-        expense.set_fromAccount(FileHelper.readFile(context, temp_account));
+        expense.set_category(FileHelper.readFile(context, temp_category));
+        expense.set_accountName(FileHelper.readFile(context, temp_account));
         expense.set_description(FileHelper.readFile(context, temp_description));
-        expense.set_expenseEvent(FileHelper.readFile(context, temp_event));
+        expense.set_event(FileHelper.readFile(context, temp_event));
 
         txtAmount.setText(expense.get_amountMoney());
-        txtCategory.setText(expense.get_expenseCategory());
-        txtAccountName.setText(expense.get_fromAccount());
+        txtCategory.setText(expense.get_category());
+        txtAccountName.setText(expense.get_accountName());
         txtDescription.setText(expense.get_description());
-        txtExpenseEvent.setText(expense.get_expenseEvent());
+        txtExpenseEvent.setText(expense.get_event());
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -124,7 +123,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         txtExpenseTime.setText(sdf.format(myCalendar.getTime()));
-        expense.set_expenseDate(txtExpenseTime.getText().toString());
+        expense.set_date(txtExpenseTime.getText().toString());
     }
 
     @Override
@@ -142,7 +141,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
             case R.id.rlAccountName:
                 ((MainActivity)context).replaceFragment(new Accounts(), true);
                 break;
-            case R.id.rlAccountType:
+            case R.id.rlExpenseTime:
                 new DatePickerDialog(context, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
@@ -151,6 +150,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 break;
             case R.id.lnSave:
                 FileHelper.deleteFile(context, temp_calculator);
+                FileHelper.deleteFile(context, temp_category);
                 FileHelper.deleteFile(context, temp_description);
                 FileHelper.deleteFile(context, temp_event);
                 ExpenseDAO expenseDAO = new ExpenseDAO(context);
@@ -158,6 +158,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 txtAmount.setText("");
                 txtExpenseEvent.setText("");
                 txtDescription.setText("");
+                txtCategory.setText("");
                 txtExpenseTime.setText(getDate());
                 break;
         }

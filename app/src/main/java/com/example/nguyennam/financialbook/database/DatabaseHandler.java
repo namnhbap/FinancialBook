@@ -15,6 +15,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Table Name
     public static final String TABLE_ACCOUNTS = "accounts";
     public static final String TABLE_EXPENSE = "expense";
+    public static final String TABLE_INCOME = "income";
     public static final String TABLE_BUDGET = "budget";
 
     // Table Column
@@ -30,6 +31,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         static final String KEY_FROMACCOUNT = "fromaccount";
         static final String KEY_EXPENSEDATE = "expensedate";
         static final String KEY_EXPENSEEVENT = "expenseevent";
+    }
+
+    class IncomeColumn implements BaseColumns {
+        static final String KEY_AMOUNTMONEY = "amountmoney";
+        static final String KEY_INCOMECATEGORY = "incomecategory";
+        static final String KEY_DESCRIPTION = "record_description";
+        static final String KEY_ACCOUNTNAME = "accountname";
+        static final String KEY_DATE = "date";
+        static final String KEY_EVENT = "event";
     }
 
     class BudgetCollumn implements BaseColumns {
@@ -54,6 +64,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + ExpenseColumn.KEY_EXPENSEEVENT + " TEXT" + ")";
     private static final String DROP_EXPENSE_TABLE = "DROP TABLE IF EXISTS " + TABLE_EXPENSE;
 
+    private static final String CREATE_INCOME_TABLE = "CREATE TABLE " + TABLE_INCOME + "("
+            + IncomeColumn._ID + " INTEGER PRIMARY KEY," + IncomeColumn.KEY_AMOUNTMONEY + " TEXT,"
+            + IncomeColumn.KEY_INCOMECATEGORY + " TEXT," + IncomeColumn.KEY_DESCRIPTION + " TEXT,"
+            + IncomeColumn.KEY_ACCOUNTNAME + " TEXT," + IncomeColumn.KEY_DATE + " TEXT,"
+            + IncomeColumn.KEY_EVENT + " TEXT" + ")";
+    private static final String DROP_INCOME_TABLE = "DROP TABLE IF EXISTS " + TABLE_INCOME;
+
     private static final String CREATE_BUDGET_TABLE = "CREATE TABLE " + TABLE_BUDGET + "("
             + BudgetCollumn._ID + " INTEGER PRIMARY KEY," + BudgetCollumn.KEY_NAME + " TEXT,"
             + BudgetCollumn.KEY_BALANCE + " TEXT" + ")";
@@ -64,6 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Create Table
         sqLiteDatabase.execSQL(CREATE_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(CREATE_EXPENSE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_INCOME_TABLE);
         sqLiteDatabase.execSQL(CREATE_BUDGET_TABLE);
     }
 
@@ -72,6 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Upgrade Table
         sqLiteDatabase.execSQL(DROP_ACCOUNTS_TABLE);
         sqLiteDatabase.execSQL(DROP_EXPENSE_TABLE);
+        sqLiteDatabase.execSQL(DROP_INCOME_TABLE);
         sqLiteDatabase.execSQL(DROP_BUDGET_TABLE);
 
         // Create tables again

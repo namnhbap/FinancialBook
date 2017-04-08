@@ -1,6 +1,6 @@
 package com.example.nguyennam.financialbook.model;
 
-public class Expense {
+public class Income {
     private int _id;
     private String _amountMoney;
     private String _category;
@@ -9,11 +9,11 @@ public class Expense {
     private String _date;
     private String _event;
 
-    public Expense(){
+    public Income(){
 
     }
 
-    public Expense(int _id, String _amountMoney, String _category, String _description, String _accountName, String _date, String _event) {
+    public Income(int _id, String _amountMoney, String _category, String _description, String _accountName, String _date, String _event) {
         this._id = _id;
         this._amountMoney = _amountMoney;
         this._category = _category;
@@ -23,7 +23,7 @@ public class Expense {
         this._event = _event;
     }
 
-    public Expense(String _amountMoney, String _category, String _description, String _accountName, String _date, String _event) {
+    public Income(String _amountMoney, String _category, String _description, String _accountName, String _date, String _event) {
         this._amountMoney = _amountMoney;
         this._category = _category;
         this._description = _description;

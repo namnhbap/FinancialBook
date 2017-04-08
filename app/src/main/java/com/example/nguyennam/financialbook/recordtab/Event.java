@@ -32,7 +32,7 @@ public class Event extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.record_event, container, false);
-        editText = (EditText) view.findViewById(R.id.txtMoneyType);
+        editText = (EditText) view.findViewById(R.id.txtEvent);
         TextView txtCancel = (TextView) view.findViewById(R.id.txtCancel);
         txtCancel.setOnClickListener(this);
         TextView txtDone = (TextView) view.findViewById(R.id.txtDone);

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 
 import java.text.SimpleDateFormat;
@@ -53,7 +54,7 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
         txtFromAccount = (TextView) view.findViewById(R.id.txtFromAccount);
         txtToAccount = (TextView) view.findViewById(R.id.txtToAccount);
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
-        txtTransferTime = (TextView) view.findViewById(R.id.txtAccountType);
+        txtTransferTime = (TextView) view.findViewById(R.id.txtTransferTime);
         txtTransferTime.setText(getDate());
         RelativeLayout rlFromAccount = (RelativeLayout) view.findViewById(R.id.rlFromAccount);
         rlFromAccount.setOnClickListener(this);
@@ -61,7 +62,7 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
         rlToAccount.setOnClickListener(this);
         RelativeLayout rlDescription = (RelativeLayout) view.findViewById(R.id.rlDescription);
         rlDescription.setOnClickListener(this);
-        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlAccountType);
+        RelativeLayout rlSelectTime = (RelativeLayout) view.findViewById(R.id.rlTransferTime);
         rlSelectTime.setOnClickListener(this);
         LinearLayout lnAddTransfer = (LinearLayout) view.findViewById(R.id.lnSave);
         lnAddTransfer.setOnClickListener(this);
@@ -104,15 +105,18 @@ public class TransferFormInput extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtAmount:
-
+                ((MainActivity)context).replaceFragment(new Calculator(), true);
                 break;
             case R.id.rlFromAccount:
+                ((MainActivity)context).replaceFragment(new Accounts(), true);
                 break;
             case R.id.rlToAccount:
+                ((MainActivity)context).replaceFragment(new Accounts(), true);
                 break;
             case R.id.rlDescription:
+                ((MainActivity)context).replaceFragment(new Description(), true);
                 break;
-            case R.id.rlAccountType:
+            case R.id.rlTransferTime:
                 new DatePickerDialog(context, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;

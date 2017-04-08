@@ -42,11 +42,11 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ExpenseDAO expenseDAO123 = new ExpenseDAO(this);
-        List<Expense> listExp = expenseDAO123.getAllExpense();
-        for(Expense s : listExp){
-            Log.d(Constant.TAG, "onCreate: " + s.get_id() + "/" + s.get_amountMoney() + "/" + s.get_expenseCategory()+ "/" + s.get_fromAccount()+ "/" + s.get_expenseDate() );
-        }
+//        ExpenseDAO expenseDAO123 = new ExpenseDAO(this);
+//        List<Expense> listExp = expenseDAO123.getAllExpense();
+//        for(Expense s : listExp){
+//            Log.d(Constant.TAG, "onCreate: " + s.get_id() + "/" + s.get_amountMoney() + "/" + s.get_category()+ "/" + s.get_accountName()+ "/" + s.get_date() );
+//        }
         checkFirstRun();
         initView();
     }

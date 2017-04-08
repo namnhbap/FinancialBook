@@ -33,11 +33,11 @@ public class ExpenseDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_AMOUNTMONEY, expenseBEAN.get_amountMoney());
-        values.put(KEY_EXPENSECATEGORY, expenseBEAN.get_expenseCategory());
+        values.put(KEY_EXPENSECATEGORY, expenseBEAN.get_category());
         values.put(KEY_DESCRIPTION, expenseBEAN.get_description());
-        values.put(KEY_FROMACCOUNT, expenseBEAN.get_fromAccount());
-        values.put(KEY_EXPENSEDATE, expenseBEAN.get_expenseDate());
-        values.put(KEY_EXPENSEEVENT, expenseBEAN.get_expenseEvent());
+        values.put(KEY_FROMACCOUNT, expenseBEAN.get_accountName());
+        values.put(KEY_EXPENSEDATE, expenseBEAN.get_date());
+        values.put(KEY_EXPENSEEVENT, expenseBEAN.get_event());
         // Inserting Row
         db.insert(TABLE_EXPENSE, null, values);
         db.close(); // Closing database connection
@@ -71,16 +71,16 @@ public class ExpenseDAO {
                 Expense expenseBEAN = new Expense();
                 expenseBEAN.set_id(Integer.parseInt(cursor.getString(0)));
                 expenseBEAN.set_amountMoney(cursor.getString(1));
-                expenseBEAN.set_expenseCategory(cursor.getString(2));
+                expenseBEAN.set_category(cursor.getString(2));
                 expenseBEAN.set_description(cursor.getString(3));
-                expenseBEAN.set_fromAccount(cursor.getString(4));
-                expenseBEAN.set_expenseDate(cursor.getString(5));
-                expenseBEAN.set_expenseEvent(cursor.getString(6));
-                // Adding contact to list
+                expenseBEAN.set_accountName(cursor.getString(4));
+                expenseBEAN.set_date(cursor.getString(5));
+                expenseBEAN.set_event(cursor.getString(6));
+                // Adding expense to list
                 expenseList.add(expenseBEAN);
             } while (cursor.moveToNext());
         }
-        // return contact list
+        // return expense list
         return expenseList;
     }
 
@@ -97,11 +97,11 @@ public class ExpenseDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_AMOUNTMONEY, expenseBEAN.get_amountMoney());
-        values.put(KEY_EXPENSECATEGORY, expenseBEAN.get_expenseCategory());
+        values.put(KEY_EXPENSECATEGORY, expenseBEAN.get_category());
         values.put(KEY_DESCRIPTION, expenseBEAN.get_description());
-        values.put(KEY_FROMACCOUNT, expenseBEAN.get_fromAccount());
-        values.put(KEY_EXPENSEDATE, expenseBEAN.get_expenseDate());
-        values.put(KEY_EXPENSEEVENT, expenseBEAN.get_expenseEvent());
+        values.put(KEY_FROMACCOUNT, expenseBEAN.get_accountName());
+        values.put(KEY_EXPENSEDATE, expenseBEAN.get_date());
+        values.put(KEY_EXPENSEEVENT, expenseBEAN.get_event());
         // updating row
         return db.update(TABLE_EXPENSE, values, DatabaseHandler.ExpenseColumn._ID + " = ?",
                 new String[] { String.valueOf(expenseBEAN.get_id()) });
