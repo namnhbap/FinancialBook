@@ -83,6 +83,16 @@
     <string name="noticeNoMoney">Bạn chưa nhập \"Số tiền\".</string>
     <string name="noticeNoCategory">Bạn chưa nhập \"Mục chi\".</string>
     <string name="noticeNoAccount">Bạn chưa nhập \"Vào tài khoản\".</string>
+    <string-array name="day_of_week">
+        <item>\"\"</item>
+        <item>Chủ Nhật</item>
+        <item>Thứ Hai</item>
+        <item>Thứ Ba</item>
+        <item>Thứ Tư</item>
+        <item>Thứ Năm</item>
+        <item>Thứ Sáu</item>
+        <item>Thứ Bảy</item>
+    </string-array>
     <string-array name="group_row_category">
         <item>Ăn uống</item>
         <item>Đi lại</item>

@@ -22,8 +22,11 @@ import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ExpenseFormInput extends Fragment implements View.OnClickListener {
 
@@ -132,32 +135,33 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtAmount:
-                ((MainActivity)context).replaceFragment(new Calculator(), true);
+                ((MainActivity) context).replaceFragment(new Calculator(), true);
                 break;
             case R.id.rlSelectCategory:
-                ((MainActivity)context).replaceFragment(new ExpenseCategory(), true);
+                ((MainActivity) context).replaceFragment(new ExpenseCategory(), true);
                 break;
             case R.id.rlDescription:
-                ((MainActivity)context).replaceFragment(new Description(), true);
+                ((MainActivity) context).replaceFragment(new Description(), true);
                 break;
             case R.id.rlAccountName:
-                ((MainActivity)context).replaceFragment(new Accounts(), true);
+                ((MainActivity) context).replaceFragment(new Accounts(), true);
                 break;
             case R.id.rlExpenseTime:
                 new DatePickerDialog(context, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.rlEvent:
-                ((MainActivity)context).replaceFragment(new Event(), true);
+                ((MainActivity) context).replaceFragment(new Event(), true);
                 break;
             case R.id.lnSave:
                 if ("".equals(expense.get_amountMoney())) {
+                    testDate();
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
-                } else if ("".equals(expense.get_category())){
+                } else if ("".equals(expense.get_category())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoCategory),
                             Toast.LENGTH_LONG).show();
-                } else if ("".equals(expense.get_accountName())){
+                } else if ("".equals(expense.get_accountName())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccount),
                             Toast.LENGTH_LONG).show();
                 } else {
@@ -165,6 +169,22 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    public void testDate() {
+        String input_date = "09/04/2017";
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date dt1 = null;
+        try {
+            dt1 = format1.parse(input_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dt1);
+        String[] days = getResources().getStringArray(R.array.day_of_week);
+        String day = days[calendar.get(Calendar.DAY_OF_WEEK)];
+        Log.d(Constant.TAG, "testDate: " + day);
     }
 
     public void saveData() {
