@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.Income;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.SimpleDateFormat;
@@ -57,6 +60,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
         txtIncomeTime = (TextView) view.findViewById(R.id.txtIncomeTime);
         txtIncomeTime.setText(getDate());
+        income.set_date(txtIncomeTime.getText().toString());
         txtEvent = (TextView) view.findViewById(R.id.txtEvent);
         RelativeLayout rlSelectCategory = (RelativeLayout) view.findViewById(R.id.rlSelectCategory);
         rlSelectCategory.setOnClickListener(this);
@@ -137,18 +141,34 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
                 ((MainActivity)context).replaceFragment(new Event(), true);
                 break;
             case R.id.lnSave:
-                FileHelper.deleteFile(context, temp_calculator);
-                FileHelper.deleteFile(context, temp_category);
-                FileHelper.deleteFile(context, temp_description);
-                FileHelper.deleteFile(context, temp_event);
-                IncomeDAO incomeDAO = new IncomeDAO(context);
-                incomeDAO.addIncome(income);
-                txtAmount.setText("");
-                txtEvent.setText("");
-                txtDescription.setText("");
-                txtIncomeCategory.setText("");
-                txtIncomeTime.setText(getDate());
+                if ("".equals(income.get_amountMoney())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(income.get_category())){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoCategory),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(income.get_accountName())){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccount),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    saveData();
+                }
                 break;
         }
+    }
+
+    public void saveData() {
+        FileHelper.deleteFile(context, temp_calculator);
+        FileHelper.deleteFile(context, temp_category);
+        FileHelper.deleteFile(context, temp_description);
+        FileHelper.deleteFile(context, temp_event);
+        IncomeDAO expenseDAO = new IncomeDAO(context);
+        expenseDAO.addIncome(income);
+        Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllIncome());
+        txtAmount.setText("");
+        txtEvent.setText("");
+        txtDescription.setText("");
+        txtIncomeCategory.setText("");
+        txtIncomeTime.setText(getDate());
     }
 }

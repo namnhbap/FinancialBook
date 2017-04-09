@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
@@ -69,6 +70,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
         txtExpenseTime = (TextView) view.findViewById(R.id.txtExpenseTime);
         txtExpenseTime.setText(getDate());
+        expense.set_date(txtExpenseTime.getText().toString());
         txtExpenseEvent = (TextView) view.findViewById(R.id.txtEvent);
         RelativeLayout rlSelectCategory = (RelativeLayout) view.findViewById(R.id.rlSelectCategory);
         rlSelectCategory.setOnClickListener(this);
@@ -149,18 +151,34 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 ((MainActivity)context).replaceFragment(new Event(), true);
                 break;
             case R.id.lnSave:
-                FileHelper.deleteFile(context, temp_calculator);
-                FileHelper.deleteFile(context, temp_category);
-                FileHelper.deleteFile(context, temp_description);
-                FileHelper.deleteFile(context, temp_event);
-                ExpenseDAO expenseDAO = new ExpenseDAO(context);
-                expenseDAO.addExpense(expense);
-                txtAmount.setText("");
-                txtExpenseEvent.setText("");
-                txtDescription.setText("");
-                txtCategory.setText("");
-                txtExpenseTime.setText(getDate());
+                if ("".equals(expense.get_amountMoney())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(expense.get_category())){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoCategory),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(expense.get_accountName())){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccount),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    saveData();
+                }
                 break;
         }
+    }
+
+    public void saveData() {
+        FileHelper.deleteFile(context, temp_calculator);
+        FileHelper.deleteFile(context, temp_category);
+        FileHelper.deleteFile(context, temp_description);
+        FileHelper.deleteFile(context, temp_event);
+        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        expenseDAO.addExpense(expense);
+        Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllExpense());
+        txtAmount.setText("");
+        txtExpenseEvent.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtExpenseTime.setText(getDate());
     }
 }

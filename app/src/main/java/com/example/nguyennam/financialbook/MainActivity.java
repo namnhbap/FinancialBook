@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity {
 //        ExpenseDAO expenseDAO123 = new ExpenseDAO(this);
 //        List<Expense> listExp = expenseDAO123.getAllExpense();
 //        for(Expense s : listExp){
-//            Log.d(Constant.TAG, "onCreate: " + s.get_id() + "/" + s.get_amountMoney() + "/" + s.get_category()+ "/" + s.get_accountName()+ "/" + s.get_date() );
+//            Log.d(Constant.TAG, "onCreate: " + s);
 //        }
         checkFirstRun();
         initView();
@@ -62,9 +62,9 @@ public class MainActivity extends FragmentActivity {
             allAcount.addAccount(new AccountRecyclerView(3, "Tiết Kiệm", 0));
             //data for financial history
             ExpenseDAO expenseDAO = new ExpenseDAO(this);
-            expenseDAO.addExpense(new Expense(1, "100000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
-            expenseDAO.addExpense(new Expense(2, "200000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
-            expenseDAO.addExpense(new Expense(3, "350000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense(1, "100.000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense(2, "200.000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense(3, "350.000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
             //date for test budget
             BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
             allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
