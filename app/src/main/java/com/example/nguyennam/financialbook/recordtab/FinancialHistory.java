@@ -14,23 +14,17 @@ import android.widget.SearchView;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
-import com.example.nguyennam.financialbook.adapters.ListCategoryAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
-import com.example.nguyennam.financialbook.model.CategoryChild;
-import com.example.nguyennam.financialbook.model.CategoryGroup;
-import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
 import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
+import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FinancialHistory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
@@ -62,7 +56,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         search.setOnQueryTextListener(this);
         search.setOnCloseListener(this);
         //display the list, expand all groups
-        loadSomeData();
+        loadHistoryData();
         //get reference to the ExpandableListView
         myList = (ExpandableListView) view.findViewById(R.id.expandableHistory);
         //create the adapter by passing your ArrayList data
@@ -108,19 +102,30 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         }
     }
 
-    private void loadSomeData() {
-        String dateOfWeek = "Thứ sáu";
-        String dateOfMonth = "27";
-        String month = "1/2017";
-        String moneyExpense = "3.000.000";
+    private void loadHistoryData() {
+        //TODO
+        String dateOfWeek;
+        String dateOfMonth;
+        String month;
+        String moneyExpense;
         String moneyIncome = "20.000.000";
         FinancialHistoryGroup financialHistoryGroup;
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        Log.d(Constant.TAG, "loadHistoryData: " + expenseDAO.getAllExpense());
         List<String> dateExpenseList = expenseDAO.getDateExpense();
         for (String date: dateExpenseList) {
             dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
             dateOfMonth = CalendarSupport.getDateOfMonth(date);
             month = CalendarSupport.getMonth(date);
+            List<String> moneyExpenseList = expenseDAO.getMoneyByDate(date);
+            double moneyNumber = 0; //money expense format to calculate and format to display
+            for (String money : moneyExpenseList) {
+                moneyNumber += Double.parseDouble(CalculatorSupport.formatExpression(money));
+            }
+            //format to 1.000.000
+            NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+            moneyExpense = nf.format(moneyNumber);
+            Log.d(Constant.TAG, "loadHistoryData: " + moneyExpense);
             financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, month, moneyExpense, moneyIncome, getChildList());
             financialGroupList.add(financialHistoryGroup);
         }

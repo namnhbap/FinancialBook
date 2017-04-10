@@ -72,6 +72,20 @@ public class ExpenseDAO {
         return dateExpense;
     }
 
+    public List<String> getMoneyByDate(String date) {
+        List<String> moneyExpense = new ArrayList<>();
+        String selectQuery = "SELECT " + KEY_AMOUNTMONEY + " FROM " + TABLE_EXPENSE
+                + " WHERE " + KEY_EXPENSEDATE + " = " + '"' + date + '"';
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                moneyExpense.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return moneyExpense;
+    }
+
     public List<Expense> getAllExpense() {
         List<Expense> expenseList = new ArrayList<>();
         // Select All Query
