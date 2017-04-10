@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,21 @@ import android.widget.SearchView;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
 import com.example.nguyennam.financialbook.adapters.ListCategoryAdapter;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.model.CategoryChild;
 import com.example.nguyennam.financialbook.model.CategoryGroup;
+import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
 import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
+import com.example.nguyennam.financialbook.utils.CalendarSupport;
+import com.example.nguyennam.financialbook.utils.Constant;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class FinancialHistory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
@@ -100,14 +109,21 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     }
 
     private void loadSomeData() {
-        FinancialHistoryGroup financialHistoryGroup;
         String dateOfWeek = "Thứ sáu";
         String dateOfMonth = "27";
-        String date = "1/2017";
+        String month = "1/2017";
         String moneyExpense = "3.000.000";
         String moneyIncome = "20.000.000";
-        financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, date, moneyExpense, moneyIncome, getChildList());
-        financialGroupList.add(financialHistoryGroup);
+        FinancialHistoryGroup financialHistoryGroup;
+        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        List<String> dateExpenseList = expenseDAO.getDateExpense();
+        for (String date: dateExpenseList) {
+            dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
+            dateOfMonth = CalendarSupport.getDateOfMonth(date);
+            month = CalendarSupport.getMonth(date);
+            financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, month, moneyExpense, moneyIncome, getChildList());
+            financialGroupList.add(financialHistoryGroup);
+        }
     }
 
     private ArrayList<FinancialHistoryChild> getChildList() {

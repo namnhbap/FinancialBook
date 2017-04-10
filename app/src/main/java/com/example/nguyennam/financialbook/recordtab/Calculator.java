@@ -48,6 +48,7 @@ public class Calculator extends Fragment implements View.OnClickListener {
     TextView txtExpression;
     String temp = "";
     String inputNumber;
+    String filename = "temp_calculator.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -105,6 +106,12 @@ public class Calculator extends Fragment implements View.OnClickListener {
         btnBack = (ImageButton) view.findViewById(R.id.btnKeyBack);
         btnBack.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        edtTinh.setText(FileHelper.readFile(context, filename));
     }
 
     @Override
@@ -187,7 +194,6 @@ public class Calculator extends Fragment implements View.OnClickListener {
                     edtTinh.setText(result);
                     txtExpression.setText(inputNumber);
                 } else {
-                    String filename = "temp_calculator.tmp";
                     FileHelper.writeFile(context, filename, edtTinh.getText().toString());
                     getActivity().getSupportFragmentManager().popBackStack();
 //                    ((MainActivity) context).replaceFragment(new RecordMain(), false);
@@ -204,22 +210,6 @@ public class Calculator extends Fragment implements View.OnClickListener {
             btnEqual.setText(bang);
         }
         edtTinh.setSelection(edtTinh.length()); //set cursor cuoi text
-    }
-
-    private static boolean isExternalStorageReadOnly() {
-        String extStorageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
-            return true;
-        }
-        return false;
-    }
-
-    private static boolean isExternalStorageAvailable() {
-        String extStorageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
-            return true;
-        }
-        return false;
     }
 
     private void clickOperationButton(String operation) {

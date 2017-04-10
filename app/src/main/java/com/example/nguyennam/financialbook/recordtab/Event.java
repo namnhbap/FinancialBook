@@ -21,6 +21,7 @@ public class Event extends Fragment implements View.OnClickListener {
 
     EditText editText;
     Context context;
+    String filename = "temp_event.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -41,13 +42,18 @@ public class Event extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        editText.setText(FileHelper.readFile(context, filename));
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtCancel:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.txtDone:
-                String filename = "temp_event.tmp";
                 FileHelper.writeFile(context, filename, editText.getText().toString());
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;

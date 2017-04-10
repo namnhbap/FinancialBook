@@ -155,7 +155,6 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 break;
             case R.id.lnSave:
                 if ("".equals(expense.get_amountMoney())) {
-                    testDate();
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
                 } else if ("".equals(expense.get_category())) {
@@ -169,22 +168,6 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 }
                 break;
         }
-    }
-
-    public void testDate() {
-        String input_date = "09/04/2017";
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        Date dt1 = null;
-        try {
-            dt1 = format1.parse(input_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dt1);
-        String[] days = getResources().getStringArray(R.array.day_of_week);
-        String day = days[calendar.get(Calendar.DAY_OF_WEEK)];
-        Log.d(Constant.TAG, "testDate: " + day);
     }
 
     public void saveData() {

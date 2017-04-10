@@ -59,8 +59,21 @@ public class ExpenseDAO {
         return expenseBEAN;
     }
 
+    public List<String> getDateExpense() {
+        List<String> dateExpense = new ArrayList<>();
+        String selectQuery = "SELECT DISTINCT " + KEY_EXPENSEDATE + " FROM " + TABLE_EXPENSE;
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                dateExpense.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return dateExpense;
+    }
+
     public List<Expense> getAllExpense() {
-        List<Expense> expenseList = new ArrayList<Expense>();
+        List<Expense> expenseList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_EXPENSE;
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
