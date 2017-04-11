@@ -15,6 +15,7 @@ import android.widget.SearchView;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
 import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
@@ -22,7 +23,13 @@ import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -103,35 +110,38 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     }
 
     private void loadHistoryData() {
-        //TODO
         String dateOfWeek;
         String dateOfMonth;
         String month;
         String moneyExpense;
-        String moneyIncome = "20.000.000";
+        String moneyIncome;
         FinancialHistoryGroup financialHistoryGroup;
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
         Log.d(Constant.TAG, "loadHistoryData: " + expenseDAO.getAllExpense());
+        IncomeDAO incomeDAO = new IncomeDAO(context);
+        Log.d(Constant.TAG, "loadHistoryData: " + incomeDAO.getAllIncome());
+        // get date from income and expense
         List<String> dateExpenseList = expenseDAO.getDateExpense();
+        List<String> dateIncomeList = incomeDAO.getDateIncome();
+        // sort date from now to past and avoid duplicate date
+        sortDateList(dateExpenseList, dateIncomeList);
         for (String date: dateExpenseList) {
             dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
             dateOfMonth = CalendarSupport.getDateOfMonth(date);
             month = CalendarSupport.getMonth(date);
             List<String> moneyExpenseList = expenseDAO.getMoneyByDate(date);
-            double moneyNumber = 0; //money expense format to calculate and format to display
-            for (String money : moneyExpenseList) {
-                moneyNumber += Double.parseDouble(CalculatorSupport.formatExpression(money));
-            }
-            //format to 1.000.000
-            NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
-            moneyExpense = nf.format(moneyNumber);
-            Log.d(Constant.TAG, "loadHistoryData: " + moneyExpense);
+            moneyExpense = addMoneyOneDate(moneyExpenseList);
+            List<String> moneyIncomeList = incomeDAO.getMoneyByDate(date);
+            moneyIncome = addMoneyOneDate(moneyIncomeList);
+            Log.d(Constant.TAG, "loadHistoryData: " + date + "    " + moneyExpense);
+            Log.d(Constant.TAG, "loadData: " + date + "    " + moneyIncome);
             financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, month, moneyExpense, moneyIncome, getChildList());
             financialGroupList.add(financialHistoryGroup);
         }
     }
 
     private ArrayList<FinancialHistoryChild> getChildList() {
+        //TODO
         String description = "ab cd";
         String moneyAmount = "3.000.000";
         String account = "Ví";
@@ -142,6 +152,41 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         financialChild = new FinancialHistoryChild("ok ok", "20.000.000", "ATM", "Lương");
         financialChildList.add(financialChild);
         return financialChildList;
+    }
+
+    public void sortDateList(List<String> dateExpenseList, List<String> dateIncomeList) {
+        // remove date duplicate
+        dateExpenseList.removeAll(dateIncomeList);
+        // add date income to expense
+        dateExpenseList.addAll(dateIncomeList);
+        // sort date from now to past
+        Collections.sort(dateExpenseList, new Comparator<String>() {
+            @Override
+            public int compare(String arg1, String arg0) {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                int compareResult = 0;
+                try {
+                    Date arg0Date = format.parse(arg0);
+                    Date arg1Date = format.parse(arg1);
+                    compareResult = arg0Date.compareTo(arg1Date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    compareResult = arg0.compareTo(arg1);
+                }
+                return compareResult;
+            }
+        });
+    }
+
+    public String addMoneyOneDate (List<String> moneyExpenseList) {
+        String moneyOnedate;
+        double moneyNumber = 0; //money expense format to calculate and format to display
+        for (String money : moneyExpenseList) {
+            moneyNumber += Double.parseDouble(CalculatorSupport.formatExpression(money));
+        }
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        moneyOnedate = nf.format(moneyNumber);
+        return moneyOnedate;
     }
 
     @Override

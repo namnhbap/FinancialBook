@@ -59,6 +59,33 @@ public class IncomeDAO {
         return incomeBEAN;
     }
 
+    public List<String> getDateIncome() {
+        List<String> dateExpense = new ArrayList<>();
+        String selectQuery = "SELECT DISTINCT " + KEY_DATE + " FROM " + TABLE_INCOME;
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                dateExpense.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return dateExpense;
+    }
+
+    public List<String> getMoneyByDate(String date) {
+        List<String> moneyIncome = new ArrayList<>();
+        String selectQuery = "SELECT " + KEY_AMOUNTMONEY + " FROM " + TABLE_INCOME
+                + " WHERE " + KEY_DATE + " = " + '"' + date + '"';
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                moneyIncome.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return moneyIncome;
+    }
+
     public List<Income> getAllIncome() {
         List<Income> incomeList = new ArrayList<>();
         // Select All Query
