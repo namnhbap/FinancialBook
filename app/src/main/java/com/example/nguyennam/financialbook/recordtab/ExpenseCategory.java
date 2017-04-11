@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnClickListener {
 
     Context context;
     private ListCategoryAdapter listAdapter;
@@ -45,6 +46,8 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.record_expense_category, container, false);
+        ImageView btnPrevious = (ImageView) view.findViewById(R.id.btnPrevious);
+        btnPrevious.setOnClickListener(this);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) view.findViewById(R.id.searchCategory);
         search.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -166,5 +169,14 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
         listAdapter.filterData(query);
         expandAll();
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnPrevious:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
     }
 }

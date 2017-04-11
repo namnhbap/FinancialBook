@@ -38,7 +38,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     Income income = new Income();
 
     String temp_calculator = "temp_calculator.tmp";
-    String temp_category = "temp_category.tmp";
+    String temp_category = "temp_incomecategory.tmp";
     String temp_account = "temp_account.tmp";
     String temp_description = "temp_description.tmp";
     String temp_event = "temp_event.tmp";
@@ -125,7 +125,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
                 ((MainActivity)context).replaceFragment(new Calculator(), true);
                 break;
             case R.id.rlSelectCategory:
-                ((MainActivity)context).replaceFragment(new ExpenseCategory(), true);
+                ((MainActivity)context).replaceFragment(new IncomeCategory(), true);
                 break;
             case R.id.rlDescription:
                 ((MainActivity)context).replaceFragment(new Description(), true);
