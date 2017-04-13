@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/FormEditValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/incomeHistory"
+                android:textColor="@color/textTab"/>
+
+            <TextView
+                android:id="@+id/txtCategory"
+                style="@style/FormEditValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/Category"
+                android:textColor="@color/textTab"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtDescription"
+            style="@style/FormEditTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/txtMoney"
+                style="@style/FormEditValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SoTien"
+                android:textColor="@color/textTab"/>
+
+            <TextView
+                style="@style/FormEditValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/money"
+                android:textColor="@color/textTab"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgAccount"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/Accounts"
+                android:paddingEnd="0dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="0dp"
+                android:paddingStart="4dp"
+                android:src="@drawable/wallet" />
+
+            <TextView
+                android:id="@+id/txtAccountType"
+                style="@style/FormEditTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toLeftOf="@id/imgAccount"
+                android:layout_toStartOf="@id/imgAccount"
+                android:gravity="end"
+                android:text="@string/Accounts" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

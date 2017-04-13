@@ -43,7 +43,7 @@ public class ExpenseDAO {
         db.close(); // Closing database connection
     }
 
-    public Expense getExpense(int id) {
+    public Expense getExpenseById(int id) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         Cursor cursor = db.query(TABLE_EXPENSE, new String[] { DatabaseHandler.ExpenseColumn._ID,
                         KEY_AMOUNTMONEY, KEY_EXPENSECATEGORY, KEY_DESCRIPTION,
@@ -84,6 +84,32 @@ public class ExpenseDAO {
             } while (cursor.moveToNext());
         }
         return moneyExpense;
+    }
+
+    public List<Expense> getExpenseByDate(String date) {
+        List<Expense> expenseList = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_EXPENSE
+                + " WHERE " + KEY_EXPENSEDATE + " = " + '"' + date + '"';
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Expense expenseBEAN = new Expense();
+                expenseBEAN.set_id(Integer.parseInt(cursor.getString(0)));
+                expenseBEAN.set_amountMoney(cursor.getString(1));
+                expenseBEAN.set_category(cursor.getString(2));
+                expenseBEAN.set_description(cursor.getString(3));
+                expenseBEAN.set_accountName(cursor.getString(4));
+                expenseBEAN.set_date(cursor.getString(5));
+                expenseBEAN.set_event(cursor.getString(6));
+                // Adding expense to list
+                expenseList.add(expenseBEAN);
+            } while (cursor.moveToNext());
+        }
+        // return expense list
+        return expenseList;
     }
 
     public List<Expense> getAllExpense() {

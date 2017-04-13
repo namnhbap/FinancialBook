@@ -43,7 +43,7 @@ public class IncomeDAO {
         db.close(); // Closing database connection
     }
 
-    public Income getIncome(int id) {
+    public Income getIncomeById(int id) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         Cursor cursor = db.query(TABLE_INCOME, new String[] { DatabaseHandler.IncomeColumn._ID,
                         KEY_AMOUNTMONEY, KEY_INCOMECATEGORY, KEY_DESCRIPTION,
@@ -84,6 +84,32 @@ public class IncomeDAO {
             } while (cursor.moveToNext());
         }
         return moneyIncome;
+    }
+
+    public List<Income> getIncomeByDate(String date) {
+        List<Income> incomeList = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_INCOME
+                + " WHERE " + KEY_DATE + " = " + '"' + date + '"';
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Income incomeBEAN = new Income();
+                incomeBEAN.set_id(Integer.parseInt(cursor.getString(0)));
+                incomeBEAN.set_amountMoney(cursor.getString(1));
+                incomeBEAN.set_category(cursor.getString(2));
+                incomeBEAN.set_description(cursor.getString(3));
+                incomeBEAN.set_accountName(cursor.getString(4));
+                incomeBEAN.set_date(cursor.getString(5));
+                incomeBEAN.set_event(cursor.getString(6));
+                // Adding income to list
+                incomeList.add(incomeBEAN);
+            } while (cursor.moveToNext());
+        }
+        // return income list
+        return incomeList;
     }
 
     public List<Income> getAllIncome() {

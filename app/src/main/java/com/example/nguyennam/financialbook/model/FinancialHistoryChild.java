@@ -2,16 +2,26 @@ package com.example.nguyennam.financialbook.model;
 
 public class FinancialHistoryChild {
 
+    private boolean isExpense;
     private String moneyAmount;
     private String account;
     private String category;
     private String description;
 
-    public FinancialHistoryChild(String description, String moneyAmount, String account, String category) {
-        this.description = description;
+    public FinancialHistoryChild(boolean isExpense, String moneyAmount, String account, String category, String description) {
+        this.isExpense = isExpense;
         this.moneyAmount = moneyAmount;
         this.account = account;
         this.category = category;
+        this.description = description;
+    }
+
+    public boolean isExpense() {
+        return isExpense;
+    }
+
+    public void setExpense(boolean expense) {
+        this.isExpense = expense;
     }
 
     public String getMoneyAmount() {

@@ -6,11 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.nguyennam.financialbook.model.CategoryChild;
-import com.example.nguyennam.financialbook.model.CategoryGroup;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
 import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
@@ -30,6 +27,7 @@ public class FinancialHistoryAdapter extends BaseExpandableListAdapter {
         this.originalList = new ArrayList<>();
         this.originalList.addAll(financialHistoryGroups);
     }
+
     @Override
     public int getGroupCount() {
         return financialHistoryGroups.size();
@@ -70,30 +68,44 @@ public class FinancialHistoryAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         FinancialHistoryGroup financialHistoryGroup = (FinancialHistoryGroup) getGroup(groupPosition);
-        if (convertView == null) {
-            LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.financial_history_group, parent, false);
-        }
+//        if (convertView == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if ("0".equals(financialHistoryGroup.getMoneyExpense())) {
+                convertView = layoutInflater.inflate(R.layout.financial_history_incomegroup, parent, false);
+                TextView txtIncome = (TextView) convertView.findViewById(R.id.txtIncome);
+                txtIncome.setText(financialHistoryGroup.getMoneyIncome().trim());
+            } else if ("0".equals(financialHistoryGroup.getMoneyIncome())) {
+                convertView = layoutInflater.inflate(R.layout.financial_history_expensegroup, parent, false);
+                TextView txtExpense = (TextView) convertView.findViewById(R.id.txtExpense);
+                txtExpense.setText(financialHistoryGroup.getMoneyExpense().trim());
+            } else {
+                convertView = layoutInflater.inflate(R.layout.financial_history_group, parent, false);
+                TextView txtIncome = (TextView) convertView.findViewById(R.id.txtIncome);
+                txtIncome.setText(financialHistoryGroup.getMoneyIncome().trim());
+                TextView txtExpense = (TextView) convertView.findViewById(R.id.txtExpense);
+                txtExpense.setText(financialHistoryGroup.getMoneyExpense().trim());
+            }
+//        }
         TextView dateOfMonth = (TextView) convertView.findViewById(R.id.dateOfMonth);
         dateOfMonth.setText(financialHistoryGroup.getDateOfMonth().trim());
         TextView dateOfWeek = (TextView) convertView.findViewById(R.id.dateOfWeek);
         dateOfWeek.setText(financialHistoryGroup.getDateOfWeek().trim());
         TextView date = (TextView) convertView.findViewById(R.id.date);
         date.setText(financialHistoryGroup.getDate().trim());
-        TextView txtIncome = (TextView) convertView.findViewById(R.id.txtIncome);
-        txtIncome.setText(financialHistoryGroup.getMoneyIncome().trim());
-        TextView txtExpense = (TextView) convertView.findViewById(R.id.txtExpense);
-        txtExpense.setText(financialHistoryGroup.getMoneyExpense().trim());
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         FinancialHistoryChild financialHistoryChild = (FinancialHistoryChild) getChild(groupPosition, childPosition);
-        if (convertView == null){
+//        if (convertView == null){
             LayoutInflater  layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.financial_history_child, parent, false);
-        }
+            if (financialHistoryChild.isExpense()) {
+                convertView = layoutInflater.inflate(R.layout.financial_history_expensechild, parent, false);
+            } else {
+                convertView = layoutInflater.inflate(R.layout.financial_history_incomechild, parent, false);
+            }
+//        }
         TextView txtCategory = (TextView) convertView.findViewById(R.id.txtCategory);
         txtCategory.setText(financialHistoryChild.getCategory().trim());
         TextView txtDescription = (TextView) convertView.findViewById(R.id.txtDescription);

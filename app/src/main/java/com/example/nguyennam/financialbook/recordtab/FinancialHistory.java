@@ -16,8 +16,10 @@ import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
+import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
 import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
+import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
@@ -26,7 +28,6 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -125,32 +126,51 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         List<String> dateIncomeList = incomeDAO.getDateIncome();
         // sort date from now to past and avoid duplicate date
         sortDateList(dateExpenseList, dateIncomeList);
-        for (String date: dateExpenseList) {
+        for (String date : dateExpenseList) {
             dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
             dateOfMonth = CalendarSupport.getDateOfMonth(date);
             month = CalendarSupport.getMonth(date);
             List<String> moneyExpenseList = expenseDAO.getMoneyByDate(date);
-            moneyExpense = addMoneyOneDate(moneyExpenseList);
+            moneyExpense = getMoneyOneDate(moneyExpenseList);
             List<String> moneyIncomeList = incomeDAO.getMoneyByDate(date);
-            moneyIncome = addMoneyOneDate(moneyIncomeList);
+            moneyIncome = getMoneyOneDate(moneyIncomeList);
             Log.d(Constant.TAG, "loadHistoryData: " + date + "    " + moneyExpense);
             Log.d(Constant.TAG, "loadData: " + date + "    " + moneyIncome);
-            financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, month, moneyExpense, moneyIncome, getChildList());
+            financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, month, moneyExpense, moneyIncome, getChildList(date));
             financialGroupList.add(financialHistoryGroup);
         }
     }
 
-    private ArrayList<FinancialHistoryChild> getChildList() {
+    private ArrayList<FinancialHistoryChild> getChildList(String date) {
         //TODO
-        String description = "ab cd";
-        String moneyAmount = "3.000.000";
-        String account = "Ví";
-        String category = "Ăn";
+        String description;
+        String moneyAmount;
+        String account;
+        String category;
+        FinancialHistoryChild financialChild;
         ArrayList<FinancialHistoryChild> financialChildList = new ArrayList<>();
-        FinancialHistoryChild financialChild = new FinancialHistoryChild(description, moneyAmount, account, category);
-        financialChildList.add(financialChild);
-        financialChild = new FinancialHistoryChild("ok ok", "20.000.000", "ATM", "Lương");
-        financialChildList.add(financialChild);
+        List<Income> incomeList;
+        IncomeDAO incomeDAO = new IncomeDAO(context);
+        incomeList = incomeDAO.getIncomeByDate(date);
+        for (Income income : incomeList) {
+            moneyAmount = income.get_amountMoney();
+            account = income.get_accountName();
+            category = income.get_category();
+            description = income.get_description();
+            financialChild = new FinancialHistoryChild(false, moneyAmount, account, category, description);
+            financialChildList.add(financialChild);
+        }
+        List<Expense> expenseList;
+        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        expenseList = expenseDAO.getExpenseByDate(date);
+        for (Expense expense : expenseList) {
+            moneyAmount = expense.get_amountMoney();
+            account = expense.get_accountName();
+            category = expense.get_category();
+            description = expense.get_description();
+            financialChild = new FinancialHistoryChild(true, moneyAmount, account, category, description);
+            financialChildList.add(financialChild);
+        }
         return financialChildList;
     }
 
@@ -178,7 +198,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         });
     }
 
-    public String addMoneyOneDate (List<String> moneyExpenseList) {
+    public String getMoneyOneDate(List<String> moneyExpenseList) {
         String moneyOnedate;
         double moneyNumber = 0; //money expense format to calculate and format to display
         for (String money : moneyExpenseList) {

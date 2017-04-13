@@ -84,6 +84,7 @@
     <string name="noticeNoCategory">Bạn chưa nhập \"Mục chi\".</string>
     <string name="noticeNoAccount">Bạn chưa nhập \"Vào tài khoản\".</string>
     <string name="IncomeCategory">Hạng mục thu</string>
+    <string name="incomeHistory">Thu:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
