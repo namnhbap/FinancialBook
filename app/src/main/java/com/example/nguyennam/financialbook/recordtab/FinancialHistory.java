@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.example.nguyennam.financialbook.R;
@@ -34,9 +35,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class FinancialHistory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+public class FinancialHistory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnClickListener {
 
     Context context;
+    ImageView txtCancel;
     private FinancialHistoryAdapter listAdapter;
     private ExpandableListView myList;
     private ArrayList<FinancialHistoryGroup> financialGroupList = new ArrayList<>();
@@ -57,6 +59,8 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.financial_history, container, false);
+        txtCancel = (ImageView) view.findViewById(R.id.txtCancel);
+        txtCancel.setOnClickListener(this);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) view.findViewById(R.id.searchHistory);
         search.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -228,5 +232,14 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         listAdapter.filterData(query);
         expandAll();
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.txtCancel:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
     }
 }

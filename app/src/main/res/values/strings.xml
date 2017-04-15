@@ -174,4 +174,17 @@
         <item>ATM</item>
         <item>Tiết kiệm</item>
     </string-array>
+    <string-array name="account_type">
+        <item>Tiền mặt</item>
+        <item>Tài khoản ngân hàng</item>
+        <item>Thẻ tín dụng</item>
+        <item>Tài khoản đầu tư</item>
+        <item>Tài khoản tiết kiệm</item>
+    </string-array>
+    <string-array name="money_type">
+        <item>VND</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+    </string-array>
 </resources>

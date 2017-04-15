@@ -20,8 +20,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Table Column
     class AccountColumn implements BaseColumns {
-        static final String KEY_NAME = "name";
-        static final String KEY_BALANCE = "balance";
+        static final String KEY_ACCOUNTNAME = "accountname";
+        static final String KEY_ACCOUNTTYPE = "accounttype";
+        static final String KEY_MONEYTYPE = "moneytype";
+        static final String KEY_MONEYSTART = "moneystart";
+        static final String KEY_DESCRIPTION = "description";
+        static final String KEY_AMOUNTMONEY = "amountmoney";
     }
 
     class ExpenseColumn implements BaseColumns {
@@ -53,8 +57,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Create & Drop Table
     private static final String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNTS + "("
-            + AccountColumn._ID + " INTEGER PRIMARY KEY," + AccountColumn.KEY_NAME + " TEXT,"
-            + AccountColumn.KEY_BALANCE + " TEXT" + ")";
+            + AccountColumn._ID + " INTEGER PRIMARY KEY," + AccountColumn.KEY_ACCOUNTNAME + " TEXT,"
+            + AccountColumn.KEY_ACCOUNTTYPE + " TEXT," + AccountColumn.KEY_MONEYTYPE + " TEXT,"
+            + AccountColumn.KEY_MONEYSTART + " TEXT," + AccountColumn.KEY_DESCRIPTION + " TEXT,"
+            + AccountColumn.KEY_AMOUNTMONEY + " TEXT" + ")";
     private static final String DROP_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + TABLE_ACCOUNTS;
 
     private static final String CREATE_EXPENSE_TABLE = "CREATE TABLE " + TABLE_EXPENSE + "("
@@ -101,6 +107,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         super.onDowngrade(db, oldVersion, newVersion);
     }
-
-
 }

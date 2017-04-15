@@ -57,14 +57,14 @@ public class MainActivity extends FragmentActivity {
         if (prefs.getBoolean("firstrun", true)) {
             // Do first run stuff here then set 'firstrun' as false
             AccountRecyclerViewDAO allAcount = new AccountRecyclerViewDAO(this);
-            allAcount.addAccount(new AccountRecyclerView(1, "Ví", 0));
-            allAcount.addAccount(new AccountRecyclerView(2, "ATM", 0));
-            allAcount.addAccount(new AccountRecyclerView(3, "Tiết Kiệm", 0));
+            allAcount.addAccount(new AccountRecyclerView("Ví", "", "", "0", "", "0"));
+            allAcount.addAccount(new AccountRecyclerView("ATM", "", "", "0", "", "0"));
+            allAcount.addAccount(new AccountRecyclerView("Tiết Kiệm", "", "", "0", "", "0"));
             //data for financial history
             ExpenseDAO expenseDAO = new ExpenseDAO(this);
-            expenseDAO.addExpense(new Expense(1, "100.000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
-            expenseDAO.addExpense(new Expense(2, "200.000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
-            expenseDAO.addExpense(new Expense(3, "350.000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense("100.000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense("200.000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense("350.000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
             //date for test budget
             BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
             allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));

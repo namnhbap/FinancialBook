@@ -34,7 +34,7 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
     @Override
     public void onBindViewHolder(AccountRecyclerViewAdapter.AccountViewHolder holder, int position) {
         AccountRecyclerView account = data.get(position);
-        holder.txtAccountType.setText(account.getAccountType());
+        holder.txtAccountType.setText(account.getAccountName());
         holder.txtAmountMoney.setText(String.valueOf(account.getAmountMoney()));
     }
 

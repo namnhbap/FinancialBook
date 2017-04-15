@@ -32,7 +32,7 @@ public class RecordAccountAdapter extends RecyclerView.Adapter<RecordAccountAdap
     @Override
     public void onBindViewHolder(RecordAccountAdapter.RecordAccountViewHolder holder, int position) {
         AccountRecyclerView account = data.get(position);
-        holder.txtAccountType.setText(account.getAccountType());
+        holder.txtAccountType.setText(account.getAccountName());
         holder.txtAmountMoney.setText(String.valueOf(account.getAmountMoney()));
     }
 

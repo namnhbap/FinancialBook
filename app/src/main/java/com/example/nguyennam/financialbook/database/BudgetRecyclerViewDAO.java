@@ -5,15 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.AccountColumn.KEY_BALANCE;
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.AccountColumn.KEY_NAME;
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_ACCOUNTS;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.AccountColumn.KEY_AMOUNTMONEY;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.AccountColumn.KEY_ACCOUNTNAME;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_BUDGET;
 
 
@@ -30,8 +28,8 @@ public class BudgetRecyclerViewDAO {
     public void addBudget(BudgetRecyclerView budgetRecyclerView) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, budgetRecyclerView.getTxtBudgetName());
-        values.put(KEY_BALANCE, budgetRecyclerView.getTxtBudgetMoney());
+        values.put(KEY_ACCOUNTNAME, budgetRecyclerView.getTxtBudgetName());
+        values.put(KEY_AMOUNTMONEY, budgetRecyclerView.getTxtBudgetMoney());
         // Inserting Row
         db.insert(TABLE_BUDGET, null, values);
         db.close(); // Closing database connection
@@ -41,7 +39,7 @@ public class BudgetRecyclerViewDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
 
         Cursor cursor = db.query(TABLE_BUDGET, new String[]{DatabaseHandler.BudgetCollumn._ID,
-                        KEY_NAME, KEY_BALANCE}, DatabaseHandler.BudgetCollumn._ID + "=?",
+                        KEY_ACCOUNTNAME, KEY_AMOUNTMONEY}, DatabaseHandler.BudgetCollumn._ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -90,8 +88,8 @@ public class BudgetRecyclerViewDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, budgetRecyclerView.getTxtBudgetName());
-        values.put(KEY_BALANCE, budgetRecyclerView.getTxtBudgetMoney());
+        values.put(KEY_ACCOUNTNAME, budgetRecyclerView.getTxtBudgetName());
+        values.put(KEY_AMOUNTMONEY, budgetRecyclerView.getTxtBudgetMoney());
 
         // updating row
         return db.update(TABLE_BUDGET, values, DatabaseHandler.BudgetCollumn._ID + " = ?",

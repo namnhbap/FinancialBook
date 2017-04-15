@@ -55,7 +55,7 @@ public class Accounts extends Fragment implements RecordAccountAdapter.RecordAcc
 
     @Override
     public void onClick(int position) {
-        String accountType = account.getAccountById(position+1).getAccountType();
+        String accountType = account.getAccountById(position+1).getAccountName();
         String filename = "temp_account.tmp";
         FileHelper.writeFile(context, filename, accountType);
         getActivity().getSupportFragmentManager().popBackStack();
