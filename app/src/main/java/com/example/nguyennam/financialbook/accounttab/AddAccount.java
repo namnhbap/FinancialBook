@@ -13,9 +13,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.recordtab.Calculator;
 import com.example.nguyennam.financialbook.utils.Constant;
@@ -70,8 +72,9 @@ public class AddAccount extends Fragment implements View.OnClickListener,
         super.onStart();
         account.setMoneyStart(FileHelper.readFile(context, temp_calculator));
 
+        txtAccountType.setText(account.getAccountType());
         txtAmount.setText(account.getMoneyStart());
-
+        txtMoneyType.setText(account.getMoneyType());
         Log.d(Constant.TAG, "onStart: ");
     }
 
@@ -96,18 +99,44 @@ public class AddAccount extends Fragment implements View.OnClickListener,
                 break;
             case R.id.done:
             case R.id.lnSave:
-
+                if ("".equals(txtAccountName.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountName),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtAmount.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtAccountType.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountType),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtMoneyType.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoneyType),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    saveData();
+                }
         }
+    }
+
+    public void saveData() {
+        account.setAccountName(txtAccountName.getText().toString());
+        account.setMoneyStart(txtAmount.getText().toString());
+        account.setAmountMoney(txtAmount.getText().toString());
+        account.setDescription(txtDescription.getText().toString());
+        AccountRecyclerViewDAO accountRecyclerViewDAO = new AccountRecyclerViewDAO(context);
+        accountRecyclerViewDAO.addAccount(account);
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 
     @Override
     public void onFinishAccountDialog(String inputText) {
         txtAccountType.setText(inputText);
+        account.setAccountType(inputText);
     }
 
     @Override
     public void onFinishMoneyDialog(String inputText) {
         txtMoneyType.setText(inputText);
+        account.setMoneyType(inputText);
     }
 }
 

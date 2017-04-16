@@ -85,6 +85,9 @@
     <string name="noticeNoAccount">Bạn chưa nhập \"Vào tài khoản\".</string>
     <string name="IncomeCategory">Hạng mục thu</string>
     <string name="incomeHistory">Thu:</string>
+    <string name="noticeNoAccountName">Bạn chưa nhập \"Tên tài khoản\".</string>
+    <string name="noticeNoAccountType">Bạn chưa chọn \"Loại tài khoản\".</string>
+    <string name="noticeNoMoneyType">Bạn chưa chọn \"Loại tiền tệ\".</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
