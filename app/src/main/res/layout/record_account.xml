@@ -20,6 +20,7 @@
             android:src="@drawable/previous"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:background="@drawable/selector_button_back"
             android:contentDescription="@string/previous"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"

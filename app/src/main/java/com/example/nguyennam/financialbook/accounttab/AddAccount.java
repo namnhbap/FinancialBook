@@ -125,6 +125,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
         account.setDescription(txtDescription.getText().toString());
         AccountRecyclerViewDAO accountRecyclerViewDAO = new AccountRecyclerViewDAO(context);
         accountRecyclerViewDAO.addAccount(account);
+        FileHelper.deleteFile(context, temp_calculator);
         getActivity().getSupportFragmentManager().popBackStack();
     }
 

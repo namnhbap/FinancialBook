@@ -30,6 +30,7 @@
                 android:paddingLeft="-20dp"
                 android:paddingRight="-20dp"
                 android:src="@drawable/add"
+                android:background="@drawable/selector_button_back"
                 android:contentDescription="@string/addBudget"/>
         </LinearLayout>
 
