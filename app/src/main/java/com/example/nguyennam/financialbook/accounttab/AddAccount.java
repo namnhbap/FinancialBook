@@ -114,6 +114,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
                 } else {
                     saveData();
                 }
+                break;
         }
     }
 
