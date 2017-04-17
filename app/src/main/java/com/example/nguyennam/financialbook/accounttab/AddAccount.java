@@ -75,7 +75,6 @@ public class AddAccount extends Fragment implements View.OnClickListener,
         txtAccountType.setText(account.getAccountType());
         txtAmount.setText(account.getMoneyStart());
         txtMoneyType.setText(account.getMoneyType());
-        Log.d(Constant.TAG, "onStart: ");
     }
 
     @Override
@@ -95,6 +94,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
                 moneyTypeDialog.show(getActivity().getSupportFragmentManager(), "money_type");
                 break;
             case R.id.txtCancel:
+                FileHelper.deleteFile(context, temp_calculator);
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.done:

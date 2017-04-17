@@ -33,6 +33,12 @@ public class AccountRecyclerView {
         this.amountMoney = amountMoney;
     }
 
+    public String toString() {
+        return id + ";" + accountName +";" + accountType
+                + ";" + moneyType +";" + moneyStart
+                + ";" + amountMoney +";" + description;
+    }
+
     public int getId() {
         return id;
     }
