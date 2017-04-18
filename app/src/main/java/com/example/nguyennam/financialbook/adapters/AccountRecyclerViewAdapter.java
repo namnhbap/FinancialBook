@@ -2,16 +2,20 @@ package com.example.nguyennam.financialbook.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.accounttab.EditAccount;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 
 import java.util.List;
@@ -20,6 +24,7 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
 
     Context context;
     List<AccountRecyclerView> data;
+    String filename = "temp_ID.tmp";
 
     public AccountRecyclerViewAdapter(Context context, List<AccountRecyclerView> data) {
         this.context = context;
@@ -29,15 +34,30 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
     @Override
     public AccountRecyclerViewAdapter.AccountViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_item_recyclerview, parent, false);
-        AccountViewHolder myViewHolder = new AccountViewHolder(view);
-        return myViewHolder;
+        return new AccountViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AccountRecyclerViewAdapter.AccountViewHolder holder, int position) {
+    public void onBindViewHolder(final AccountRecyclerViewAdapter.AccountViewHolder holder, int position) {
         AccountRecyclerView account = data.get(position);
         holder.txtAccountType.setText(account.getAccountName());
         holder.txtAmountMoney.setText(String.valueOf(account.getAmountMoney()));
+        holder.imgEditAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long dataPosition = getItemId(holder.getAdapterPosition());
+                Log.d(Constant.TAG, "onClick: " + dataPosition);
+                FileHelper.writeFile(context, filename, "" + dataPosition);
+                ((MainActivity) context).replaceFragment(new EditAccount(), true);
+                Toast.makeText(context, "position " + dataPosition, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //get id of item recyclerview
+    @Override
+    public long getItemId(int position) {
+        return data.get(position).getId();
     }
 
     @Override

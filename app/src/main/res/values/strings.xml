@@ -88,6 +88,8 @@
     <string name="noticeNoAccountName">Bạn chưa nhập \"Tên tài khoản\".</string>
     <string name="noticeNoAccountType">Bạn chưa chọn \"Loại tài khoản\".</string>
     <string name="noticeNoMoneyType">Bạn chưa chọn \"Loại tiền tệ\".</string>
+    <string name="deleteTitle">Xóa tài khoản!</string>
+    <string name="deleteMessage">Nếu bạn xóa tài khoản này, tất cả các bản ghi chép liên quan cũng sẽ bị xóa. Bạn có thực sự muốn xóa không?</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

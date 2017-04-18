@@ -28,7 +28,8 @@ import java.util.Locale;
 
 
 public class EditAccount extends Fragment implements View.OnClickListener,
-        AccountTypeDialog.AccountTypeDialogListener, MoneyTypeDialog.MoneyTypeDialogListener {
+        AccountTypeDialog.AccountTypeDialogListener, MoneyTypeDialog.MoneyTypeDialogListener,
+        DeleteAccountDialog.DeleteDialogListener {
 
     Context context;
     EditText txtAccountName;
@@ -81,6 +82,8 @@ public class EditAccount extends Fragment implements View.OnClickListener,
         rlMoneyType.setOnClickListener(this);
         LinearLayout lnSave = (LinearLayout) view.findViewById(R.id.lnSave);
         lnSave.setOnClickListener(this);
+        LinearLayout lnDelete = (LinearLayout) view.findViewById(R.id.lnDelete);
+        lnDelete.setOnClickListener(this);
         return view;
     }
 
@@ -91,7 +94,6 @@ public class EditAccount extends Fragment implements View.OnClickListener,
             txtAmount.setText(FileHelper.readFile(context, temp_calculator));
         }
         txtAccountType.setText(account.getAccountType());
-//        txtAmount.setText(account.getMoneyStart());
         txtMoneyType.setText(account.getMoneyType());
     }
 
@@ -117,23 +119,29 @@ public class EditAccount extends Fragment implements View.OnClickListener,
                 FileHelper.deleteFile(context, temp_ID);
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
+            case R.id.lnDelete:
+                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog();
+                deleteAccountDialog.setTargetFragment(EditAccount.this, 271);
+                deleteAccountDialog.show(getActivity().getSupportFragmentManager(), "delete_account");
+                break;
             case R.id.done:
             case R.id.lnSave:
-                if ("".equals(txtAccountName.getText().toString())) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountName),
-                            Toast.LENGTH_LONG).show();
-                } else if ("".equals(txtAmount.getText().toString())) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
-                            Toast.LENGTH_LONG).show();
-                } else if ("".equals(txtAccountType.getText().toString())) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountType),
-                            Toast.LENGTH_LONG).show();
-                } else if ("".equals(txtMoneyType.getText().toString())) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoneyType),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    saveData();
-                }
+//                if ("".equals(txtAccountName.getText().toString())) {
+//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountName),
+//                            Toast.LENGTH_LONG).show();
+//                } else if ("".equals(txtAmount.getText().toString())) {
+//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
+//                            Toast.LENGTH_LONG).show();
+//                } else if ("".equals(txtAccountType.getText().toString())) {
+//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountType),
+//                            Toast.LENGTH_LONG).show();
+//                } else if ("".equals(txtMoneyType.getText().toString())) {
+//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoneyType),
+//                            Toast.LENGTH_LONG).show();
+//                } else {
+//                    saveData();
+//                }
+                saveData();
                 break;
         }
     }
@@ -171,5 +179,13 @@ public class EditAccount extends Fragment implements View.OnClickListener,
     public void onFinishMoneyDialog(String inputText) {
         txtMoneyType.setText(inputText);
         account.setMoneyType(inputText);
+    }
+
+    @Override
+    public void onFinishDeleteDialog(boolean isDelete) {
+        if (isDelete) {
+            accountDAO.deleteAccount(account);
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 }

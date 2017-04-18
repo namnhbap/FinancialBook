@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.nguyennam.financialbook.adapters.AccountRecyclerViewAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.recordtab.FinancialHistory;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
@@ -57,9 +59,8 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
 
     @Override
     public void onClick(int position) {
-        //test account_edit
-        FileHelper.writeFile(context, filename, "" + ++position);
-        ((MainActivity) context).replaceFragment(new EditAccount(), true);
+        //display financial history of this account
+
     }
 
     @Override
