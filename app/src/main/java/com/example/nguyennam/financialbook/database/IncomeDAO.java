@@ -15,7 +15,7 @@ import static com.example.nguyennam.financialbook.database.DatabaseHandler.Incom
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.IncomeColumn.KEY_INCOMECATEGORY;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.IncomeColumn.KEY_DATE;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.IncomeColumn.KEY_EVENT;
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.IncomeColumn.KEY_ACCOUNTNAME;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.IncomeColumn.KEY_ACCOUNTID;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_INCOME;
 
 
@@ -35,7 +35,7 @@ public class IncomeDAO {
         values.put(KEY_AMOUNTMONEY, incomeBEAN.get_amountMoney());
         values.put(KEY_INCOMECATEGORY, incomeBEAN.get_category());
         values.put(KEY_DESCRIPTION, incomeBEAN.get_description());
-        values.put(KEY_ACCOUNTNAME, incomeBEAN.get_accountName());
+        values.put(KEY_ACCOUNTID, incomeBEAN.get_accountID());
         values.put(KEY_DATE, incomeBEAN.get_date());
         values.put(KEY_EVENT, incomeBEAN.get_event());
         // Inserting Row
@@ -47,14 +47,14 @@ public class IncomeDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         Cursor cursor = db.query(TABLE_INCOME, new String[] { DatabaseHandler.IncomeColumn._ID,
                         KEY_AMOUNTMONEY, KEY_INCOMECATEGORY, KEY_DESCRIPTION,
-                KEY_ACCOUNTNAME, KEY_DATE, KEY_EVENT }, DatabaseHandler.IncomeColumn._ID + "=?",
+                        KEY_ACCOUNTID, KEY_DATE, KEY_EVENT }, DatabaseHandler.IncomeColumn._ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         Income incomeBEAN = new Income(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                cursor.getString(4), cursor.getString(5), cursor.getString(6));
+                Integer.parseInt(cursor.getString(4)), cursor.getString(5), cursor.getString(6));
         // return income
         return incomeBEAN;
     }
@@ -101,7 +101,7 @@ public class IncomeDAO {
                 incomeBEAN.set_amountMoney(cursor.getString(1));
                 incomeBEAN.set_category(cursor.getString(2));
                 incomeBEAN.set_description(cursor.getString(3));
-                incomeBEAN.set_accountName(cursor.getString(4));
+                incomeBEAN.set_accountID(Integer.parseInt(cursor.getString(4)));
                 incomeBEAN.set_date(cursor.getString(5));
                 incomeBEAN.set_event(cursor.getString(6));
                 // Adding income to list
@@ -126,7 +126,7 @@ public class IncomeDAO {
                 incomeBEAN.set_amountMoney(cursor.getString(1));
                 incomeBEAN.set_category(cursor.getString(2));
                 incomeBEAN.set_description(cursor.getString(3));
-                incomeBEAN.set_accountName(cursor.getString(4));
+                incomeBEAN.set_accountID(Integer.parseInt(cursor.getString(4)));
                 incomeBEAN.set_date(cursor.getString(5));
                 incomeBEAN.set_event(cursor.getString(6));
                 // Adding income to list
@@ -152,7 +152,7 @@ public class IncomeDAO {
         values.put(KEY_AMOUNTMONEY, incomeBEAN.get_amountMoney());
         values.put(KEY_INCOMECATEGORY, incomeBEAN.get_category());
         values.put(KEY_DESCRIPTION, incomeBEAN.get_description());
-        values.put(KEY_ACCOUNTNAME, incomeBEAN.get_accountName());
+        values.put(KEY_ACCOUNTID, incomeBEAN.get_accountID());
         values.put(KEY_DATE, incomeBEAN.get_date());
         values.put(KEY_EVENT, incomeBEAN.get_event());
         // updating row

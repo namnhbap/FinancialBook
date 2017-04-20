@@ -15,7 +15,7 @@ import static com.example.nguyennam.financialbook.database.DatabaseHandler.Expen
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.ExpenseColumn.KEY_EXPENSECATEGORY;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.ExpenseColumn.KEY_EXPENSEDATE;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.ExpenseColumn.KEY_EXPENSEEVENT;
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.ExpenseColumn.KEY_FROMACCOUNT;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.ExpenseColumn.KEY_ACCOUNTID;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_EXPENSE;
 
 
@@ -35,7 +35,7 @@ public class ExpenseDAO {
         values.put(KEY_AMOUNTMONEY, expenseBEAN.get_amountMoney());
         values.put(KEY_EXPENSECATEGORY, expenseBEAN.get_category());
         values.put(KEY_DESCRIPTION, expenseBEAN.get_description());
-        values.put(KEY_FROMACCOUNT, expenseBEAN.get_accountName());
+        values.put(KEY_ACCOUNTID, expenseBEAN.get_accountID());
         values.put(KEY_EXPENSEDATE, expenseBEAN.get_date());
         values.put(KEY_EXPENSEEVENT, expenseBEAN.get_event());
         // Inserting Row
@@ -47,14 +47,14 @@ public class ExpenseDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         Cursor cursor = db.query(TABLE_EXPENSE, new String[] { DatabaseHandler.ExpenseColumn._ID,
                         KEY_AMOUNTMONEY, KEY_EXPENSECATEGORY, KEY_DESCRIPTION,
-                KEY_FROMACCOUNT, KEY_EXPENSEDATE, KEY_EXPENSEEVENT }, DatabaseHandler.ExpenseColumn._ID + "=?",
+                        KEY_ACCOUNTID, KEY_EXPENSEDATE, KEY_EXPENSEEVENT }, DatabaseHandler.ExpenseColumn._ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         Expense expenseBEAN = new Expense(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                cursor.getString(4), cursor.getString(5), cursor.getString(6));
+                Integer.parseInt(cursor.getString(4)), cursor.getString(5), cursor.getString(6));
         // return expense
         return expenseBEAN;
     }
@@ -101,7 +101,7 @@ public class ExpenseDAO {
                 expenseBEAN.set_amountMoney(cursor.getString(1));
                 expenseBEAN.set_category(cursor.getString(2));
                 expenseBEAN.set_description(cursor.getString(3));
-                expenseBEAN.set_accountName(cursor.getString(4));
+                expenseBEAN.set_accountID(Integer.parseInt(cursor.getString(4)));
                 expenseBEAN.set_date(cursor.getString(5));
                 expenseBEAN.set_event(cursor.getString(6));
                 // Adding expense to list
@@ -126,7 +126,7 @@ public class ExpenseDAO {
                 expenseBEAN.set_amountMoney(cursor.getString(1));
                 expenseBEAN.set_category(cursor.getString(2));
                 expenseBEAN.set_description(cursor.getString(3));
-                expenseBEAN.set_accountName(cursor.getString(4));
+                expenseBEAN.set_accountID(Integer.parseInt(cursor.getString(4)));
                 expenseBEAN.set_date(cursor.getString(5));
                 expenseBEAN.set_event(cursor.getString(6));
                 // Adding expense to list
@@ -152,7 +152,7 @@ public class ExpenseDAO {
         values.put(KEY_AMOUNTMONEY, expenseBEAN.get_amountMoney());
         values.put(KEY_EXPENSECATEGORY, expenseBEAN.get_category());
         values.put(KEY_DESCRIPTION, expenseBEAN.get_description());
-        values.put(KEY_FROMACCOUNT, expenseBEAN.get_accountName());
+        values.put(KEY_ACCOUNTID, expenseBEAN.get_accountID());
         values.put(KEY_EXPENSEDATE, expenseBEAN.get_date());
         values.put(KEY_EXPENSEEVENT, expenseBEAN.get_event());
         // updating row

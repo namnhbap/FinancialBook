@@ -60,7 +60,8 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
     @Override
     public void onClick(int position) {
         //display financial history of this account
-
+        FileHelper.writeFile(context, filename, "" + position);
+        ((MainActivity) context).replaceFragment(new AccountFinancialHistory(), true);
     }
 
     @Override

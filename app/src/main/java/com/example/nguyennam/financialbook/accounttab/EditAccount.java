@@ -126,22 +126,21 @@ public class EditAccount extends Fragment implements View.OnClickListener,
                 break;
             case R.id.done:
             case R.id.lnSave:
-//                if ("".equals(txtAccountName.getText().toString())) {
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountName),
-//                            Toast.LENGTH_LONG).show();
-//                } else if ("".equals(txtAmount.getText().toString())) {
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
-//                            Toast.LENGTH_LONG).show();
-//                } else if ("".equals(txtAccountType.getText().toString())) {
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountType),
-//                            Toast.LENGTH_LONG).show();
-//                } else if ("".equals(txtMoneyType.getText().toString())) {
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoneyType),
-//                            Toast.LENGTH_LONG).show();
-//                } else {
-//                    saveData();
-//                }
-                saveData();
+                if ("".equals(txtAccountName.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountName),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtAmount.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtAccountType.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccountType),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtMoneyType.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoneyType),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    saveData();
+                }
                 break;
         }
     }

@@ -17,16 +17,14 @@ import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class ExpenseFormInput extends Fragment implements View.OnClickListener {
 
@@ -42,7 +40,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
 
     String temp_calculator = "temp_calculator.tmp";
     String temp_category = "temp_category.tmp";
-    String temp_account = "temp_account.tmp";
+    String temp_account_id = "temp_account_id.tmp";
     String temp_description = "temp_description.tmp";
     String temp_event = "temp_event.tmp";
 
@@ -101,17 +99,34 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
 
-        expense.set_amountMoney(FileHelper.readFile(context, temp_calculator));
-        expense.set_category(FileHelper.readFile(context, temp_category));
-        expense.set_accountName(FileHelper.readFile(context, temp_account));
-        expense.set_description(FileHelper.readFile(context, temp_description));
-        expense.set_event(FileHelper.readFile(context, temp_event));
-
-        txtAmount.setText(expense.get_amountMoney());
-        txtCategory.setText(expense.get_category());
-        txtAccountName.setText(expense.get_accountName());
-        txtDescription.setText(expense.get_description());
-        txtExpenseEvent.setText(expense.get_event());
+        if (!"".equals(FileHelper.readFile(context, temp_calculator))) {
+            txtAmount.setText(FileHelper.readFile(context, temp_calculator));
+        }
+        if (!"".equals(FileHelper.readFile(context, temp_category))) {
+            txtCategory.setText(FileHelper.readFile(context, temp_category));
+        }
+        if (!"".equals(FileHelper.readFile(context, temp_account_id))) {
+            AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+            expense.set_accountID(Integer.parseInt(FileHelper.readFile(context, temp_account_id)));
+            txtAccountName.setText(accountDAO.getAccountById(expense.get_accountID()).getAccountName());
+        }
+        if (!"".equals(FileHelper.readFile(context, temp_description))) {
+            txtDescription.setText(FileHelper.readFile(context, temp_description));
+        }
+        if (!"".equals(FileHelper.readFile(context, temp_event))) {
+            txtExpenseEvent.setText(FileHelper.readFile(context, temp_event));
+        }
+//        expense.set_amountMoney(FileHelper.readFile(context, temp_calculator));
+//        expense.set_category(FileHelper.readFile(context, temp_category));
+//        expense.set_accountID(Integer.parseInt(FileHelper.readFile(context, temp_account_id)));
+//        expense.set_description(FileHelper.readFile(context, temp_description));
+//        expense.set_event(FileHelper.readFile(context, temp_event));
+//
+//        txtAmount.setText(expense.get_amountMoney());
+//        txtCategory.setText(expense.get_category());
+//        txtAccountName.setText(accountDAO.getAccountById(expense.get_accountID()).getAccountName());
+//        txtDescription.setText(expense.get_description());
+//        txtExpenseEvent.setText(expense.get_event());
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -154,13 +169,13 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
                 ((MainActivity) context).replaceFragment(new Event(), true);
                 break;
             case R.id.lnSave:
-                if ("".equals(expense.get_amountMoney())) {
+                if ("".equals(txtAmount.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
-                } else if ("".equals(expense.get_category())) {
+                } else if ("".equals(txtCategory.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoCategory),
                             Toast.LENGTH_LONG).show();
-                } else if ("".equals(expense.get_accountName())) {
+                } else if ("".equals(txtAccountName.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoAccount),
                             Toast.LENGTH_LONG).show();
                 } else {
@@ -175,6 +190,10 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         FileHelper.deleteFile(context, temp_category);
         FileHelper.deleteFile(context, temp_description);
         FileHelper.deleteFile(context, temp_event);
+        expense.set_amountMoney(txtAmount.getText().toString());
+        expense.set_description(txtDescription.getText().toString());
+        expense.set_category(txtCategory.getText().toString());
+        expense.set_event(txtExpenseEvent.getText().toString());
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
         expenseDAO.addExpense(expense);
         Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllExpense());

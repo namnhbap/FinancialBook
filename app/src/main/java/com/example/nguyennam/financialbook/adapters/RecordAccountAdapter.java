@@ -37,6 +37,11 @@ public class RecordAccountAdapter extends RecyclerView.Adapter<RecordAccountAdap
     }
 
     @Override
+    public long getItemId(int position) {
+        return data.get(position).getId();
+    }
+
+    @Override
     public int getItemCount() {
         return data.size();
     }
@@ -51,7 +56,7 @@ public class RecordAccountAdapter extends RecyclerView.Adapter<RecordAccountAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick(getAdapterPosition());
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getId());
                 }
             });
         }

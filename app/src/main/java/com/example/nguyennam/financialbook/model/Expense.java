@@ -5,7 +5,7 @@ public class Expense {
     private String _amountMoney;
     private String _category;
     private String _description;
-    private String _accountName;
+    private int _accountID;
     private String _date;
     private String _event;
 
@@ -13,28 +13,28 @@ public class Expense {
 
     }
 
-    public Expense(int _id, String _amountMoney, String _category, String _description, String _accountName, String _date, String _event) {
+    public Expense(int _id, String _amountMoney, String _category, String _description, int _accountID, String _date, String _event) {
         this._id = _id;
         this._amountMoney = _amountMoney;
         this._category = _category;
         this._description = _description;
-        this._accountName = _accountName;
+        this._accountID = _accountID;
         this._date = _date;
         this._event = _event;
     }
 
-    public Expense(String _amountMoney, String _category, String _description, String _accountName, String _date, String _event) {
+    public Expense(String _amountMoney, String _category, String _description, int _accountID, String _date, String _event) {
         this._amountMoney = _amountMoney;
         this._category = _category;
         this._description = _description;
-        this._accountName = _accountName;
+        this._accountID = _accountID;
         this._date = _date;
         this._event = _event;
     }
 
     public String toString() {
         return _id + ";" + _amountMoney +";" + _category
-                + ";" + _description +";" + _accountName
+                + ";" + _description +";" + _accountID
                 + ";" + _date +";" + _event;
     }
 
@@ -70,12 +70,12 @@ public class Expense {
         this._description = _description;
     }
 
-    public String get_accountName() {
-        return _accountName;
+    public int get_accountID() {
+        return _accountID;
     }
 
-    public void set_accountName(String _accountName) {
-        this._accountName = _accountName;
+    public void set_accountID(int _accountID) {
+        this._accountID = _accountID;
     }
 
     public String get_date() {

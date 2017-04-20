@@ -62,13 +62,13 @@ public class MainActivity extends FragmentActivity {
             allAcount.addAccount(new AccountRecyclerView("Tiết Kiệm", "", "", "0", "", "0"));
             //data for financial history
             ExpenseDAO expenseDAO = new ExpenseDAO(this);
-            expenseDAO.addExpense(new Expense("100.000", "Ăn uống", "ac1", "Ví", "12/1/2017", "ok"));
-            expenseDAO.addExpense(new Expense("200.000", "Đi lại", "ac2", "Ví", "12/1/2017", "ok"));
-            expenseDAO.addExpense(new Expense("350.000", "Điện nước", "ac3", "ATM", "13/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense("100.000", "Ăn uống", "ac1", 1 , "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense("200.000", "Đi lại", "ac2", 2, "12/1/2017", "ok"));
+            expenseDAO.addExpense(new Expense("350.000", "Điện nước", "ac3", 3, "13/1/2017", "ok"));
             //date for test budget
-            BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
-            allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
-            allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
+//            BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
+//            allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
+//            allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
             // using the following line to edit/commit prefs
             prefs.edit().putBoolean("firstrun", false).apply();
         }

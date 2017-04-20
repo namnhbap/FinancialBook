@@ -32,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         static final String KEY_AMOUNTMONEY = "amountmoney";
         static final String KEY_EXPENSECATEGORY = "expensecategory";
         static final String KEY_DESCRIPTION = "record_description";
-        static final String KEY_FROMACCOUNT = "fromaccount";
+        static final String KEY_ACCOUNTID = "accountid";
         static final String KEY_EXPENSEDATE = "expensedate";
         static final String KEY_EXPENSEEVENT = "expenseevent";
     }
@@ -41,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         static final String KEY_AMOUNTMONEY = "amountmoney";
         static final String KEY_INCOMECATEGORY = "incomecategory";
         static final String KEY_DESCRIPTION = "record_description";
-        static final String KEY_ACCOUNTNAME = "accountname";
+        static final String KEY_ACCOUNTID = "accountid";
         static final String KEY_DATE = "date";
         static final String KEY_EVENT = "event";
     }
@@ -66,14 +66,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CREATE_EXPENSE_TABLE = "CREATE TABLE " + TABLE_EXPENSE + "("
             + ExpenseColumn._ID + " INTEGER PRIMARY KEY," + ExpenseColumn.KEY_AMOUNTMONEY + " TEXT,"
             + ExpenseColumn.KEY_EXPENSECATEGORY + " TEXT," + ExpenseColumn.KEY_DESCRIPTION + " TEXT,"
-            + ExpenseColumn.KEY_FROMACCOUNT + " TEXT," + ExpenseColumn.KEY_EXPENSEDATE + " TEXT,"
+            + ExpenseColumn.KEY_ACCOUNTID + " TEXT," + ExpenseColumn.KEY_EXPENSEDATE + " TEXT,"
             + ExpenseColumn.KEY_EXPENSEEVENT + " TEXT" + ")";
     private static final String DROP_EXPENSE_TABLE = "DROP TABLE IF EXISTS " + TABLE_EXPENSE;
 
     private static final String CREATE_INCOME_TABLE = "CREATE TABLE " + TABLE_INCOME + "("
             + IncomeColumn._ID + " INTEGER PRIMARY KEY," + IncomeColumn.KEY_AMOUNTMONEY + " TEXT,"
             + IncomeColumn.KEY_INCOMECATEGORY + " TEXT," + IncomeColumn.KEY_DESCRIPTION + " TEXT,"
-            + IncomeColumn.KEY_ACCOUNTNAME + " TEXT," + IncomeColumn.KEY_DATE + " TEXT,"
+            + IncomeColumn.KEY_ACCOUNTID + " TEXT," + IncomeColumn.KEY_DATE + " TEXT,"
             + IncomeColumn.KEY_EVENT + " TEXT" + ")";
     private static final String DROP_INCOME_TABLE = "DROP TABLE IF EXISTS " + TABLE_INCOME;
 

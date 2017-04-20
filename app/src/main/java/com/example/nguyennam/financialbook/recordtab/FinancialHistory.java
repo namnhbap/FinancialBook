@@ -15,6 +15,7 @@ import android.widget.SearchView;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.Expense;
@@ -38,7 +39,7 @@ import java.util.Locale;
 public class FinancialHistory extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnClickListener {
 
     Context context;
-    ImageView txtCancel;
+    ImageView txtBack;
     private FinancialHistoryAdapter listAdapter;
     private ExpandableListView myList;
     private ArrayList<FinancialHistoryGroup> financialGroupList = new ArrayList<>();
@@ -59,8 +60,8 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.financial_history, container, false);
-        txtCancel = (ImageView) view.findViewById(R.id.txtCancel);
-        txtCancel.setOnClickListener(this);
+        txtBack = (ImageView) view.findViewById(R.id.txtBack);
+        txtBack.setOnClickListener(this);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) view.findViewById(R.id.searchHistory);
         search.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -158,7 +159,8 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         incomeList = incomeDAO.getIncomeByDate(date);
         for (Income income : incomeList) {
             moneyAmount = income.get_amountMoney();
-            account = income.get_accountName();
+            AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+            account = accountDAO.getAccountById(income.get_accountID()).getAccountName();
             category = income.get_category();
             description = income.get_description();
             financialChild = new FinancialHistoryChild(false, moneyAmount, account, category, description);
@@ -169,7 +171,8 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         expenseList = expenseDAO.getExpenseByDate(date);
         for (Expense expense : expenseList) {
             moneyAmount = expense.get_amountMoney();
-            account = expense.get_accountName();
+            AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+            account = accountDAO.getAccountById(expense.get_accountID()).getAccountName();
             category = expense.get_category();
             description = expense.get_description();
             financialChild = new FinancialHistoryChild(true, moneyAmount, account, category, description);
@@ -237,7 +240,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.txtCancel:
+            case R.id.txtBack:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }

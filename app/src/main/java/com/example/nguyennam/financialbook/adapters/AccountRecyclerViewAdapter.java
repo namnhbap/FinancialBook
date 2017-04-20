@@ -46,10 +46,8 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
             @Override
             public void onClick(View v) {
                 long dataPosition = getItemId(holder.getAdapterPosition());
-                Log.d(Constant.TAG, "onClick: " + dataPosition);
                 FileHelper.writeFile(context, filename, "" + dataPosition);
                 ((MainActivity) context).replaceFragment(new EditAccount(), true);
-                Toast.makeText(context, "position " + dataPosition, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -77,7 +75,7 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick(getAdapterPosition());
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getId());
                 }
             });
         }

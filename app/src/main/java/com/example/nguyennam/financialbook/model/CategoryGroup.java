@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CategoryGroup {
     private String name;
-    private ArrayList<CategoryChild> categoryChildList = new ArrayList<CategoryChild>();
+    private ArrayList<CategoryChild> categoryChildList = new ArrayList<>();
 
     public CategoryGroup(String name, ArrayList<CategoryChild> categoryChildList) {
         this.name = name;

@@ -11,7 +11,7 @@
         android:background="@drawable/selector_layout_green">
 
         <ImageView
-            android:id="@+id/txtCancel"
+            android:id="@+id/txtBack"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingTop="8dp"
@@ -28,8 +28,8 @@
             android:id="@+id/lbDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/txtCancel"
-            android:layout_toEndOf="@id/txtCancel"
+            android:layout_toRightOf="@id/txtBack"
+            android:layout_toEndOf="@id/txtBack"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="48dp"

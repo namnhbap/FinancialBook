@@ -90,6 +90,9 @@
     <string name="noticeNoMoneyType">Bạn chưa chọn \"Loại tiền tệ\".</string>
     <string name="deleteTitle">Xóa tài khoản!</string>
     <string name="deleteMessage">Nếu bạn xóa tài khoản này, tất cả các bản ghi chép liên quan cũng sẽ bị xóa. Bạn có thực sự muốn xóa không?</string>
+    <string name="remainMoney">Số tiền hiện còn</string>
+    <string name="startMoney">Số tiền ban đầu</string>
+    <string name="remain">Còn:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
