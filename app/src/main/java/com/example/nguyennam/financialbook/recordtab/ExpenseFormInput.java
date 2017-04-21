@@ -19,12 +19,16 @@ import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.Expense;
+import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ExpenseFormInput extends Fragment implements View.OnClickListener {
 
@@ -186,21 +190,52 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     }
 
     public void saveData() {
-        FileHelper.deleteFile(context, temp_calculator);
-        FileHelper.deleteFile(context, temp_category);
-        FileHelper.deleteFile(context, temp_description);
-        FileHelper.deleteFile(context, temp_event);
-        expense.set_amountMoney(txtAmount.getText().toString());
-        expense.set_description(txtDescription.getText().toString());
-        expense.set_category(txtCategory.getText().toString());
-        expense.set_event(txtExpenseEvent.getText().toString());
+        //clear temp file
+        clearTempFile();
+        //set expense
+        setExpense();
+        //add expense into database
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
         expenseDAO.addExpense(expense);
         Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllExpense());
+        //update amountmoney of account
+        updateAmountMoneyAccount();
+        //clear text
+        clearTextView();
+    }
+
+    private void clearTextView() {
         txtAmount.setText("");
         txtExpenseEvent.setText("");
         txtDescription.setText("");
         txtCategory.setText("");
         txtExpenseTime.setText(getDate());
     }
+
+    private void updateAmountMoneyAccount() {
+        AccountRecyclerView account;
+        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+        account = accountDAO.getAccountById(expense.get_accountID());
+        //remain Money = present money - expense money;
+        double remainMoneyNumber = Double.parseDouble(CalculatorSupport.formatExpression(account.getAmountMoney()))
+                - Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        account.setAmountMoney(nf.format(remainMoneyNumber));
+        accountDAO.updateAccount(account);
+    }
+
+    private void setExpense() {
+        expense.set_amountMoney(txtAmount.getText().toString());
+        expense.set_description(txtDescription.getText().toString());
+        expense.set_category(txtCategory.getText().toString());
+        expense.set_event(txtExpenseEvent.getText().toString());
+    }
+
+    private void clearTempFile() {
+        FileHelper.deleteFile(context, temp_calculator);
+        FileHelper.deleteFile(context, temp_category);
+        FileHelper.deleteFile(context, temp_description);
+        FileHelper.deleteFile(context, temp_event);
+    }
+
 }

@@ -123,14 +123,12 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         String moneyIncome;
         FinancialHistoryGroup financialHistoryGroup;
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
-        Log.d(Constant.TAG, "loadHistoryData: " + expenseDAO.getAllExpense());
         IncomeDAO incomeDAO = new IncomeDAO(context);
-        Log.d(Constant.TAG, "loadHistoryData: " + incomeDAO.getAllIncome());
         // get date from income and expense
         List<String> dateExpenseList = expenseDAO.getDateExpense();
         List<String> dateIncomeList = incomeDAO.getDateIncome();
         // sort date from now to past and avoid duplicate date
-        sortDateList(dateExpenseList, dateIncomeList);
+        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
         for (String date : dateExpenseList) {
             dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
             dateOfMonth = CalendarSupport.getDateOfMonth(date);
@@ -179,30 +177,6 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
             financialChildList.add(financialChild);
         }
         return financialChildList;
-    }
-
-    public void sortDateList(List<String> dateExpenseList, List<String> dateIncomeList) {
-        // remove date duplicate
-        dateExpenseList.removeAll(dateIncomeList);
-        // add date income to expense
-        dateExpenseList.addAll(dateIncomeList);
-        // sort date from now to past
-        Collections.sort(dateExpenseList, new Comparator<String>() {
-            @Override
-            public int compare(String arg1, String arg0) {
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                int compareResult = 0;
-                try {
-                    Date arg0Date = format.parse(arg0);
-                    Date arg1Date = format.parse(arg1);
-                    compareResult = arg0Date.compareTo(arg1Date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    compareResult = arg0.compareTo(arg1);
-                }
-                return compareResult;
-            }
-        });
     }
 
     public String getMoneyOneDate(List<String> moneyExpenseList) {

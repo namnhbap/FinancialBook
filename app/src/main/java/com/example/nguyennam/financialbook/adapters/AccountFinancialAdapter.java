@@ -38,9 +38,12 @@ public class AccountFinancialAdapter extends RecyclerView.Adapter<AccountFinanci
     @Override
     public void onBindViewHolder(final AccountFinancialAdapter.FinancialViewHolder holder, int position) {
         FinancialRecyclerView financialRecyclerView = data.get(position);
-//        if ("Thu:".equals(financialRecyclerView.getFinancial())) {
-//            holder.txtFinancial.setTextColor(R.color.textTab);
-//        }
+        if ("Thu:".equals(financialRecyclerView.getFinancial())) {
+            holder.txtFinancial.setTextColor(context.getResources().getColor(R.color.textTab));
+            holder.txtCategory.setTextColor(context.getResources().getColor(R.color.textTab));
+            holder.txtAmountMoney.setTextColor(context.getResources().getColor(R.color.textTab));
+            holder.txtVND.setTextColor(context.getResources().getColor(R.color.textTab));
+        }
         holder.txtFinancial.setText(financialRecyclerView.getFinancial());
         holder.txtCategory.setText(financialRecyclerView.getCategory());
         holder.txtAmountMoney.setText(financialRecyclerView.getAmountMoney());
@@ -65,11 +68,13 @@ public class AccountFinancialAdapter extends RecyclerView.Adapter<AccountFinanci
         TextView txtAmountMoney;
         TextView txtDate;
         TextView txtRemainMoney;
+        TextView txtVND;
         public FinancialViewHolder(View itemView) {
             super(itemView);
             txtFinancial = (TextView) itemView.findViewById(R.id.txtFinancial);
             txtCategory = (TextView) itemView.findViewById(R.id.txtCategory);
             txtAmountMoney = (TextView) itemView.findViewById(R.id.txtAmountMoney);
+            txtVND = (TextView) itemView.findViewById(R.id.txtVND);
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             txtRemainMoney = (TextView) itemView.findViewById(R.id.txtRemainMoney);
             itemView.setOnClickListener(new View.OnClickListener() {

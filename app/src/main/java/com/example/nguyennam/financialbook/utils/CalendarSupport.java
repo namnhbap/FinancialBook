@@ -8,7 +8,10 @@ import com.example.nguyennam.financialbook.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by NguyenNam on 4/10/2017.
@@ -43,5 +46,29 @@ public class CalendarSupport {
             }
         }
         return input_date;
+    }
+
+    public static void sortDateList(List<String> dateExpenseList, List<String> dateIncomeList) {
+        // remove date duplicate
+        dateExpenseList.removeAll(dateIncomeList);
+        // add date income to expense
+        dateExpenseList.addAll(dateIncomeList);
+        // sort date from now to past
+        Collections.sort(dateExpenseList, new Comparator<String>() {
+            @Override
+            public int compare(String arg1, String arg0) {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                int compareResult = 0;
+                try {
+                    Date arg0Date = format.parse(arg0);
+                    Date arg1Date = format.parse(arg1);
+                    compareResult = arg0Date.compareTo(arg1Date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    compareResult = arg0.compareTo(arg1);
+                }
+                return compareResult;
+            }
+        });
     }
 }

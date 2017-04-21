@@ -61,6 +61,7 @@
                 android:text="@string/SoTien" />
 
             <TextView
+                android:id="@+id/txtVND"
                 style="@style/FormEditValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
