@@ -72,24 +72,17 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
                 String filename = "temp_category.tmp";
                 FileHelper.writeFile(context, filename, groupname);
                 getActivity().getSupportFragmentManager().popBackStack();
-//                Toast.makeText(getActivity().getApplicationContext(), "child clicked " + groupname , Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent();
-//                intent.putExtra(Constant.KEY_CATEGORY, groupname);
-//                setResult(RESULT_OK, intent);
-//                finish();
                 return false;
             }
         });
         myList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                TextView textView = (TextView) v.findViewById(R.id.childrow);
-//                String childrow = (String) textView.getText();
-//                Toast.makeText(getApplicationContext(), "child clicked " + childrow , Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent();
-//                intent.putExtra(Constant.KEY_CATEGORY, childrow);
-//                setResult(RESULT_OK, intent);
-//                finish();
+                TextView textView = (TextView) v.findViewById(R.id.childrow);
+                String childrow = (String) textView.getText();
+                String filename = "temp_category.tmp";
+                FileHelper.writeFile(context, filename, childrow);
+                getActivity().getSupportFragmentManager().popBackStack();
                 return false;
             }
         });

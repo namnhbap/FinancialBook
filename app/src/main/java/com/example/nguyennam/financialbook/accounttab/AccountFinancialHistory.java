@@ -59,6 +59,8 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
         btnBack.setOnClickListener(this);
         accountDAO = new AccountRecyclerViewDAO(context);
         account = accountDAO.getAccountById(Integer.parseInt(FileHelper.readFile(context, temp_ID)));
+        TextView txtAccountName = (TextView) v.findViewById(R.id.txtAccountName);
+        txtAccountName.setText(account.getAccountName());
         TextView txtMoneyStart = (TextView) v.findViewById(R.id.txtMoneyStart);
         txtMoneyStart.setText(account.getMoneyStart());
         TextView txtAmountMoney = (TextView) v.findViewById(R.id.txtAmountMoney);

@@ -30,7 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class IncomeFormInput extends Fragment implements View.OnClickListener {
+public class IncomeFormEdit extends Fragment implements View.OnClickListener,
+        DeleteFinancialHistoryDialog.DeleteDialogListener {
 
     Context context;
     Calendar myCalendar;
@@ -42,11 +43,13 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     TextView txtEvent;
     Income income = new Income();
 
+    String temp_income_id = "temp_income_id.tmp";
     String temp_calculator = "temp_calculator.tmp";
     String temp_category = "temp_category.tmp";
     String temp_account_id = "temp_account_id.tmp";
     String temp_description = "temp_description.tmp";
     String temp_event = "temp_event.tmp";
+    String temp_new_account_id;
 
     @Override
     public void onAttach(Context context) {
@@ -54,19 +57,30 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         this.context = context;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        income = new IncomeDAO(context).getIncomeById(Integer.parseInt(FileHelper.readFile(context,temp_income_id)));
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.record_input_income, container, false);
+        View view = inflater.inflate(R.layout.record_edit_income, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
+        txtAmount.setText(income.get_amountMoney());
         txtAmount.setOnClickListener(this);
         txtIncomeCategory = (TextView) view.findViewById(R.id.txtIncomeCategory);
+        txtIncomeCategory.setText(income.get_category());
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
+        txtDescription.setText(income.get_description());
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
+        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+        txtAccountName.setText(accountDAO.getAccountById(income.get_accountID()).getAccountName());
         txtIncomeTime = (TextView) view.findViewById(R.id.txtIncomeTime);
-        txtIncomeTime.setText(getDate());
-        income.set_date(txtIncomeTime.getText().toString());
+        txtIncomeTime.setText(income.get_date());
         txtEvent = (TextView) view.findViewById(R.id.txtEvent);
+        txtEvent.setText(income.get_event());
         RelativeLayout rlSelectCategory = (RelativeLayout) view.findViewById(R.id.rlSelectCategory);
         rlSelectCategory.setOnClickListener(this);
         RelativeLayout rlDescription = (RelativeLayout) view.findViewById(R.id.rlDescription);
@@ -77,8 +91,10 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         rlSelectTime.setOnClickListener(this);
         RelativeLayout rlIncomeEvent = (RelativeLayout) view.findViewById(R.id.rlEvent);
         rlIncomeEvent.setOnClickListener(this);
-        LinearLayout lnAddIncome = (LinearLayout) view.findViewById(R.id.lnSave);
-        lnAddIncome.setOnClickListener(this);
+        LinearLayout lnSaveIncome = (LinearLayout) view.findViewById(R.id.lnSave);
+        lnSaveIncome.setOnClickListener(this);
+        LinearLayout lnDeleteIncome = (LinearLayout) view.findViewById(R.id.lnDelete);
+        lnDeleteIncome.setOnClickListener(this);
         return view;
     }
 
@@ -100,8 +116,8 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         }
         if (!"".equals(FileHelper.readFile(context, temp_account_id))) {
             AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-            income.set_accountID(Integer.parseInt(FileHelper.readFile(context, temp_account_id)));
-            txtAccountName.setText(accountDAO.getAccountById(income.get_accountID()).getAccountName());
+            temp_new_account_id = FileHelper.readFile(context, temp_account_id);
+            txtAccountName.setText(accountDAO.getAccountById(Integer.parseInt(temp_new_account_id)).getAccountName());
         }
         if (!"".equals(FileHelper.readFile(context, temp_description))) {
             txtDescription.setText(FileHelper.readFile(context, temp_description));
@@ -109,17 +125,6 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         if (!"".equals(FileHelper.readFile(context, temp_event))) {
             txtEvent.setText(FileHelper.readFile(context, temp_event));
         }
-//        income.set_amountMoney(FileHelper.readFile(context, temp_calculator));
-//        income.set_category(FileHelper.readFile(context, temp_category));
-//        income.set_accountID(Integer.parseInt(FileHelper.readFile(context, temp_account_id)));
-//        income.set_description(FileHelper.readFile(context, temp_description));
-//        income.set_event(FileHelper.readFile(context, temp_event));
-//
-//        txtAmount.setText(income.get_amountMoney());
-//        txtIncomeCategory.setText(income.get_category());
-//        txtAccountName.setText(accountDAO.getAccountById(income.get_accountID()).getAccountName());
-//        txtDescription.setText(income.get_description());
-//        txtEvent.setText(income.get_event());
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -136,7 +141,6 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         txtIncomeTime.setText(sdf.format(myCalendar.getTime()));
-        income.set_date(txtIncomeTime.getText().toString());
     }
 
     @Override
@@ -175,49 +179,67 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
                     saveData();
                 }
                 break;
+            case R.id.lnDelete:
+                DeleteFinancialHistoryDialog deleteFinancial = new DeleteFinancialHistoryDialog();
+                deleteFinancial.setTargetFragment(IncomeFormEdit.this, 271);
+                deleteFinancial.show(getActivity().getSupportFragmentManager(), "delete_financial");
+                break;
         }
     }
 
     public void saveData() {
         //clear temp file
         clearTempFile();
+        //update amountmoney of account
+        updateAmountMoneyAccount();
         //set expense
         setExpense();
         //add expense into database
-        IncomeDAO expenseDAO = new IncomeDAO(context);
-        expenseDAO.addIncome(income);
-        Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllIncome());
-        //update amountmoney of account
-        updateAmountMoneyAccount();
-        //clear text
-        clearTextView();
-    }
-
-    private void clearTextView() {
-        txtAmount.setText("");
-        txtEvent.setText("");
-        txtDescription.setText("");
-        txtIncomeCategory.setText("");
-        txtIncomeTime.setText(getDate());
+        IncomeDAO incomeDAO = new IncomeDAO(context);
+        incomeDAO.updateIncome(income);
+        //exit
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private void updateAmountMoneyAccount() {
-        AccountRecyclerView account;
         AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-        account = accountDAO.getAccountById(income.get_accountID());
-        //remain Money = present money + expense money;
-        double remainMoneyNumber = Double.parseDouble(CalculatorSupport.formatExpression(account.getAmountMoney()))
-                + Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+        AccountRecyclerView accountOld = accountDAO.getAccountById(income.get_accountID());
+        AccountRecyclerView accountNew = accountDAO.getAccountById(Integer.parseInt(temp_new_account_id));
+        if (temp_new_account_id.equals(String.valueOf(income.get_accountID()))) {
+            updateMoneyOldAccount(accountDAO, accountOld);
+        } else {
+            updateMoneyNewAccount(accountDAO, accountOld, accountNew);
+        }
+    }
+
+    private void updateMoneyNewAccount(AccountRecyclerViewDAO accountDAO, AccountRecyclerView accountOld, AccountRecyclerView accountNew) {
+        double remainMoneyNumber = Double.parseDouble(CalculatorSupport.formatExpression(accountNew.getAmountMoney()))
+                + Double.parseDouble(CalculatorSupport.formatExpression(txtAmount.getText().toString()));
+        double remainOldMoney = Double.parseDouble(CalculatorSupport.formatExpression(accountOld.getAmountMoney()))
+                - Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
-        account.setAmountMoney(nf.format(remainMoneyNumber));
-        accountDAO.updateAccount(account);
+        accountNew.setAmountMoney(nf.format(remainMoneyNumber));
+        accountOld.setAmountMoney(nf.format(remainOldMoney));
+        accountDAO.updateAccount(accountNew);
+        accountDAO.updateAccount(accountOld);
+    }
+
+    private void updateMoneyOldAccount(AccountRecyclerViewDAO accountDAO, AccountRecyclerView accountOld) {
+        double remainMoneyNumber = Double.parseDouble(CalculatorSupport.formatExpression(accountOld.getAmountMoney()))
+                + Double.parseDouble(CalculatorSupport.formatExpression(txtAmount.getText().toString()))
+                - Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        accountOld.setAmountMoney(nf.format(remainMoneyNumber));
+        accountDAO.updateAccount(accountOld);
     }
 
     private void setExpense() {
         income.set_amountMoney(txtAmount.getText().toString());
         income.set_description(txtDescription.getText().toString());
+        income.set_accountID(Integer.parseInt(temp_new_account_id));
         income.set_category(txtIncomeCategory.getText().toString());
         income.set_event(txtEvent.getText().toString());
+        income.set_date(txtIncomeTime.getText().toString());
     }
 
     private void clearTempFile() {
@@ -225,5 +247,25 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         FileHelper.deleteFile(context, temp_category);
         FileHelper.deleteFile(context, temp_description);
         FileHelper.deleteFile(context, temp_event);
+    }
+
+    @Override
+    public void onFinishDeleteDialog(boolean isDelete) {
+        if (isDelete) {
+            recoverMoney();
+            IncomeDAO incomeDAO = new IncomeDAO(context);
+            incomeDAO.deleteIncome(income);
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    private void recoverMoney() {
+        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+        AccountRecyclerView account = accountDAO.getAccountById(income.get_accountID());
+        double remainMoneyNumber = Double.parseDouble(CalculatorSupport.formatExpression(account.getAmountMoney()))
+                - Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        account.setAmountMoney(nf.format(remainMoneyNumber));
+        accountDAO.updateAccount(account);
     }
 }

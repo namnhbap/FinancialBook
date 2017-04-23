@@ -55,7 +55,7 @@ public class IncomeCategory extends Fragment implements IncomeCategoryAdapter.In
 
     @Override
     public void onClick(int position) {
-        String filename = "temp_incomecategory.tmp";
+        String filename = "temp_category.tmp";
         FileHelper.writeFile(context, filename, data.get(position));
         getActivity().getSupportFragmentManager().popBackStack();
     }

@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
@@ -25,14 +27,10 @@ import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,6 +41,9 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     private FinancialHistoryAdapter listAdapter;
     private ExpandableListView myList;
     private ArrayList<FinancialHistoryGroup> financialGroupList = new ArrayList<>();
+    String temp_income_id = "temp_income_id.tmp";
+    String temp_expense_id = "temp_expense_id.tmp";
+    String temp_isExpense = "temp_isExpense.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -78,29 +79,18 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         myList.setAdapter(listAdapter);
         //expand all Groups
         expandAll();
-        myList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                TextView textView = (TextView) v.findViewById(R.id.groupname);
-//                String groupname = (String) textView.getText();
-//                Toast.makeText(getActivity().getApplicationContext(), "child clicked " + groupname , Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent();
-//                intent.putExtra(Constant.KEY_CATEGORY, groupname);
-//                setResult(RESULT_OK, intent);
-//                finish();
-                return false;
-            }
-        });
         myList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                TextView textView = (TextView) v.findViewById(R.id.childrow);
-//                String childrow = (String) textView.getText();
-//                Toast.makeText(getApplicationContext(), "child clicked " + childrow , Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent();
-//                intent.putExtra(Constant.KEY_CATEGORY, childrow);
-//                setResult(RESULT_OK, intent);
-//                finish();
+                FinancialHistoryChild financialChild = financialGroupList.get(groupPosition)
+                        .getFinancialHistoryChildList().get(childPosition);
+                FileHelper.writeFile(context, temp_isExpense, String.valueOf(financialChild.isExpense()));
+                if (financialChild.isExpense()) {
+                    FileHelper.writeFile(context, temp_expense_id, String.valueOf(financialChild.getId()));
+                } else {
+                    FileHelper.writeFile(context, temp_income_id, String.valueOf(financialChild.getId()));
+                }
+                ((MainActivity) context).replaceFragment(new FinancialHistoryDetail(), true);
                 return false;
             }
         });
@@ -137,8 +127,6 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
             moneyExpense = getMoneyOneDate(moneyExpenseList);
             List<String> moneyIncomeList = incomeDAO.getMoneyByDate(date);
             moneyIncome = getMoneyOneDate(moneyIncomeList);
-            Log.d(Constant.TAG, "loadHistoryData: " + date + "    " + moneyExpense);
-            Log.d(Constant.TAG, "loadData: " + date + "    " + moneyIncome);
             financialHistoryGroup = new FinancialHistoryGroup(dateOfWeek, dateOfMonth, month, moneyExpense, moneyIncome, getChildList(date));
             financialGroupList.add(financialHistoryGroup);
         }
@@ -161,7 +149,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
             account = accountDAO.getAccountById(income.get_accountID()).getAccountName();
             category = income.get_category();
             description = income.get_description();
-            financialChild = new FinancialHistoryChild(false, moneyAmount, account, category, description);
+            financialChild = new FinancialHistoryChild(false, moneyAmount, account, category, description, income.get_id());
             financialChildList.add(financialChild);
         }
         List<Expense> expenseList;
@@ -173,7 +161,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
             account = accountDAO.getAccountById(expense.get_accountID()).getAccountName();
             category = expense.get_category();
             description = expense.get_description();
-            financialChild = new FinancialHistoryChild(true, moneyAmount, account, category, description);
+            financialChild = new FinancialHistoryChild(true, moneyAmount, account, category, description, expense.get_id());
             financialChildList.add(financialChild);
         }
         return financialChildList;
