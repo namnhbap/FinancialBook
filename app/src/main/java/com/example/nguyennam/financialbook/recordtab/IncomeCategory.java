@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.IncomeCategoryAdapter;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.ArrayList;
@@ -55,8 +56,7 @@ public class IncomeCategory extends Fragment implements IncomeCategoryAdapter.In
 
     @Override
     public void onClick(int position) {
-        String filename = "temp_category.tmp";
-        FileHelper.writeFile(context, filename, data.get(position));
+        FileHelper.writeFile(context, Constant.TEMP_CATEGORY, data.get(position));
         getActivity().getSupportFragmentManager().popBackStack();
     }
 

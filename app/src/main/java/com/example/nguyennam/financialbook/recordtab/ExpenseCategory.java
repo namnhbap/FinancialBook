@@ -17,6 +17,7 @@ import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ListCategoryAdapter;
 import com.example.nguyennam.financialbook.model.CategoryChild;
 import com.example.nguyennam.financialbook.model.CategoryGroup;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.ArrayList;
@@ -69,8 +70,7 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 TextView textView = (TextView) v.findViewById(R.id.groupname);
                 String groupname = (String) textView.getText();
-                String filename = "temp_category.tmp";
-                FileHelper.writeFile(context, filename, groupname);
+                FileHelper.writeFile(context, Constant.TEMP_CATEGORY, groupname);
                 getActivity().getSupportFragmentManager().popBackStack();
                 return false;
             }
@@ -80,8 +80,7 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 TextView textView = (TextView) v.findViewById(R.id.childrow);
                 String childrow = (String) textView.getText();
-                String filename = "temp_category.tmp";
-                FileHelper.writeFile(context, filename, childrow);
+                FileHelper.writeFile(context, Constant.TEMP_CATEGORY, childrow);
                 getActivity().getSupportFragmentManager().popBackStack();
                 return false;
             }

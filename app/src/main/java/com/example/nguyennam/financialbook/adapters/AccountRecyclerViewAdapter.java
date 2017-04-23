@@ -24,7 +24,6 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
 
     Context context;
     List<AccountRecyclerView> data;
-    String filename = "temp_ID.tmp";
 
     public AccountRecyclerViewAdapter(Context context, List<AccountRecyclerView> data) {
         this.context = context;
@@ -46,7 +45,7 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
             @Override
             public void onClick(View v) {
                 long dataPosition = getItemId(holder.getAdapterPosition());
-                FileHelper.writeFile(context, filename, "" + dataPosition);
+                FileHelper.writeFile(context, Constant.TEMP_ID, "" + dataPosition);
                 ((MainActivity) context).replaceFragment(new EditAccount(), true);
             }
         });

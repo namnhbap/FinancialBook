@@ -153,6 +153,32 @@ public class ExpenseDAO {
         return expenseList;
     }
 
+    public List<Expense> getExpenseByAccountID(int id) {
+        List<Expense> expenseList = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_EXPENSE
+                + " WHERE " + KEY_ACCOUNTID + " = " + '"' + id + '"';
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Expense expenseBEAN = new Expense();
+                expenseBEAN.set_id(Integer.parseInt(cursor.getString(0)));
+                expenseBEAN.set_amountMoney(cursor.getString(1));
+                expenseBEAN.set_category(cursor.getString(2));
+                expenseBEAN.set_description(cursor.getString(3));
+                expenseBEAN.set_accountID(Integer.parseInt(cursor.getString(4)));
+                expenseBEAN.set_date(cursor.getString(5));
+                expenseBEAN.set_event(cursor.getString(6));
+                // Adding expense to list
+                expenseList.add(expenseBEAN);
+            } while (cursor.moveToNext());
+        }
+        // return expense list
+        return expenseList;
+    }
+
     public List<Expense> getAllExpense() {
         List<Expense> expenseList = new ArrayList<>();
         // Select All Query

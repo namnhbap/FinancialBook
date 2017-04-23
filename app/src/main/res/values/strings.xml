@@ -81,8 +81,10 @@
     <string name="ReportExpenseAnalysis">Phân tích chi tiêu</string>
     <string name="time">Thời gian</string>
     <string name="noticeNoMoney">Bạn chưa nhập \"Số tiền\".</string>
-    <string name="noticeNoCategory">Bạn chưa nhập \"Mục chi\".</string>
+    <string name="noticeNoCategory">Bạn chưa nhập \"Mục thu\".</string>
+    <string name="noticeNoCategoryExpense">Bạn chưa nhập \"Mục chi\".</string>
     <string name="noticeNoAccount">Bạn chưa nhập \"Vào tài khoản\".</string>
+    <string name="noticeNoAccountExpense">Bạn chưa nhập \"Từ tài khoản\".</string>
     <string name="IncomeCategory">Hạng mục thu</string>
     <string name="incomeHistory">Thu:</string>
     <string name="noticeNoAccountName">Bạn chưa nhập \"Tên tài khoản\".</string>

@@ -41,9 +41,6 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
     private FinancialHistoryAdapter listAdapter;
     private ExpandableListView myList;
     private ArrayList<FinancialHistoryGroup> financialGroupList = new ArrayList<>();
-    String temp_income_id = "temp_income_id.tmp";
-    String temp_expense_id = "temp_expense_id.tmp";
-    String temp_isExpense = "temp_isExpense.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -84,11 +81,11 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 FinancialHistoryChild financialChild = financialGroupList.get(groupPosition)
                         .getFinancialHistoryChildList().get(childPosition);
-                FileHelper.writeFile(context, temp_isExpense, String.valueOf(financialChild.isExpense()));
+                FileHelper.writeFile(context, Constant.TEMP_ISEXPENSE, String.valueOf(financialChild.isExpense()));
                 if (financialChild.isExpense()) {
-                    FileHelper.writeFile(context, temp_expense_id, String.valueOf(financialChild.getId()));
+                    FileHelper.writeFile(context, Constant.TEMP_EXPENSE_ID, String.valueOf(financialChild.getId()));
                 } else {
-                    FileHelper.writeFile(context, temp_income_id, String.valueOf(financialChild.getId()));
+                    FileHelper.writeFile(context, Constant.TEMP_INCOME_ID, String.valueOf(financialChild.getId()));
                 }
                 ((MainActivity) context).replaceFragment(new FinancialHistoryDetail(), true);
                 return false;

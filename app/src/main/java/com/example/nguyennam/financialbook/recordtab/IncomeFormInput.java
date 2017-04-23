@@ -42,12 +42,6 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     TextView txtEvent;
     Income income = new Income();
 
-    String temp_calculator = "temp_calculator.tmp";
-    String temp_category = "temp_category.tmp";
-    String temp_account_id = "temp_account_id.tmp";
-    String temp_description = "temp_description.tmp";
-    String temp_event = "temp_event.tmp";
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -92,34 +86,23 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if (!"".equals(FileHelper.readFile(context, temp_calculator))) {
-            txtAmount.setText(FileHelper.readFile(context, temp_calculator));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
+            txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
         }
-        if (!"".equals(FileHelper.readFile(context, temp_category))) {
-            txtIncomeCategory.setText(FileHelper.readFile(context, temp_category));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
+            txtIncomeCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
         }
-        if (!"".equals(FileHelper.readFile(context, temp_account_id))) {
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID))) {
             AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-            income.set_accountID(Integer.parseInt(FileHelper.readFile(context, temp_account_id)));
+            income.set_accountID(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID)));
             txtAccountName.setText(accountDAO.getAccountById(income.get_accountID()).getAccountName());
         }
-        if (!"".equals(FileHelper.readFile(context, temp_description))) {
-            txtDescription.setText(FileHelper.readFile(context, temp_description));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION))) {
+            txtDescription.setText(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION));
         }
-        if (!"".equals(FileHelper.readFile(context, temp_event))) {
-            txtEvent.setText(FileHelper.readFile(context, temp_event));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_EVENT))) {
+            txtEvent.setText(FileHelper.readFile(context, Constant.TEMP_EVENT));
         }
-//        income.set_amountMoney(FileHelper.readFile(context, temp_calculator));
-//        income.set_category(FileHelper.readFile(context, temp_category));
-//        income.set_accountID(Integer.parseInt(FileHelper.readFile(context, temp_account_id)));
-//        income.set_description(FileHelper.readFile(context, temp_description));
-//        income.set_event(FileHelper.readFile(context, temp_event));
-//
-//        txtAmount.setText(income.get_amountMoney());
-//        txtIncomeCategory.setText(income.get_category());
-//        txtAccountName.setText(accountDAO.getAccountById(income.get_accountID()).getAccountName());
-//        txtDescription.setText(income.get_description());
-//        txtEvent.setText(income.get_event());
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -221,9 +204,9 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     }
 
     private void clearTempFile() {
-        FileHelper.deleteFile(context, temp_calculator);
-        FileHelper.deleteFile(context, temp_category);
-        FileHelper.deleteFile(context, temp_description);
-        FileHelper.deleteFile(context, temp_event);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
+        FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
+        FileHelper.deleteFile(context, Constant.TEMP_EVENT);
     }
 }

@@ -11,13 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 public class Description extends Fragment implements View.OnClickListener {
 
     EditText editText;
     Context context;
-    String filename = "temp_description.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -40,7 +40,7 @@ public class Description extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        editText.setText(FileHelper.readFile(context, filename));
+        editText.setText(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Description extends Fragment implements View.OnClickListener {
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.txtDone:
-                FileHelper.writeFile(context, filename, editText.getText().toString());
+                FileHelper.writeFile(context, Constant.TEMP_DESCRIPTION, editText.getText().toString());
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }

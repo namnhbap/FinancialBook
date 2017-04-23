@@ -43,12 +43,6 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     TextView txtExpenseEvent;
     Expense expense = new Expense();
 
-    String temp_expense_id = "temp_expense_id.tmp";
-    String temp_calculator = "temp_calculator.tmp";
-    String temp_category = "temp_category.tmp";
-    String temp_account_id = "temp_account_id.tmp";
-    String temp_description = "temp_description.tmp";
-    String temp_event = "temp_event.tmp";
     String temp_new_account_id;
 
     @Override
@@ -60,7 +54,7 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        expense = new ExpenseDAO(context).getExpenseById(Integer.parseInt(FileHelper.readFile(context,temp_expense_id)));
+        expense = new ExpenseDAO(context).getExpenseById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_EXPENSE_ID)));
     }
 
     @Nullable
@@ -108,22 +102,22 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     @Override
     public void onStart() {
         super.onStart();
-        if (!"".equals(FileHelper.readFile(context, temp_calculator))) {
-            txtAmount.setText(FileHelper.readFile(context, temp_calculator));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
+            txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
         }
-        if (!"".equals(FileHelper.readFile(context, temp_category))) {
-            txtCategory.setText(FileHelper.readFile(context, temp_category));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
+            txtCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
         }
-        if (!"".equals(FileHelper.readFile(context, temp_account_id))) {
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID))) {
             AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-            temp_new_account_id = FileHelper.readFile(context, temp_account_id);
+            temp_new_account_id = FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID);
             txtAccountName.setText(accountDAO.getAccountById(Integer.parseInt(temp_new_account_id)).getAccountName());
         }
-        if (!"".equals(FileHelper.readFile(context, temp_description))) {
-            txtDescription.setText(FileHelper.readFile(context, temp_description));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION))) {
+            txtDescription.setText(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION));
         }
-        if (!"".equals(FileHelper.readFile(context, temp_event))) {
-            txtExpenseEvent.setText(FileHelper.readFile(context, temp_event));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_EVENT))) {
+            txtExpenseEvent.setText(FileHelper.readFile(context, Constant.TEMP_EVENT));
         }
     }
 
@@ -245,10 +239,10 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     }
 
     private void clearTempFile() {
-        FileHelper.deleteFile(context, temp_calculator);
-        FileHelper.deleteFile(context, temp_category);
-        FileHelper.deleteFile(context, temp_description);
-        FileHelper.deleteFile(context, temp_event);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
+        FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
+        FileHelper.deleteFile(context, Constant.TEMP_EVENT);
     }
 
     @Override

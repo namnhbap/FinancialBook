@@ -47,8 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     class BudgetCollumn implements BaseColumns {
-        static final String KEY_NAME = "name";
-        static final String KEY_BALANCE = "balance";
+        static final String KEY_ACCOUNTNAME = "name";
+        static final String KEY_AMOUNTMONEY = "balance";
     }
 
     public DatabaseHandler(Context context) {
@@ -78,8 +78,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DROP_INCOME_TABLE = "DROP TABLE IF EXISTS " + TABLE_INCOME;
 
     private static final String CREATE_BUDGET_TABLE = "CREATE TABLE " + TABLE_BUDGET + "("
-            + BudgetCollumn._ID + " INTEGER PRIMARY KEY," + BudgetCollumn.KEY_NAME + " TEXT,"
-            + BudgetCollumn.KEY_BALANCE + " TEXT" + ")";
+            + BudgetCollumn._ID + " INTEGER PRIMARY KEY," + BudgetCollumn.KEY_ACCOUNTNAME + " TEXT,"
+            + BudgetCollumn.KEY_AMOUNTMONEY + " TEXT" + ")";
     private static final String DROP_BUDGET_TABLE = "DROP TABLE IF EXISTS " + TABLE_BUDGET;
 
     @Override

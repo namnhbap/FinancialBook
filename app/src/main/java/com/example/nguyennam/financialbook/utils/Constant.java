@@ -6,10 +6,13 @@ package com.example.nguyennam.financialbook.utils;
 
 public class Constant {
     public static final String TAG = "Nam";
-    public static final String KEY_MONEY = "money";
-    public static final String KEY_CATEGORY = "category";
-    public static final String KEY_DIENGIAI = "diengiai";
-    public static final String KEY_ACCOUNT = "taikhoan";
-    public static final String KEY_DATE = "ngay";
-    public static final String KEY_EVENT = "sukien";
+    public static final String TEMP_ID = "temp_ID.tmp";
+    public static final String TEMP_ISEXPENSE = "temp_isExpense.tmp";
+    public static final String TEMP_INCOME_ID = "temp_income_id.tmp";
+    public static final String TEMP_EXPENSE_ID = "temp_expense_id.tmp";
+    public static final String TEMP_CALCULATOR = "temp_calculator.tmp";
+    public static final String TEMP_CATEGORY = "temp_category.tmp";
+    public static final String TEMP_ACCOUNT_ID = "temp_account_id.tmp";
+    public static final String TEMP_DESCRIPTION = "temp_description.tmp";
+    public static final String TEMP_EVENT = "temp_event.tmp";
 }

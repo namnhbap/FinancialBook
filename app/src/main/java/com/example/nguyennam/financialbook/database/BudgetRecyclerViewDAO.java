@@ -10,8 +10,8 @@ import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.AccountColumn.KEY_AMOUNTMONEY;
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.AccountColumn.KEY_ACCOUNTNAME;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_AMOUNTMONEY;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_ACCOUNTNAME;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_BUDGET;
 
 

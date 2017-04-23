@@ -27,7 +27,6 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
 
     List<AccountRecyclerView> data;
     Context context;
-    String filename = "temp_ID.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -60,7 +59,7 @@ public class AccountMain extends Fragment implements AccountRecyclerViewAdapter.
     @Override
     public void onClick(int position) {
         //display financial history of this account
-        FileHelper.writeFile(context, filename, "" + position);
+        FileHelper.writeFile(context, Constant.TEMP_ID, "" + position);
         ((MainActivity) context).replaceFragment(new AccountFinancialHistory(), true);
     }
 

@@ -36,8 +36,6 @@ public class AddAccount extends Fragment implements View.OnClickListener,
     TextView txtDone;
     AccountRecyclerView account = new AccountRecyclerView();
 
-    String temp_calculator = "temp_calculator.tmp";
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -70,7 +68,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
     @Override
     public void onStart() {
         super.onStart();
-        account.setMoneyStart(FileHelper.readFile(context, temp_calculator));
+        account.setMoneyStart(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
 
         txtAccountType.setText(account.getAccountType());
         txtAmount.setText(account.getMoneyStart());
@@ -94,7 +92,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
                 moneyTypeDialog.show(getActivity().getSupportFragmentManager(), "money_type");
                 break;
             case R.id.txtCancel:
-                FileHelper.deleteFile(context, temp_calculator);
+                FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.done:
@@ -125,7 +123,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
         account.setDescription(txtDescription.getText().toString());
         AccountRecyclerViewDAO accountRecyclerViewDAO = new AccountRecyclerViewDAO(context);
         accountRecyclerViewDAO.addAccount(account);
-        FileHelper.deleteFile(context, temp_calculator);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
         getActivity().getSupportFragmentManager().popBackStack();
     }
 

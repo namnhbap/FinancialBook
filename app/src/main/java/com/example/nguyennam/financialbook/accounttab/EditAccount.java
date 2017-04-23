@@ -17,13 +17,18 @@ import android.widget.Toast;
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.model.Expense;
+import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.recordtab.Calculator;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -39,8 +44,6 @@ public class EditAccount extends Fragment implements View.OnClickListener,
     EditText txtDescription;
     TextView txtCancel;
     TextView txtDone;
-    String temp_ID = "temp_ID.tmp";
-    String temp_calculator = "temp_calculator.tmp";
     AccountRecyclerViewDAO accountDAO;
     AccountRecyclerView account;
     String tempMoneyStart;
@@ -57,7 +60,7 @@ public class EditAccount extends Fragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.account_edit, container, false);
         //get account by id
         accountDAO = new AccountRecyclerViewDAO(context);
-        account = accountDAO.getAccountById(Integer.parseInt(FileHelper.readFile(context, temp_ID)));
+        account = accountDAO.getAccountById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_ID)));
         tempMoneyStart = account.getMoneyStart();
 //        Log.d(Constant.TAG, "onCreateView: " + account);
         //set view
@@ -90,8 +93,8 @@ public class EditAccount extends Fragment implements View.OnClickListener,
     @Override
     public void onStart() {
         super.onStart();
-        if (!"".equals(FileHelper.readFile(context, temp_calculator))) {
-            txtAmount.setText(FileHelper.readFile(context, temp_calculator));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
+            txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
         }
         txtAccountType.setText(account.getAccountType());
         txtMoneyType.setText(account.getMoneyType());
@@ -101,7 +104,7 @@ public class EditAccount extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtAmount:
-                FileHelper.writeFile(context, temp_calculator, txtAmount.getText().toString());
+                FileHelper.writeFile(context, Constant.TEMP_CALCULATOR, txtAmount.getText().toString());
                 ((MainActivity) context).replaceFragment(new Calculator(), true);
                 break;
             case R.id.rlAccountType:
@@ -115,8 +118,8 @@ public class EditAccount extends Fragment implements View.OnClickListener,
                 moneyTypeDialog.show(getActivity().getSupportFragmentManager(), "money_type");
                 break;
             case R.id.txtCancel:
-                FileHelper.deleteFile(context, temp_calculator);
-                FileHelper.deleteFile(context, temp_ID);
+                FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+                FileHelper.deleteFile(context, Constant.TEMP_ID);
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.lnDelete:
@@ -152,8 +155,8 @@ public class EditAccount extends Fragment implements View.OnClickListener,
         account.setAmountMoney(getAmountMoneyUpdate(tempMoneyStart, txtAmount.getText().toString(),account.getAmountMoney()));
         accountDAO.updateAccount(account);
 //        Log.d(Constant.TAG, "saveData: " + account);
-        FileHelper.deleteFile(context, temp_calculator);
-        FileHelper.deleteFile(context, temp_ID);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_ID);
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
@@ -183,8 +186,28 @@ public class EditAccount extends Fragment implements View.OnClickListener,
     @Override
     public void onFinishDeleteDialog(boolean isDelete) {
         if (isDelete) {
+            String temp_account_id = "temp_account_id.tmp";
+            deleteAllFinancial();
+            if (account.getId() == Integer.parseInt(FileHelper.readFile(context, temp_account_id))) {
+                FileHelper.deleteFile(context, temp_account_id);
+            }
             accountDAO.deleteAccount(account);
             getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    private void deleteAllFinancial() {
+        List<Expense> expenseList;
+        List<Income> incomeList;
+        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        expenseList = expenseDAO.getExpenseByAccountID(account.getId());
+        IncomeDAO incomeDAO = new IncomeDAO(context);
+        incomeList = incomeDAO.getIncomeByAccountID(account.getId());
+        for (Expense expense : expenseList) {
+            expenseDAO.deleteExpense(expense);
+        }
+        for (Income income : incomeList) {
+            incomeDAO.deleteIncome(income);
         }
     }
 }

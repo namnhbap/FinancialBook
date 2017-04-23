@@ -15,6 +15,7 @@ import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.RecordAccountAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
@@ -56,8 +57,7 @@ public class Accounts extends Fragment implements RecordAccountAdapter.RecordAcc
     @Override
     public void onClick(int position) {
         String accountID = String.valueOf(account.getAccountById(position).getId());
-        String filename = "temp_account_id.tmp";
-        FileHelper.writeFile(context, filename, accountID);
+        FileHelper.writeFile(context, Constant.TEMP_ACCOUNT_ID, accountID);
         getActivity().getSupportFragmentManager().popBackStack();
     }
 

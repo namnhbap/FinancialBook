@@ -24,6 +24,7 @@ import com.example.nguyennam.financialbook.model.FinancialRecyclerView;
 import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
@@ -37,7 +38,6 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
     Context context;
     AccountRecyclerViewDAO accountDAO;
     AccountRecyclerView account;
-    String temp_ID = "temp_ID.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -54,11 +54,10 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.account_financial_history, container, false);
-        Toast.makeText(context, FileHelper.readFile(context, temp_ID), Toast.LENGTH_SHORT).show();
         ImageView btnBack = (ImageView) v.findViewById(R.id.txtBack);
         btnBack.setOnClickListener(this);
         accountDAO = new AccountRecyclerViewDAO(context);
-        account = accountDAO.getAccountById(Integer.parseInt(FileHelper.readFile(context, temp_ID)));
+        account = accountDAO.getAccountById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_ID)));
         TextView txtAccountName = (TextView) v.findViewById(R.id.txtAccountName);
         txtAccountName.setText(account.getAccountName());
         TextView txtMoneyStart = (TextView) v.findViewById(R.id.txtMoneyStart);

@@ -65,10 +65,10 @@ public class MainActivity extends FragmentActivity {
 //            expenseDAO.addExpense(new Expense("100.000", "Ăn uống", "ac1", 1 , "12/1/2017", "ok"));
 //            expenseDAO.addExpense(new Expense("200.000", "Đi lại", "ac2", 2, "12/1/2017", "ok"));
 //            expenseDAO.addExpense(new Expense("350.000", "Điện nước", "ac3", 3, "13/1/2017", "ok"));
-            //date for test budget
-//            BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
-//            allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
-//            allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
+//            data for test budget
+            BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(this);
+            allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
+            allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
             // using the following line to edit/commit prefs
             prefs.edit().putBoolean("firstrun", false).apply();
         }

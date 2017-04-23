@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
@@ -48,7 +49,6 @@ public class Calculator extends Fragment implements View.OnClickListener {
     TextView txtExpression;
     String temp = "";
     String inputNumber;
-    String filename = "temp_calculator.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -111,7 +111,7 @@ public class Calculator extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        edtTinh.setText(FileHelper.readFile(context, filename));
+        edtTinh.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
     }
 
     @Override
@@ -194,7 +194,7 @@ public class Calculator extends Fragment implements View.OnClickListener {
                     edtTinh.setText(result);
                     txtExpression.setText(inputNumber);
                 } else {
-                    FileHelper.writeFile(context, filename, edtTinh.getText().toString());
+                    FileHelper.writeFile(context, Constant.TEMP_CALCULATOR, edtTinh.getText().toString());
                     getActivity().getSupportFragmentManager().popBackStack();
 //                    ((MainActivity) context).replaceFragment(new RecordMain(), false);
                 }

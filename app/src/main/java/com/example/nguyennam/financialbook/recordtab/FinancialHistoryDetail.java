@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 public class FinancialHistoryDetail extends Fragment implements View.OnClickListener {
@@ -19,12 +20,6 @@ public class FinancialHistoryDetail extends Fragment implements View.OnClickList
     Context context;
     ImageView btnBack;
     TextView lbDescription;
-
-    String temp_isExpense = "temp_isExpense.tmp";
-    String temp_calculator = "temp_calculator.tmp";
-    String temp_category = "temp_category.tmp";
-    String temp_description = "temp_description.tmp";
-    String temp_event = "temp_event.tmp";
 
     @Override
     public void onAttach(Context context) {
@@ -48,7 +43,7 @@ public class FinancialHistoryDetail extends Fragment implements View.OnClickList
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        boolean isExpense = Boolean.parseBoolean(FileHelper.readFile(context, temp_isExpense));
+        boolean isExpense = Boolean.parseBoolean(FileHelper.readFile(context, Constant.TEMP_ISEXPENSE));
         if (isExpense) {
             lbDescription = (TextView) view.findViewById(R.id.lbDescription);
             lbDescription.setText(getResources().getString(R.string.Expense));
@@ -77,9 +72,9 @@ public class FinancialHistoryDetail extends Fragment implements View.OnClickList
     }
 
     private void clearTempFile() {
-        FileHelper.deleteFile(context, temp_calculator);
-        FileHelper.deleteFile(context, temp_category);
-        FileHelper.deleteFile(context, temp_description);
-        FileHelper.deleteFile(context, temp_event);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
+        FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
+        FileHelper.deleteFile(context, Constant.TEMP_EVENT);
     }
 }
