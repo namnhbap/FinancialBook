@@ -55,7 +55,6 @@ public class ReportMain extends Fragment implements AdapterView.OnItemSelectedLi
 
     // Embeds the child fragment dynamically
     private void insertNestedFragment(Fragment fragment) {
-//        Fragment childFragment = new ExpenseFormInput();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.reportExpenseIncome, fragment).commit();
     }

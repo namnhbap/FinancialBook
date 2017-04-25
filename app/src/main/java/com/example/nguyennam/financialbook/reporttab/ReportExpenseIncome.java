@@ -53,8 +53,8 @@ public class ReportExpenseIncome extends Fragment implements OnChartValueSelecte
         mChart.setTransparentCircleColor(Color.WHITE);
         mChart.setTransparentCircleAlpha(110);
 
-        mChart.setHoleRadius(58f);
-        mChart.setTransparentCircleRadius(61f);
+        mChart.setHoleRadius(60f);
+        mChart.setTransparentCircleRadius(63f);
 
         mChart.setDrawCenterText(true);
 
@@ -74,9 +74,11 @@ public class ReportExpenseIncome extends Fragment implements OnChartValueSelecte
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
         Legend l = mChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setForm(Legend.LegendForm.CIRCLE);
+        l.setTextSize(12f);
         l.setDrawInside(false);
         l.setXEntrySpace(7f);
         l.setYEntrySpace(0f);
@@ -91,26 +93,19 @@ public class ReportExpenseIncome extends Fragment implements OnChartValueSelecte
     private void setData() {
 
         ArrayList<PieEntry> entries = new ArrayList<>();
-
         for (int i = 0; i < yData.length; i++)
             entries.add(new PieEntry(yData[i], xData[i]));
-
-//        ArrayList<String> xVals = new ArrayList<>();
-//
-//        for (int i = 0; i < xData.length; i++)
-//            xVals.add(xData[i]);
+        mChart.setDrawEntryLabels(false); //dont show xdata in chart
 
         PieDataSet dataSet = new PieDataSet(entries, "");
-
         dataSet.setDrawIcons(false);
-
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         dataSet.setSelectionShift(5f);
 
         // add a lot of colors
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+        ArrayList<Integer> colors = new ArrayList<>();
 
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
@@ -124,7 +119,6 @@ public class ReportExpenseIncome extends Fragment implements OnChartValueSelecte
             colors.add(c);
 
         colors.add(ColorTemplate.getHoloBlue());
-
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
 
@@ -134,10 +128,8 @@ public class ReportExpenseIncome extends Fragment implements OnChartValueSelecte
         data.setValueTextColor(Color.WHITE);
 //        data.setValueTypeface(mTfLight);
         mChart.setData(data);
-
         // undo all highlights
         mChart.highlightValues(null);
-
         mChart.invalidate();
     }
 

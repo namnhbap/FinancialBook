@@ -65,7 +65,7 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
         TextView txtAmountMoney = (TextView) v.findViewById(R.id.txtAmountMoney);
         txtAmountMoney.setText(account.getAmountMoney());
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-        //mock data
+        //Calculate history amount money of account
         getDataFinancialAccount();
 
         AccountFinancialAdapter myAdapter = new AccountFinancialAdapter(context, data);

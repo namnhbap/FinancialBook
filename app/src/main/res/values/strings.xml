@@ -97,6 +97,7 @@
     <string name="remain">Còn:</string>
     <string name="deleteFinancialTitle">Xóa bản ghi!</string>
     <string name="deleteFinancialMessage">Bạn có thực sự muốn xóa bản ghi này không?</string>
+    <string name="income">THU</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

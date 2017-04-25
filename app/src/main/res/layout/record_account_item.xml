@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:baselineAligned="true"
+    android:background="@drawable/selector_listview_ismac"
     android:orientation="vertical">
 
     <LinearLayout

@@ -45,8 +45,6 @@ public class BudgetMain extends Fragment implements View.OnClickListener, Budget
         imgAddBudget.setOnClickListener(this);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewBudget);
         BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(context);
-//        allBudget.addBudget(new BudgetRecyclerView("Ăn uống!","1.200.000"));
-//        allBudget.addBudget(new BudgetRecyclerView("Đi lại!","1.200.000"));
         data = allBudget.getAllBudget();
         Log.d(Constant.TAG, "onCreateView: " + data);
         BudgetRecyclerViewAdapter myAdapter = new BudgetRecyclerViewAdapter(context, data);
