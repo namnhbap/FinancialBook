@@ -75,7 +75,7 @@
     <string name="budgetExpense">Đã chi:</string>
     <string name="budgetRemain">Còn:</string>
     <string name="budgetMoney">Hạn mức:</string>
-    <string name="viewBy">Xem theo</string>
+    <string name="viewBy">Thời gian:</string>
     <string name="expense">CHI</string>
     <string name="ReportExpenseIncome">Tình hình thu chi</string>
     <string name="ReportExpenseAnalysis">Phân tích chi tiêu</string>
@@ -98,6 +98,7 @@
     <string name="deleteFinancialTitle">Xóa bản ghi!</string>
     <string name="deleteFinancialMessage">Bạn có thực sự muốn xóa bản ghi này không?</string>
     <string name="income">THU</string>
+    <string name="accounts">Tài khoản:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
@@ -199,5 +200,12 @@
         <item>USD</item>
         <item>EUR</item>
         <item>GBP</item>
+    </string-array>
+    <string-array name="report_view_by">
+        <item>Hiện tại</item>
+        <item>Tháng</item>
+        <item>Quý</item>
+        <item>Năm</item>
+        <item>Khoảng thời gian</item>
     </string-array>
 </resources>

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.utils.Constant;
@@ -23,8 +25,10 @@ public class MoneyTypeDialog extends DialogFragment {
 
         final String[] arrays = getResources().getStringArray(R.array.money_type);
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.moneyType)
-                .setItems(arrays, new DialogInterface.OnClickListener() {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.account_money_type_title, null);
+        builder.setCustomTitle(view);
+        builder.setItems(arrays, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // The 'which' argument contains the index position
                         // of the selected item
