@@ -103,6 +103,7 @@
     <string name="toDate">Đến ngày</string>
     <string name="ok">Đồng ý</string>
     <string name="pickTime">Chọn thời gian báo cáo</string>
+    <string name="all">Tất cả tài khoản</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

@@ -14,7 +14,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -64,6 +68,16 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
         return v;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ID))) {
+            AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+            txtAccount.setText(accountDAO.getAccountById(Integer.
+                    parseInt(FileHelper.readFile(context, Constant.TEMP_ID))).getAccountName());
+        }
+    }
+
     private void insertNestedFragment(Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentReport, fragment).commit();
@@ -73,6 +87,7 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlAccount:
+                ((MainActivity)context).replaceFragment(new ReportSelectAccount(), true);
                 break;
             case R.id.rlViewBy:
                 ReportViewByDialog reportViewByDialog = new ReportViewByDialog();
