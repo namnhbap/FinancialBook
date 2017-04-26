@@ -85,7 +85,7 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
 
     @Override
     public void onFinishReportDialog(int which, String inputText) {
-//        txtViewBy.setText(inputText);
+        txtViewBy.setText(inputText);
         if (which == 4) {
             FragmentManager fm = getActivity().getSupportFragmentManager();
             ReportPickTimeDialog reportPickTimeDialog = new ReportPickTimeDialog();

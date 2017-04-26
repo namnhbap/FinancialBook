@@ -198,6 +198,7 @@
         <item>Thẻ tín dụng</item>
         <item>Tài khoản đầu tư</item>
         <item>Tài khoản tiết kiệm</item>
+        <item>Khác</item>
     </string-array>
     <string-array name="money_type">
         <item>VND</item>

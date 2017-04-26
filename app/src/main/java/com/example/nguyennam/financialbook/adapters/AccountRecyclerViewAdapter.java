@@ -39,8 +39,22 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
     @Override
     public void onBindViewHolder(final AccountRecyclerViewAdapter.AccountViewHolder holder, int position) {
         AccountRecyclerView account = data.get(position);
+        final String[] array = context.getApplicationContext().getResources().getStringArray(R.array.account_type);
         holder.txtAccountType.setText(account.getAccountName());
         holder.txtAmountMoney.setText(String.valueOf(account.getAmountMoney()));
+        if (array[0].equals(account.getAccountType())) {
+            holder.imgAccountType.setImageResource(R.drawable.account_wallet);
+        } else if (array[1].equals(account.getAccountType())) {
+            holder.imgAccountType.setImageResource(R.drawable.account_bank);
+        } else if (array[2].equals(account.getAccountType())) {
+            holder.imgAccountType.setImageResource(R.drawable.account_master);
+        } else if (array[3].equals(account.getAccountType())) {
+            holder.imgAccountType.setImageResource(R.drawable.account_invest);
+        } else if (array[4].equals(account.getAccountType())) {
+            holder.imgAccountType.setImageResource(R.drawable.account_pig);
+        }  else if (array[5].equals(account.getAccountType())) {
+            holder.imgAccountType.setImageResource(R.drawable.account_other);
+        }
         holder.imgEditAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +80,13 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
         TextView txtAccountType;
         TextView txtAmountMoney;
         ImageView imgEditAccount;
+        ImageView imgAccountType;
         public AccountViewHolder(View itemView) {
             super(itemView);
             txtAccountType = (TextView) itemView.findViewById(R.id.txtAccountType);
             txtAmountMoney = (TextView) itemView.findViewById(R.id.txtAmountMoney);
             imgEditAccount = (ImageView) itemView.findViewById(R.id.btnEditAccount);
+            imgAccountType = (ImageView) itemView.findViewById(R.id.imgAccountType);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
