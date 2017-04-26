@@ -99,6 +99,10 @@
     <string name="deleteFinancialMessage">Bạn có thực sự muốn xóa bản ghi này không?</string>
     <string name="income">THU</string>
     <string name="accounts">Tài khoản:</string>
+    <string name="fromDate">Từ ngày</string>
+    <string name="toDate">Đến ngày</string>
+    <string name="ok">Đồng ý</string>
+    <string name="pickTime">Chọn thời gian báo cáo</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

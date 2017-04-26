@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,8 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 
-public class ReportExpenseIncome extends Fragment implements View.OnClickListener, ReportViewByDialog.ReportViewByDialogListener {
+public class ReportExpenseIncome extends Fragment implements View.OnClickListener,
+        ReportViewByDialog.ReportViewByDialogListener, ReportPickTimeDialog.ReportPickTimeListener {
 
     Context context;
     TextView txtAccount;
@@ -83,9 +85,18 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
 
     @Override
     public void onFinishReportDialog(int which, String inputText) {
-        txtViewBy.setText(inputText);
+//        txtViewBy.setText(inputText);
         if (which == 4) {
-            insertNestedFragment(new ReportPeriodTime());
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            ReportPickTimeDialog reportPickTimeDialog = new ReportPickTimeDialog();
+            reportPickTimeDialog.setTargetFragment(ReportExpenseIncome.this, 271);
+            reportPickTimeDialog.show(fm, "pick_time");
         }
+    }
+
+    @Override
+    public void onFinishPickTime(String inputText) {
+        txtViewBy.setText(inputText);
+        insertNestedFragment(new ReportPeriodTime());
     }
 }
