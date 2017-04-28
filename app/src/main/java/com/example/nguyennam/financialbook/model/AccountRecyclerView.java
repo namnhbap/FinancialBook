@@ -9,6 +9,7 @@ public class AccountRecyclerView {
     private String moneyStart;
     private String description;
     private String amountMoney;
+    private boolean isChecked;
 
     public AccountRecyclerView(){
 
@@ -93,5 +94,13 @@ public class AccountRecyclerView {
 
     public void setAmountMoney(String amountMoney) {
         this.amountMoney = amountMoney;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

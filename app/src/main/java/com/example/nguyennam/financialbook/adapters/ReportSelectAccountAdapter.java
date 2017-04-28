@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class ReportSelectAccountAdapter extends RecyclerView.Adapter<ReportSelec
 
     Context context;
     List<AccountRecyclerView> data;
+    boolean isCheckedAll = true;
 
     public ReportSelectAccountAdapter(Context context, List<AccountRecyclerView> data) {
         this.context = context;
@@ -36,7 +38,7 @@ public class ReportSelectAccountAdapter extends RecyclerView.Adapter<ReportSelec
 
     @Override
     public void onBindViewHolder(final ReportSelectAccountAdapter.AccountViewHolder holder, int position) {
-        AccountRecyclerView account = data.get(position);
+        final AccountRecyclerView account = data.get(position);
         final String[] array = context.getApplicationContext().getResources().getStringArray(R.array.account_type);
         holder.txtAccountType.setText(account.getAccountName());
         holder.txtAmountMoney.setText(String.valueOf(account.getAmountMoney()));
@@ -53,6 +55,20 @@ public class ReportSelectAccountAdapter extends RecyclerView.Adapter<ReportSelec
         }  else if (array[5].equals(account.getAccountType())) {
             holder.imgAccountType.setImageResource(R.drawable.account_other);
         }
+        if (isCheckedAll) {
+            holder.checkAccount.setChecked(true);
+            account.setChecked(true);
+        } else if (account.isChecked()) {
+            holder.checkAccount.setChecked(true);
+        } else {
+            holder.checkAccount.setChecked(false);
+        }
+        holder.checkAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                account.setChecked(isChecked);
+            }
+        });
     }
 
     //get id of item recyclerview
@@ -64,6 +80,16 @@ public class ReportSelectAccountAdapter extends RecyclerView.Adapter<ReportSelec
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void selectAll() {
+        isCheckedAll = true;
+        notifyDataSetChanged();
+    }
+
+    public void unSelectAll() {
+        isCheckedAll = false;
+        notifyDataSetChanged();
     }
 
     public class AccountViewHolder extends RecyclerView.ViewHolder {

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
@@ -60,7 +61,6 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
         View v = inflater.inflate(R.layout.report_expense_income, container, false);
         txtAccount = (TextView) v.findViewById(R.id.txtAccount);
         txtViewBy = (TextView) v.findViewById(R.id.txtViewBy);
-        txtViewBy.setText(arrayViewBy[0]);
         RelativeLayout rlAccount = (RelativeLayout) v.findViewById(R.id.rlAccount);
         rlAccount.setOnClickListener(this);
         RelativeLayout rlViewBy = (RelativeLayout) v.findViewById(R.id.rlViewBy);
@@ -71,10 +71,37 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
+        if ("".equals(FileHelper.readFile(context, Constant.TEMP_VIEW_BY))) {
+            txtViewBy.setText(arrayViewBy[0]);
+        } else {
+            txtViewBy.setText(FileHelper.readFile(context, Constant.TEMP_VIEW_BY));
+        }
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ID))) {
+            String accountList = "";
             AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-            txtAccount.setText(accountDAO.getAccountById(Integer.
-                    parseInt(FileHelper.readFile(context, Constant.TEMP_ID))).getAccountName());
+            String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
+            String[] mangId = idAccount.split(";");
+            for (int i = 0; i < mangId.length; i++) {
+                if (i == 0) {
+                    accountList += accountDAO.getAccountById(Integer.parseInt(mangId[i])).getAccountName();
+                } else {
+                    accountList += ", " + accountDAO.getAccountById(Integer.parseInt(mangId[i])).getAccountName();
+                }
+            }
+            txtAccount.setText(accountList);
+        }
+        if (!"".equals(txtAccount.getText().toString()) && !"".equals(txtViewBy.getText().toString())) {
+            if (arrayViewBy[0].equals(txtViewBy.getText().toString())) {
+                Toast.makeText(getActivity(), arrayViewBy[0], Toast.LENGTH_SHORT).show();
+            } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
+                Toast.makeText(getActivity(), arrayViewBy[1], Toast.LENGTH_SHORT).show();
+            } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
+                Toast.makeText(getActivity(), arrayViewBy[2], Toast.LENGTH_SHORT).show();
+            } else if (arrayViewBy[3].equals(txtViewBy.getText().toString())) {
+                Toast.makeText(getActivity(), arrayViewBy[3], Toast.LENGTH_SHORT).show();
+            } else {
+                insertNestedFragment(new ReportPeriodTime());
+            }
         }
     }
 
@@ -87,7 +114,7 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlAccount:
-                ((MainActivity)context).replaceFragment(new ReportSelectAccount(), true);
+                ((MainActivity) context).replaceFragment(new ReportSelectAccount(), true);
                 break;
             case R.id.rlViewBy:
                 ReportViewByDialog reportViewByDialog = new ReportViewByDialog();
@@ -100,18 +127,29 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
 
     @Override
     public void onFinishReportDialog(int which, String inputText) {
-        txtViewBy.setText(inputText);
-        if (which == 4) {
-            FragmentManager fm = getActivity().getSupportFragmentManager();
-            ReportPickTimeDialog reportPickTimeDialog = new ReportPickTimeDialog();
-            reportPickTimeDialog.setTargetFragment(ReportExpenseIncome.this, 271);
-            reportPickTimeDialog.show(fm, "pick_time");
+        FileHelper.writeFile(context, Constant.TEMP_VIEW_BY, inputText);
+        switch (which) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                txtViewBy.setText(inputText);
+                break;
+            case 4:
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                ReportPickTimeDialog reportPickTimeDialog = new ReportPickTimeDialog();
+                reportPickTimeDialog.setTargetFragment(ReportExpenseIncome.this, 271);
+                reportPickTimeDialog.show(fm, "pick_time");
+                break;
         }
     }
 
     @Override
     public void onFinishPickTime(String inputText) {
+        FileHelper.writeFile(context, Constant.TEMP_VIEW_BY, inputText);
         txtViewBy.setText(inputText);
-        insertNestedFragment(new ReportPeriodTime());
+        if (!"".equals(txtAccount.getText().toString())) {
+            insertNestedFragment(new ReportPeriodTime());
+        }
     }
 }

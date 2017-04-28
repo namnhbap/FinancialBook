@@ -1,5 +1,6 @@
 package com.example.nguyennam.financialbook.reporttab;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.database.IncomeDAO;
+import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.model.Expense;
+import com.example.nguyennam.financialbook.model.Income;
+import com.example.nguyennam.financialbook.utils.CalculatorSupport;
+import com.example.nguyennam.financialbook.utils.CalendarSupport;
+import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -23,13 +34,26 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class ReportPeriodTime extends Fragment implements OnChartValueSelectedListener {
 
+    Context context;
     PieChart mChart;
     float[] yData = {5, 10, 15, 30, 20, 20};
-    String[] xData = {"Sony", "Samsung", "Apple", "Huawei", "BPhone", "LG"};
+    String[] xData = {"Đi lại", "Trang phục", "Nhà cửa", "Ăn uống", "Dịch vụ sinh hoạt", "Con cái"};
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,38 +65,39 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_period_time, container, false);
         mChart = (PieChart) v.findViewById(R.id.pieChart);
+        setPieChart();
+        return v;
+    }
+
+    private void setPieChart() {
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
         mChart.setExtraOffsets(5, 10, 5, 5);
-
         mChart.setDragDecelerationFrictionCoef(0.95f);
-
         mChart.setDrawHoleEnabled(true);
         mChart.setHoleColor(Color.WHITE);
-
         mChart.setTransparentCircleColor(Color.WHITE);
         mChart.setTransparentCircleAlpha(110);
-
         mChart.setHoleRadius(60f);
         mChart.setTransparentCircleRadius(63f);
-
         mChart.setDrawCenterText(true);
-
         mChart.setRotationAngle(0);
         // enable rotation of the chart by touch
         mChart.setRotationEnabled(true);
         mChart.setHighlightPerTapEnabled(true);
-
         // mChart.setUnit(" €");
         // mChart.setDrawUnitsInChart(true);
-
         // add a selection listener
         mChart.setOnChartValueSelectedListener(this);
-
         setData();
-
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        setLegend();
+        // entry label styling
+        mChart.setEntryLabelColor(Color.WHITE);
+        mChart.setEntryLabelTextSize(12f);
+    }
 
+    private void setLegend() {
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -83,14 +108,52 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         l.setXEntrySpace(7f);
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
-
-        // entry label styling
-        mChart.setEntryLabelColor(Color.WHITE);
-        mChart.setEntryLabelTextSize(12f);
-        return v;
     }
 
     private void setData() {
+//        String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
+//        String [] dateArray = viewByDate.split("-");
+//        for (int i = 0; i < dateArray.length; i++) {
+//            dateArray[i] = dateArray[i].trim();
+//        }
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        Date startDate = null;
+//        Date endDate = null;
+//        try {
+//            startDate = sdf.parse(dateArray[0]);
+//            endDate = sdf.parse(dateArray[1]);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+//        AccountRecyclerView accountRecyclerView;
+//        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
+//        String[] mangId = idAccount.split(";");
+//
+//        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+//        IncomeDAO incomeDAO = new IncomeDAO(context);
+//        // get date from income and expense
+//        List<String> dateExpenseList = expenseDAO.getDateExpense();
+//        List<String> dateIncomeList = incomeDAO.getDateIncome();
+//        // sort date from now to past and avoid duplicate date
+//        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
+//        for (String dateExpense : dateExpenseList) {
+//            Date date = null;
+//            try {
+//                date = sdf.parse(dateExpense);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            for (int i = 0; i < mangId.length; i++) {
+//                if (date.before(endDate) && date.after(startDate)) {
+//                    List<String> expenseMoney = expenseDAO.getMoneyByDate(Integer.parseInt(mangId[i]), dateExpense);
+//                    List<String> incomeMoney = incomeDAO.getMoneyByDate(Integer.parseInt(mangId[i]), dateExpense);
+//
+//                }
+//            }
+//        }
 
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (int i = 0; i < yData.length; i++)
@@ -131,6 +194,17 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         // undo all highlights
         mChart.highlightValues(null);
         mChart.invalidate();
+    }
+
+    public String getMoneyOneDate(List<String> moneyExpenseList) {
+        String moneyOnedate;
+        double moneyNumber = 0; //money expense format to calculate and format to display
+        for (String money : moneyExpenseList) {
+            moneyNumber += Double.parseDouble(CalculatorSupport.formatExpression(money));
+        }
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        moneyOnedate = nf.format(moneyNumber);
+        return moneyOnedate;
     }
 
     @Override
