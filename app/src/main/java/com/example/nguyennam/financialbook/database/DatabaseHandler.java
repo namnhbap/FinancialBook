@@ -35,6 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         static final String KEY_ACCOUNTID = "accountid";
         static final String KEY_EXPENSEDATE = "expensedate";
         static final String KEY_EXPENSEEVENT = "expenseevent";
+        static final String KEY_EXPENSECATEGORYCHILD = "expensecategorychild";
     }
 
     class IncomeColumn implements BaseColumns {
@@ -67,7 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + ExpenseColumn._ID + " INTEGER PRIMARY KEY," + ExpenseColumn.KEY_AMOUNTMONEY + " TEXT,"
             + ExpenseColumn.KEY_EXPENSECATEGORY + " TEXT," + ExpenseColumn.KEY_DESCRIPTION + " TEXT,"
             + ExpenseColumn.KEY_ACCOUNTID + " TEXT," + ExpenseColumn.KEY_EXPENSEDATE + " TEXT,"
-            + ExpenseColumn.KEY_EXPENSEEVENT + " TEXT" + ")";
+            + ExpenseColumn.KEY_EXPENSEEVENT + " TEXT," + ExpenseColumn.KEY_EXPENSECATEGORYCHILD + " TEXT" + ")";
     private static final String DROP_EXPENSE_TABLE = "DROP TABLE IF EXISTS " + TABLE_EXPENSE;
 
     private static final String CREATE_INCOME_TABLE = "CREATE TABLE " + TABLE_INCOME + "("

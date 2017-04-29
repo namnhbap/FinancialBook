@@ -45,7 +45,7 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.record_expense_category, container, false);
         ImageView btnPrevious = (ImageView) view.findViewById(R.id.btnPrevious);
         btnPrevious.setOnClickListener(this);
@@ -70,6 +70,7 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 TextView textView = (TextView) v.findViewById(R.id.groupname);
                 String groupname = (String) textView.getText();
+                FileHelper.deleteFile(context, Constant.TEMP_CATEGORY_CHILD);
                 FileHelper.writeFile(context, Constant.TEMP_CATEGORY, groupname);
                 getActivity().getSupportFragmentManager().popBackStack();
                 return false;
@@ -78,9 +79,10 @@ public class ExpenseCategory extends Fragment implements SearchView.OnQueryTextL
         myList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                FileHelper.writeFile(context, Constant.TEMP_CATEGORY, categoryGroupList.get(groupPosition).getName());
                 TextView textView = (TextView) v.findViewById(R.id.childrow);
                 String childrow = (String) textView.getText();
-                FileHelper.writeFile(context, Constant.TEMP_CATEGORY, childrow);
+                FileHelper.writeFile(context, Constant.TEMP_CATEGORY_CHILD, childrow);
                 getActivity().getSupportFragmentManager().popBackStack();
                 return false;
             }

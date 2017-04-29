@@ -71,4 +71,16 @@ public class CalendarSupport {
             }
         });
     }
+
+    public static Date convertStringToDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateConvert = null;
+        try {
+            dateConvert = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateConvert;
+    }
+
 }

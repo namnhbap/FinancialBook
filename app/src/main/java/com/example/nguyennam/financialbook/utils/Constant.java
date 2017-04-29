@@ -12,6 +12,7 @@ public class Constant {
     public static final String TEMP_EXPENSE_ID = "temp_expense_id.tmp";
     public static final String TEMP_CALCULATOR = "temp_calculator.tmp";
     public static final String TEMP_CATEGORY = "temp_category.tmp";
+    public static final String TEMP_CATEGORY_CHILD = "temp_category_child.tmp";
     public static final String TEMP_ACCOUNT_ID = "temp_account_id.tmp";
     public static final String TEMP_DESCRIPTION = "temp_description.tmp";
     public static final String TEMP_EVENT = "temp_event.tmp";

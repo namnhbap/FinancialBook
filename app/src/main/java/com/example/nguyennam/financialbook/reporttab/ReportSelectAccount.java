@@ -68,8 +68,8 @@ public class ReportSelectAccount extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(int position) {
-//        FileHelper.writeFile(context, Constant.TEMP_ID, "" + position);
-//        getActivity().getSupportFragmentManager().popBackStack();
+        FileHelper.writeFile(context, Constant.TEMP_ID, "" + position);
+        getActivity().getSupportFragmentManager().popBackStack();
 //        for (AccountRecyclerView accountRecyclerView : data) {
 //            if (position == accountRecyclerView.getId()) {
 //                accountRecyclerView.setChecked(true);

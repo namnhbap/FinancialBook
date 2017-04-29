@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
@@ -35,8 +36,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +45,10 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
 
     Context context;
     PieChart mChart;
+//    float[] yData;
+//    String[] xData;
+    TextView txtExpenseMoney;
+    TextView txtIncomeMoney;
     float[] yData = {5, 10, 15, 30, 20, 20};
     String[] xData = {"Đi lại", "Trang phục", "Nhà cửa", "Ăn uống", "Dịch vụ sinh hoạt", "Con cái"};
 
@@ -64,6 +67,8 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_period_time, container, false);
+        txtExpenseMoney = (TextView) v.findViewById(R.id.txtExpenseMoney);
+        txtIncomeMoney = (TextView) v.findViewById(R.id.txtIncomeMoney);
         mChart = (PieChart) v.findViewById(R.id.pieChart);
         setPieChart();
         return v;
@@ -111,65 +116,58 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     }
 
     private void setData() {
-//        String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
-//        String [] dateArray = viewByDate.split("-");
-//        for (int i = 0; i < dateArray.length; i++) {
-//            dateArray[i] = dateArray[i].trim();
-//        }
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//        Date startDate = null;
-//        Date endDate = null;
-//        try {
-//            startDate = sdf.parse(dateArray[0]);
-//            endDate = sdf.parse(dateArray[1]);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-//        AccountRecyclerView accountRecyclerView;
-//        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
-//        String[] mangId = idAccount.split(";");
-//
-//        ExpenseDAO expenseDAO = new ExpenseDAO(context);
-//        IncomeDAO incomeDAO = new IncomeDAO(context);
-//        // get date from income and expense
-//        List<String> dateExpenseList = expenseDAO.getDateExpense();
-//        List<String> dateIncomeList = incomeDAO.getDateIncome();
-//        // sort date from now to past and avoid duplicate date
-//        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
-//        for (String dateExpense : dateExpenseList) {
-//            Date date = null;
-//            try {
-//                date = sdf.parse(dateExpense);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            for (int i = 0; i < mangId.length; i++) {
-//                if (date.before(endDate) && date.after(startDate)) {
-//                    List<String> expenseMoney = expenseDAO.getMoneyByDate(Integer.parseInt(mangId[i]), dateExpense);
-//                    List<String> incomeMoney = incomeDAO.getMoneyByDate(Integer.parseInt(mangId[i]), dateExpense);
-//
-//                }
-//            }
-//        }
+        // get date start and date end from view by
+        String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
+        String [] dateArray = viewByDate.split("-");
+        for (int i = 0; i < dateArray.length; i++) {
+            dateArray[i] = dateArray[i].trim();
+        }
+        Date startDate = CalendarSupport.convertStringToDate(dateArray[0]);
+        Date endDate = CalendarSupport.convertStringToDate(dateArray[1]);
+        // get id account from account name form
+        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+        AccountRecyclerView accountRecyclerView;
+        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
+        String[] mangId = idAccount.split(";");
+        // get date from income and expense
+        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        IncomeDAO incomeDAO = new IncomeDAO(context);
+        List<String> dateExpenseList = expenseDAO.getDateExpense();
+        List<String> dateIncomeList = incomeDAO.getDateIncome();
+        // sort date from now to past and avoid duplicate date
+        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
+        double amountMoneyExpense = 0;
+        double amountMoneyIncome = 0;
+        for (String dateExpense : dateExpenseList) {
+            Date date = CalendarSupport.convertStringToDate(dateExpense);
+            for (int i = 0; i < mangId.length; i++) {
+                if (!date.before(startDate) && !date.after(endDate)) {
+                    List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[i]), dateExpense);
+                    for (Expense expense : expenseList) {
+                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                    }
+                    List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[i]), dateExpense);
+                    for (Income income : incomeList) {
+                        amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+                    }
+                }
+            }
+        }
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        txtExpenseMoney.setText(nf.format(amountMoneyExpense));
+        txtIncomeMoney.setText(nf.format(amountMoneyIncome));
 
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (int i = 0; i < yData.length; i++)
             entries.add(new PieEntry(yData[i], xData[i]));
         mChart.setDrawEntryLabels(false); //dont show xdata in chart
-
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setDrawIcons(false);
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         dataSet.setSelectionShift(5f);
-
         // add a lot of colors
-
         ArrayList<Integer> colors = new ArrayList<>();
-
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
         for (int c : ColorTemplate.JOYFUL_COLORS)
@@ -180,11 +178,9 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
             colors.add(c);
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
-
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
-
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
@@ -194,17 +190,6 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         // undo all highlights
         mChart.highlightValues(null);
         mChart.invalidate();
-    }
-
-    public String getMoneyOneDate(List<String> moneyExpenseList) {
-        String moneyOnedate;
-        double moneyNumber = 0; //money expense format to calculate and format to display
-        for (String money : moneyExpenseList) {
-            moneyNumber += Double.parseDouble(CalculatorSupport.formatExpression(money));
-        }
-        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
-        moneyOnedate = nf.format(moneyNumber);
-        return moneyOnedate;
     }
 
     @Override

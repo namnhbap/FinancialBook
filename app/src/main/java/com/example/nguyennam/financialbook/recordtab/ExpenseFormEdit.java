@@ -65,7 +65,11 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         txtAmount.setText(expense.get_amountMoney());
         txtAmount.setOnClickListener(this);
         txtCategory = (TextView) view.findViewById(R.id.txtCategory);
-        txtCategory.setText(expense.get_category());
+        if (!"".equals(expense.get_categoryChild())) {
+            txtCategory.setText(expense.get_categoryChild());
+        } else {
+            txtCategory.setText(expense.get_category());
+        }
         txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         txtDescription.setText(expense.get_description());
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
@@ -105,7 +109,9 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
             txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
         }
-        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD))) {
+            txtCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
+        } else if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
             txtCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
         }
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID))) {
@@ -182,8 +188,6 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     }
 
     public void saveData() {
-        //clear temp file
-        clearTempFile();
         //update amountmoney of account
         updateAmountMoneyAccount();
         //set expense
@@ -192,6 +196,8 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
         expenseDAO.updateExpense(expense);
         Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllExpense());
+        //clear temp file
+        clearTempFile();
         //exit
         getActivity().getSupportFragmentManager().popBackStack();
     }
@@ -233,7 +239,13 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         expense.set_amountMoney(txtAmount.getText().toString());
         expense.set_description(txtDescription.getText().toString());
         expense.set_accountID(Integer.parseInt(temp_new_account_id));
-        expense.set_category(txtCategory.getText().toString());
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
+            expense.set_category(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
+            expense.set_categoryChild(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
+        }
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD))) {
+            expense.set_categoryChild(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
+        }
         expense.set_event(txtExpenseEvent.getText().toString());
         expense.set_date(txtExpenseTime.getText().toString());
     }
@@ -241,6 +253,7 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     private void clearTempFile() {
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY_CHILD);
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);
     }

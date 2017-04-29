@@ -8,12 +8,14 @@ public class Expense {
     private int _accountID;
     private String _date;
     private String _event;
+    private String _categoryChild;
 
     public Expense(){
 
     }
 
-    public Expense(int _id, String _amountMoney, String _category, String _description, int _accountID, String _date, String _event) {
+    public Expense(int _id, String _amountMoney, String _category, String _description,
+                   int _accountID, String _date, String _event, String _categoryChild) {
         this._id = _id;
         this._amountMoney = _amountMoney;
         this._category = _category;
@@ -21,21 +23,24 @@ public class Expense {
         this._accountID = _accountID;
         this._date = _date;
         this._event = _event;
+        this._categoryChild = _categoryChild;
     }
 
-    public Expense(String _amountMoney, String _category, String _description, int _accountID, String _date, String _event) {
+    public Expense(String _amountMoney, String _category, String _description,
+                   int _accountID, String _date, String _event, String _categoryChild) {
         this._amountMoney = _amountMoney;
         this._category = _category;
         this._description = _description;
         this._accountID = _accountID;
         this._date = _date;
         this._event = _event;
+        this._categoryChild = _categoryChild;
     }
 
     public String toString() {
         return _id + ";" + _amountMoney +";" + _category
                 + ";" + _description +";" + _accountID
-                + ";" + _date +";" + _event;
+                + ";" + _date +";" + _event + _categoryChild;
     }
 
     public int get_id() {
@@ -92,5 +97,13 @@ public class Expense {
 
     public void set_event(String _event) {
         this._event = _event;
+    }
+
+    public String get_categoryChild() {
+        return _categoryChild;
+    }
+
+    public void set_categoryChild(String _categoryChild) {
+        this._categoryChild = _categoryChild;
     }
 }

@@ -94,7 +94,9 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
             txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
         }
-        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD))) {
+            txtCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
+        } else if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
             txtCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
         }
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID))) {
@@ -167,8 +169,6 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     }
 
     public void saveData() {
-        //clear temp file
-        clearTempFile();
         //set expense
         setExpense();
         //add expense into database
@@ -179,6 +179,8 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         updateAmountMoneyAccount();
         //clear text
         clearTextView();
+        //clear temp file
+        clearTempFile();
     }
 
     private void clearTextView() {
@@ -204,13 +206,15 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     private void setExpense() {
         expense.set_amountMoney(txtAmount.getText().toString());
         expense.set_description(txtDescription.getText().toString());
-        expense.set_category(txtCategory.getText().toString());
+        expense.set_category(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
+        expense.set_categoryChild(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
         expense.set_event(txtExpenseEvent.getText().toString());
     }
 
     private void clearTempFile() {
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY_CHILD);
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);
     }
