@@ -16,6 +16,7 @@ import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.model.CategoryGroup;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
@@ -37,6 +38,7 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -136,6 +138,14 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         List<String> dateIncomeList = incomeDAO.getDateIncome();
         // sort date from now to past and avoid duplicate date
         CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
+
+
+        List<String> myGroupList = Arrays.asList(getResources().getStringArray(R.array.group_row_category));
+        List<CategoryGroup> categoryGroupList = new ArrayList<>();
+        for (int i = 0; i < myGroupList.size(); i++) {
+            categoryGroupList.add(new CategoryGroup(myGroupList.get(i), "0"));
+        }
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
         double amountMoneyExpense = 0;
         double amountMoneyIncome = 0;
         for (String dateExpense : dateExpenseList) {
@@ -144,6 +154,13 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
                 if (!date.before(startDate) && !date.after(endDate)) {
                     List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[i]), dateExpense);
                     for (Expense expense : expenseList) {
+                        for (CategoryGroup categoryGroup : categoryGroupList) {
+                            if (categoryGroup.getName().equals(expense.get_category())) {
+                                double temp = Double.parseDouble(CalculatorSupport.formatExpression(categoryGroup.getMoney()))
+                                        + Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                                categoryGroup.setMoney(nf.format(temp));
+                            }
+                        }
                         amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
                     }
                     List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[i]), dateExpense);
@@ -153,13 +170,20 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
                 }
             }
         }
-        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
         txtExpenseMoney.setText(nf.format(amountMoneyExpense));
         txtIncomeMoney.setText(nf.format(amountMoneyIncome));
+        // remove object money = 0
+        for (int i = categoryGroupList.size() - 1; i >= 0 ; i--) {
+            if ("0".equals(categoryGroupList.get(i).getMoney())) {
+                categoryGroupList.remove(i);
+            }
+        }
 
         ArrayList<PieEntry> entries = new ArrayList<>();
-        for (int i = 0; i < yData.length; i++)
-            entries.add(new PieEntry(yData[i], xData[i]));
+        for (CategoryGroup categoryGroup : categoryGroupList) {
+            entries.add(new PieEntry(Float.parseFloat(categoryGroup.getMoney()), categoryGroup.getName()));
+        }
+
         mChart.setDrawEntryLabels(false); //dont show xdata in chart
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setDrawIcons(false);

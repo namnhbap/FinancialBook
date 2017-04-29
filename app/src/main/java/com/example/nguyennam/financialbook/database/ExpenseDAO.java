@@ -47,10 +47,10 @@ public class ExpenseDAO {
 
     public Expense getExpenseById(int id) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_EXPENSE, new String[] { DatabaseHandler.ExpenseColumn._ID,
+        Cursor cursor = db.query(TABLE_EXPENSE, new String[]{DatabaseHandler.ExpenseColumn._ID,
                         KEY_AMOUNTMONEY, KEY_EXPENSECATEGORY, KEY_DESCRIPTION,
-                        KEY_ACCOUNTID, KEY_EXPENSEDATE, KEY_EXPENSEEVENT, KEY_EXPENSECATEGORYCHILD }, DatabaseHandler.ExpenseColumn._ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+                        KEY_ACCOUNTID, KEY_EXPENSEDATE, KEY_EXPENSEEVENT, KEY_EXPENSECATEGORYCHILD}, DatabaseHandler.ExpenseColumn._ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -232,13 +232,13 @@ public class ExpenseDAO {
         values.put(KEY_EXPENSECATEGORYCHILD, expenseBEAN.get_categoryChild());
         // updating row
         return db.update(TABLE_EXPENSE, values, DatabaseHandler.ExpenseColumn._ID + " = ?",
-                new String[] { String.valueOf(expenseBEAN.get_id()) });
+                new String[]{String.valueOf(expenseBEAN.get_id())});
     }
 
     public void deleteExpense(Expense expenseBEAN) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         db.delete(TABLE_EXPENSE, DatabaseHandler.ExpenseColumn._ID + " = ?",
-                new String[] { String.valueOf(expenseBEAN.get_id()) });
+                new String[]{String.valueOf(expenseBEAN.get_id())});
         db.close();
     }
 }

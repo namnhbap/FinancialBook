@@ -8,11 +8,25 @@ import java.util.ArrayList;
 
 public class CategoryGroup {
     private String name;
+    private String money;
     private ArrayList<CategoryChild> categoryChildList = new ArrayList<>();
 
     public CategoryGroup(String name, ArrayList<CategoryChild> categoryChildList) {
         this.name = name;
         this.categoryChildList = categoryChildList;
+    }
+
+    public CategoryGroup(String name, String money) {
+        this.name = name;
+        this.money = money;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
     }
 
     public String getName() {
