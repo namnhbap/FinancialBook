@@ -42,7 +42,6 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
     TextView txtIncomeTime;
     TextView txtEvent;
     Income income = new Income();
-
     String temp_new_account_id;
 
     @Override
@@ -108,10 +107,12 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
             txtIncomeCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
         }
-        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID))) {
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID_EDIT))) {
             AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-            temp_new_account_id = FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID);
+            temp_new_account_id = FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID_EDIT);
             txtAccountName.setText(accountDAO.getAccountById(Integer.parseInt(temp_new_account_id)).getAccountName());
+        } else {
+            temp_new_account_id = String.valueOf(income.get_accountID());
         }
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION))) {
             txtDescription.setText(FileHelper.readFile(context, Constant.TEMP_DESCRIPTION));
@@ -241,6 +242,7 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);
+        FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID_EDIT);
     }
 
     @Override

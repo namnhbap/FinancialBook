@@ -14,6 +14,7 @@ public class Constant {
     public static final String TEMP_CATEGORY = "temp_category.tmp";
     public static final String TEMP_CATEGORY_CHILD = "temp_category_child.tmp";
     public static final String TEMP_ACCOUNT_ID = "temp_account_id.tmp";
+    public static final String TEMP_ACCOUNT_ID_EDIT = "temp_account_id_edit.tmp";
     public static final String TEMP_DESCRIPTION = "temp_description.tmp";
     public static final String TEMP_EVENT = "temp_event.tmp";
     public static final String TEMP_VIEW_BY = "temp_view_by.tmp";

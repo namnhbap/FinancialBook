@@ -58,6 +58,7 @@ public class Accounts extends Fragment implements RecordAccountAdapter.RecordAcc
     public void onClick(int position) {
         String accountID = String.valueOf(account.getAccountById(position).getId());
         FileHelper.writeFile(context, Constant.TEMP_ACCOUNT_ID, accountID);
+        FileHelper.writeFile(context, Constant.TEMP_ACCOUNT_ID_EDIT, accountID);
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
