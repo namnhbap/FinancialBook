@@ -26,6 +26,7 @@ import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -55,6 +56,7 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         expense = new ExpenseDAO(context).getExpenseById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_EXPENSE_ID)));
+        getDate();
     }
 
     @Nullable
@@ -96,13 +98,6 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         return view;
     }
 
-    String getDate() {
-        myCalendar = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = df.format(myCalendar.getTime());
-        return formattedDate;
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -127,6 +122,17 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_EVENT))) {
             txtExpenseEvent.setText(FileHelper.readFile(context, Constant.TEMP_EVENT));
         }
+    }
+
+    String getDate() {
+        myCalendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            myCalendar.setTime(df.parse(expense.get_date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return df.format(myCalendar.getTime());
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
