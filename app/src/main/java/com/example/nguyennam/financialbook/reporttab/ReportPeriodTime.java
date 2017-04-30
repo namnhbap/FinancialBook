@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.adapters.ReportCategoryIncomeAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
-import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.CategoryGroup;
+import com.example.nguyennam.financialbook.model.CategoryIncome;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
@@ -44,7 +46,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ReportPeriodTime extends Fragment implements OnChartValueSelectedListener {
+public class ReportPeriodTime extends Fragment implements OnChartValueSelectedListener, ReportCategoryIncomeAdapter.ReportIncomeOnClickListener {
 
     Context context;
     PieChart mChart;
@@ -52,6 +54,14 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     LinearLayout lnExpense;
     TextView txtExpenseMoney;
     TextView txtIncomeMoney;
+    Date startDate;
+    Date endDate;
+    String[] mangId;
+    List<String> dateExpenseList;
+    List<CategoryGroup> categoryGroupList;
+    List<CategoryIncome> categoryIncomeList;
+    ExpenseDAO expenseDAO;
+    IncomeDAO incomeDAO;
 
     @Override
     public void onAttach(Context context) {
@@ -72,6 +82,13 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         lnExpense = (LinearLayout) v.findViewById(R.id.lnExpense);
         txtExpenseMoney = (TextView) v.findViewById(R.id.txtExpenseMoney);
         txtIncomeMoney = (TextView) v.findViewById(R.id.txtIncomeMoney);
+        getDataReport();
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewIncomeReport);
+        ReportCategoryIncomeAdapter myAdapter = new ReportCategoryIncomeAdapter(context, categoryIncomeList);
+        myAdapter.setMyOnClickListener(this);
+        recyclerView.setAdapter(myAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
         mChart = (PieChart) v.findViewById(R.id.pieChart);
         setPieChart();
         return v;
@@ -119,80 +136,10 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     }
 
     private void setData() {
-        // get date start and date end from view by
-        String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
-        String [] dateArray = viewByDate.split("-");
-        for (int i = 0; i < dateArray.length; i++) {
-            dateArray[i] = dateArray[i].trim();
-        }
-        Date startDate = CalendarSupport.convertStringToDate(dateArray[0]);
-        Date endDate = CalendarSupport.convertStringToDate(dateArray[1]);
-        // get id account from account name form
-        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
-        AccountRecyclerView accountRecyclerView;
-        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
-        String[] mangId = idAccount.split(";");
-        // get date from income and expense
-        ExpenseDAO expenseDAO = new ExpenseDAO(context);
-        IncomeDAO incomeDAO = new IncomeDAO(context);
-        List<String> dateExpenseList = expenseDAO.getDateExpense();
-        List<String> dateIncomeList = incomeDAO.getDateIncome();
-        // sort date from now to past and avoid duplicate date
-        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
-
-
-        List<String> myGroupList = Arrays.asList(getResources().getStringArray(R.array.group_row_category));
-        List<CategoryGroup> categoryGroupList = new ArrayList<>();
-        for (int i = 0; i < myGroupList.size(); i++) {
-            categoryGroupList.add(new CategoryGroup(myGroupList.get(i), "0"));
-        }
-        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
-        double amountMoneyExpense = 0;
-        double amountMoneyIncome = 0;
-        for (String dateExpense : dateExpenseList) {
-            Date date = CalendarSupport.convertStringToDate(dateExpense);
-            for (int i = 0; i < mangId.length; i++) {
-                if (!date.before(startDate) && !date.after(endDate)) {
-                    List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[i]), dateExpense);
-                    for (Expense expense : expenseList) {
-                        for (CategoryGroup categoryGroup : categoryGroupList) {
-                            if (categoryGroup.getName().equals(expense.get_category())) {
-                                double temp = Double.parseDouble(CalculatorSupport.formatExpression(categoryGroup.getMoney()))
-                                        + Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-                                categoryGroup.setMoney(nf.format(temp));
-                            }
-                        }
-                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-                    }
-                    List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[i]), dateExpense);
-                    for (Income income : incomeList) {
-                        amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
-                    }
-                }
-            }
-        }
-        if (amountMoneyExpense == 0) {
-            lnExpense.setVisibility(View.GONE);
-        } else {
-            txtExpenseMoney.setText(nf.format(amountMoneyExpense));
-        }
-        if (amountMoneyIncome == 0) {
-            lnIncome.setVisibility(View.GONE);
-        } else {
-            txtIncomeMoney.setText(nf.format(amountMoneyIncome));
-        }
-        // remove object money = 0
-        for (int i = categoryGroupList.size() - 1; i >= 0 ; i--) {
-            if ("0".equals(categoryGroupList.get(i).getMoney())) {
-                categoryGroupList.remove(i);
-            }
-        }
-
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (CategoryGroup categoryGroup : categoryGroupList) {
             entries.add(new PieEntry(Float.parseFloat(categoryGroup.getMoney()), categoryGroup.getName()));
         }
-
         mChart.setDrawEntryLabels(false); //dont show xdata in chart
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setDrawIcons(false);
@@ -231,7 +178,7 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         if (e == null)
             return;
         Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
+                "Value: " + e.getY() + ", index: " + categoryGroupList.get((int)h.getX()).getName()
                         + ", DataSet index: " + h.getDataSetIndex());
     }
 
@@ -240,4 +187,117 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         Log.i("PieChart", "nothing selected");
     }
 
+    private void getDateStartEnd() {
+        // get date start and date end from view by
+        String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
+        String [] dateArray = viewByDate.split("-");
+        for (int i = 0; i < dateArray.length; i++) {
+            dateArray[i] = dateArray[i].trim();
+        }
+        startDate = CalendarSupport.convertStringToDate(dateArray[0]);
+        endDate = CalendarSupport.convertStringToDate(dateArray[1]);
+    }
+
+    private void getDateExpenseIncome() {
+        // get date from income and expense
+        expenseDAO = new ExpenseDAO(context);
+        incomeDAO = new IncomeDAO(context);
+        dateExpenseList = expenseDAO.getDateExpense();
+        List<String> dateIncomeList = incomeDAO.getDateIncome();
+        // sort date from now to past and avoid duplicate date
+        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
+    }
+
+    private void addCategoryGroupList() {
+        List<String> myGroupList = Arrays.asList(getResources().getStringArray(R.array.group_row_category));
+        categoryGroupList = new ArrayList<>();
+        for (int i = 0; i < myGroupList.size(); i++) {
+            categoryGroupList.add(new CategoryGroup(myGroupList.get(i), "0"));
+        }
+    }
+
+    private void addCategoryIncomeList() {
+        List<String> myGroupList = Arrays.asList(getResources().getStringArray(R.array.income_category));
+        categoryIncomeList = new ArrayList<>();
+        for (int i = 0; i < myGroupList.size(); i++) {
+            categoryIncomeList.add(new CategoryIncome(myGroupList.get(i), "0", "0"));
+        }
+    }
+
+    private void getDataReport() {
+        getDateStartEnd();
+        getDateExpenseIncome();
+        addCategoryGroupList();
+        addCategoryIncomeList();
+        // get id account from account name form
+        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
+        mangId = idAccount.split(";");
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        double amountMoneyExpense = 0;
+        double amountMoneyIncome = 0;
+        for (String dateExpense : dateExpenseList) {
+            Date date = CalendarSupport.convertStringToDate(dateExpense);
+            for (int i = 0; i < mangId.length; i++) {
+                if (!date.before(startDate) && !date.after(endDate)) {
+                    List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[i]), dateExpense);
+                    for (Expense expense : expenseList) {
+                        for (CategoryGroup categoryGroup : categoryGroupList) {
+                            if (categoryGroup.getName().equals(expense.get_category())) {
+                                double temp = Double.parseDouble(CalculatorSupport.formatExpression(categoryGroup.getMoney()))
+                                        + Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                                categoryGroup.setMoney(nf.format(temp));
+                            }
+                        }
+                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                    }
+                    List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[i]), dateExpense);
+                    for (Income income : incomeList) {
+                        for (CategoryIncome categoryIncome : categoryIncomeList) {
+                            if (categoryIncome.getName().equals(income.get_category())) {
+                                double temp = Double.parseDouble(CalculatorSupport.formatExpression(categoryIncome.getMoney()))
+                                        + Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+                                categoryIncome.setMoney(nf.format(temp));
+                            }
+                        }
+                        amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+                    }
+                }
+            }
+        }
+        // remove view or not
+        if (amountMoneyExpense == 0) {
+            lnExpense.setVisibility(View.GONE);
+        } else {
+            txtExpenseMoney.setText(nf.format(amountMoneyExpense));
+        }
+        if (amountMoneyIncome == 0) {
+            lnIncome.setVisibility(View.GONE);
+        } else {
+            txtIncomeMoney.setText(nf.format(amountMoneyIncome));
+        }
+        // remove object money = 0
+        for (int i = categoryGroupList.size() - 1; i >= 0 ; i--) {
+            if ("0".equals(categoryGroupList.get(i).getMoney())) {
+                categoryGroupList.remove(i);
+            }
+        }
+        for (int i = categoryIncomeList.size() - 1; i >= 0 ; i--) {
+            if ("0".equals(categoryIncomeList.get(i).getMoney())) {
+                categoryIncomeList.remove(i);
+            }
+        }
+        // calculate percent
+        for (int i = categoryIncomeList.size() - 1; i >= 0 ; i--) {
+            String temp = Double.toString((double) Math.round(
+                    Double.parseDouble(CalculatorSupport.formatExpression(categoryIncomeList.get(i).getMoney()))
+                    / amountMoneyIncome * 100
+                            * 10) / 10);
+            categoryIncomeList.get(i).setPercent(temp);
+        }
+    }
+
+    @Override
+    public void onClick(String name) {
+
+    }
 }
