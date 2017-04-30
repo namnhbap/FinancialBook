@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ExpenseFormEdit extends Fragment implements View.OnClickListener, 
+public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         DeleteFinancialHistoryDialog.DeleteDialogListener {
 
     Context context;

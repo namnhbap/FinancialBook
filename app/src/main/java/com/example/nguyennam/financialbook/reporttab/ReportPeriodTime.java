@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
@@ -47,12 +48,10 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
 
     Context context;
     PieChart mChart;
-//    float[] yData;
-//    String[] xData;
+    LinearLayout lnIncome;
+    LinearLayout lnExpense;
     TextView txtExpenseMoney;
     TextView txtIncomeMoney;
-    float[] yData = {5, 10, 15, 30, 20, 20};
-    String[] xData = {"Đi lại", "Trang phục", "Nhà cửa", "Ăn uống", "Dịch vụ sinh hoạt", "Con cái"};
 
     @Override
     public void onAttach(Context context) {
@@ -69,6 +68,8 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_period_time, container, false);
+        lnIncome = (LinearLayout) v.findViewById(R.id.lnIncome);
+        lnExpense = (LinearLayout) v.findViewById(R.id.lnExpense);
         txtExpenseMoney = (TextView) v.findViewById(R.id.txtExpenseMoney);
         txtIncomeMoney = (TextView) v.findViewById(R.id.txtIncomeMoney);
         mChart = (PieChart) v.findViewById(R.id.pieChart);
@@ -170,8 +171,16 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
                 }
             }
         }
-        txtExpenseMoney.setText(nf.format(amountMoneyExpense));
-        txtIncomeMoney.setText(nf.format(amountMoneyIncome));
+        if (amountMoneyExpense == 0) {
+            lnExpense.setVisibility(View.GONE);
+        } else {
+            txtExpenseMoney.setText(nf.format(amountMoneyExpense));
+        }
+        if (amountMoneyIncome == 0) {
+            lnIncome.setVisibility(View.GONE);
+        } else {
+            txtIncomeMoney.setText(nf.format(amountMoneyIncome));
+        }
         // remove object money = 0
         for (int i = categoryGroupList.size() - 1; i >= 0 ; i--) {
             if ("0".equals(categoryGroupList.get(i).getMoney())) {

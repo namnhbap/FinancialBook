@@ -54,7 +54,7 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        income = new IncomeDAO(context).getIncomeById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID)));
+        income = new IncomeDAO(context).getIncomeById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_INCOME_ID)));
     }
 
     @Nullable
