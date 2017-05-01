@@ -6,13 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ReportViewByMonthAdapter;
+import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.model.ReportMonth;
+import com.example.nguyennam.financialbook.utils.CalendarSupport;
+import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +46,7 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
         data = new ArrayList<>();
         data.add(new ReportMonth("4","2017","1.000.000", "1.000.000"));
         data.add(new ReportMonth("3","2017","2.000.000", "2.000.000"));
-
+        String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
         ReportViewByMonthAdapter myAdapter = new ReportViewByMonthAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);

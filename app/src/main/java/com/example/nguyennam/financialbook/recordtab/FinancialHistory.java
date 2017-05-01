@@ -5,14 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
@@ -119,7 +117,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         for (String date : dateExpenseList) {
             dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
             dateOfMonth = CalendarSupport.getDateOfMonth(date);
-            month = CalendarSupport.getMonth(date);
+            month = CalendarSupport.getMonthAndYear(date);
             List<String> moneyExpenseList = expenseDAO.getMoneyByDate(date);
             moneyExpense = getMoneyOneDate(moneyExpenseList);
             List<String> moneyIncomeList = incomeDAO.getMoneyByDate(date);

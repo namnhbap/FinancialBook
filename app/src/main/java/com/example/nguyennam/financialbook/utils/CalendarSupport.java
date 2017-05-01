@@ -1,7 +1,6 @@
 package com.example.nguyennam.financialbook.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.nguyennam.financialbook.R;
 
@@ -38,7 +37,29 @@ public class CalendarSupport {
         return dateOfMonth[0];
     }
 
-    public static String getMonth (String input_date) {
+    public static String getMonthAndYear(String input_date) {
+        for (int i = 0; i < input_date.length(); i++) {
+            if ("/".equals(String.valueOf(input_date.charAt(i)))) {
+                input_date = input_date.substring(i+1, input_date.length());
+                break;
+            }
+        }
+        return input_date;
+    }
+
+    public static String getMonth(String input_date) {
+        input_date = getMonthAndYear(input_date);
+        for (int i = 0; i < input_date.length(); i++) {
+            if ("/".equals(String.valueOf(input_date.charAt(i)))) {
+                input_date = input_date.substring(0, i);
+                break;
+            }
+        }
+        return input_date;
+    }
+
+    public static String getYear (String input_date) {
+        input_date = getMonthAndYear(input_date);
         for (int i = 0; i < input_date.length(); i++) {
             if ("/".equals(String.valueOf(input_date.charAt(i)))) {
                 input_date = input_date.substring(i+1, input_date.length());
