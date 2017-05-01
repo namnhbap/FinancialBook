@@ -26,6 +26,7 @@ import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -76,13 +77,6 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    String getDate(){
-        myCalendar = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = df.format(myCalendar.getTime());
-        return formattedDate;
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -105,6 +99,21 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         }
     }
 
+    String getDate() {
+        myCalendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_DATE))) {
+            try {
+                myCalendar.setTime(df.parse(FileHelper.readFile(context, Constant.TEMP_DATE)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return df.format(myCalendar.getTime());
+        } else {
+            return df.format(myCalendar.getTime());
+        }
+    }
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -118,8 +127,8 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        FileHelper.writeFile(context, Constant.TEMP_DATE, sdf.format(myCalendar.getTime()));
         txtIncomeTime.setText(sdf.format(myCalendar.getTime()));
-        income.set_date(txtIncomeTime.getText().toString());
     }
 
     @Override
@@ -162,6 +171,8 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
     }
 
     public void saveData() {
+        // avoid bug can't set date current when click save
+        FileHelper.deleteFile(context, Constant.TEMP_DATE);
         //clear temp file
         clearTempFile();
         //set expense
@@ -201,6 +212,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         income.set_description(txtDescription.getText().toString());
         income.set_category(txtIncomeCategory.getText().toString());
         income.set_event(txtEvent.getText().toString());
+        income.set_date(txtIncomeTime.getText().toString());
     }
 
     private void clearTempFile() {

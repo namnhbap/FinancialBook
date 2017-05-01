@@ -26,6 +26,7 @@ import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -64,7 +65,6 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         txtAccountName = (TextView) view.findViewById(R.id.txtAccountName);
         txtExpenseTime = (TextView) view.findViewById(R.id.txtExpenseTime);
         txtExpenseTime.setText(getDate());
-        expense.set_date(txtExpenseTime.getText().toString());
         txtExpenseEvent = (TextView) view.findViewById(R.id.txtEvent);
         RelativeLayout rlSelectCategory = (RelativeLayout) view.findViewById(R.id.rlSelectCategory);
         rlSelectCategory.setOnClickListener(this);
@@ -79,13 +79,6 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         LinearLayout lnAddExpense = (LinearLayout) view.findViewById(R.id.lnSave);
         lnAddExpense.setOnClickListener(this);
         return view;
-    }
-
-    String getDate() {
-        myCalendar = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = df.format(myCalendar.getTime());
-        return formattedDate;
     }
 
     @Override
@@ -112,6 +105,21 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         }
     }
 
+    String getDate() {
+        myCalendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_DATE))) {
+            try {
+                myCalendar.setTime(df.parse(FileHelper.readFile(context, Constant.TEMP_DATE)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return df.format(myCalendar.getTime());
+        } else {
+            return df.format(myCalendar.getTime());
+        }
+    }
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -125,8 +133,8 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        FileHelper.writeFile(context, Constant.TEMP_DATE, sdf.format(myCalendar.getTime()));
         txtExpenseTime.setText(sdf.format(myCalendar.getTime()));
-        expense.set_date(txtExpenseTime.getText().toString());
     }
 
     @Override
@@ -169,6 +177,8 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
     }
 
     public void saveData() {
+        // avoid bug can't set date current when click save
+        FileHelper.deleteFile(context, Constant.TEMP_DATE);
         //set expense
         setExpense();
         //add expense into database
@@ -209,6 +219,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         expense.set_category(FileHelper.readFile(context, Constant.TEMP_CATEGORY));
         expense.set_categoryChild(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
         expense.set_event(txtExpenseEvent.getText().toString());
+        expense.set_date(txtExpenseTime.getText().toString());
     }
 
     private void clearTempFile() {

@@ -17,5 +17,6 @@ public class Constant {
     public static final String TEMP_ACCOUNT_ID_EDIT = "temp_account_id_edit.tmp";
     public static final String TEMP_DESCRIPTION = "temp_description.tmp";
     public static final String TEMP_EVENT = "temp_event.tmp";
+    public static final String TEMP_DATE = "temp_date.tmp";
     public static final String TEMP_VIEW_BY = "temp_view_by.tmp";
 }
