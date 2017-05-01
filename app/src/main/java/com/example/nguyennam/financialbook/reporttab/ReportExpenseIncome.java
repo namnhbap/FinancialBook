@@ -76,13 +76,11 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
         }
         if (!"".equals(txtAccount.getText().toString()) && !"".equals(txtViewBy.getText().toString())) {
             if (arrayViewBy[0].equals(txtViewBy.getText().toString())) {
-                Toast.makeText(getActivity(), arrayViewBy[0], Toast.LENGTH_SHORT).show();
-            } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
                 insertNestedFragment(new ReportViewByMonth());
+            } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
+                insertNestedFragment(new ReportViewByQuarter());
             } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
                 Toast.makeText(getActivity(), arrayViewBy[2], Toast.LENGTH_SHORT).show();
-            } else if (arrayViewBy[3].equals(txtViewBy.getText().toString())) {
-                Toast.makeText(getActivity(), arrayViewBy[3], Toast.LENGTH_SHORT).show();
             } else {
                 insertNestedFragment(new ReportPeriodTime());
             }
@@ -115,18 +113,16 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
         switch (which) {
             case 0:
                 txtViewBy.setText(inputText);
+                insertNestedFragment(new ReportViewByMonth());
                 break;
             case 1:
                 txtViewBy.setText(inputText);
-                insertNestedFragment(new ReportViewByMonth());
+                insertNestedFragment(new ReportViewByQuarter());
                 break;
             case 2:
                 txtViewBy.setText(inputText);
                 break;
             case 3:
-                txtViewBy.setText(inputText);
-                break;
-            case 4:
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 ReportPickTimeDialog reportPickTimeDialog = new ReportPickTimeDialog();
                 reportPickTimeDialog.setTargetFragment(ReportExpenseIncome.this, 271);

@@ -14,4 +14,5 @@
     <color name="LineDark">#ffc6c6c6</color>
     <color name="incomeColor">#ff37a3a0</color>
     <color name="gray">#ffe0e0e0</color>
+    <color name="expenseColor">#c37676</color>
 </resources>

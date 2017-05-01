@@ -31,7 +31,7 @@
                     android:text="2017" />
 
                 <TextView
-                    android:id="@+id/txtMonth"
+                    android:id="@+id/txtQuarter"
                     style="@style/ReportBold"
                     android:layout_width="24dp"
                     android:layout_height="24dp"

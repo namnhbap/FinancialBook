@@ -210,7 +210,6 @@
         <item>GBP</item>
     </string-array>
     <string-array name="report_view_by">
-        <item>Hiện tại</item>
         <item>Tháng</item>
         <item>Quý</item>
         <item>Năm</item>
