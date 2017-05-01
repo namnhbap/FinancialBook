@@ -80,7 +80,7 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
             } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
                 insertNestedFragment(new ReportViewByQuarter());
             } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
-                Toast.makeText(getActivity(), arrayViewBy[2], Toast.LENGTH_SHORT).show();
+                insertNestedFragment(new ReportViewByYear());
             } else {
                 insertNestedFragment(new ReportPeriodTime());
             }
@@ -121,6 +121,7 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
                 break;
             case 2:
                 txtViewBy.setText(inputText);
+                insertNestedFragment(new ReportViewByYear());
                 break;
             case 3:
                 FragmentManager fm = getActivity().getSupportFragmentManager();
