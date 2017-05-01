@@ -62,7 +62,6 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.record_edit_income, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
-        txtAmount.setText(income.get_amountMoney());
         txtAmount.setOnClickListener(this);
         txtIncomeCategory = (TextView) view.findViewById(R.id.txtIncomeCategory);
         txtIncomeCategory.setText(income.get_category());
@@ -97,6 +96,9 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
         super.onStart();
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
             txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
+        } else {
+            txtAmount.setText(income.get_amountMoney());
+            FileHelper.writeFile(context, Constant.TEMP_CALCULATOR_EDIT, income.get_amountMoney());
         }
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY))) {
             txtIncomeCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY));

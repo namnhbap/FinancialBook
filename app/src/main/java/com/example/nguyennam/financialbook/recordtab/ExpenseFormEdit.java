@@ -63,7 +63,6 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.record_edit_expense, container, false);
         txtAmount = (TextView) view.findViewById(R.id.txtAmount);
-        txtAmount.setText(expense.get_amountMoney());
         txtAmount.setOnClickListener(this);
         txtCategory = (TextView) view.findViewById(R.id.txtCategory);
         if (!"".equals(expense.get_categoryChild())) {
@@ -102,6 +101,9 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         super.onStart();
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
             txtAmount.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
+        } else {
+            txtAmount.setText(expense.get_amountMoney());
+            FileHelper.writeFile(context, Constant.TEMP_CALCULATOR_EDIT, expense.get_amountMoney());
         }
         if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD))) {
             txtCategory.setText(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD));
@@ -276,6 +278,7 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);
         FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID_EDIT);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR_EDIT);
     }
 
     @Override

@@ -111,7 +111,14 @@ public class Calculator extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        edtTinh.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR_EDIT))) {
+            edtTinh.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR_EDIT));
+            inputNumber = edtTinh.getText().toString();
+        }
+        if (!"".equals(FileHelper.readFile(context, Constant.TEMP_CALCULATOR))) {
+            edtTinh.setText(FileHelper.readFile(context, Constant.TEMP_CALCULATOR));
+            inputNumber = edtTinh.getText().toString();
+        }
     }
 
     @Override
