@@ -48,10 +48,10 @@ public class ReportMain extends Fragment implements AdapterView.OnItemSelectedLi
         return v;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        insertNestedFragment(new ReportExpenseIncome());
-    }
+//    @Override
+//    public void onViewCreated(View view, Bundle savedInstanceState) {
+//        insertNestedFragment(new ReportExpenseIncome());
+//    }
 
     // Embeds the child fragment dynamically
     private void insertNestedFragment(Fragment fragment) {

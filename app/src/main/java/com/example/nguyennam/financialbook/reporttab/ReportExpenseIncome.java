@@ -1,13 +1,11 @@
 package com.example.nguyennam.financialbook.reporttab;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +18,6 @@ import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
-
-import java.util.ArrayList;
 
 public class ReportExpenseIncome extends Fragment implements View.OnClickListener,
         ReportViewByDialog.ReportViewByDialogListener, ReportPickTimeDialog.ReportPickTimeListener {
@@ -94,7 +78,7 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
             if (arrayViewBy[0].equals(txtViewBy.getText().toString())) {
                 Toast.makeText(getActivity(), arrayViewBy[0], Toast.LENGTH_SHORT).show();
             } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
-                Toast.makeText(getActivity(), arrayViewBy[1], Toast.LENGTH_SHORT).show();
+                insertNestedFragment(new ReportViewByMonth());
             } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
                 Toast.makeText(getActivity(), arrayViewBy[2], Toast.LENGTH_SHORT).show();
             } else if (arrayViewBy[3].equals(txtViewBy.getText().toString())) {
@@ -130,8 +114,15 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
         FileHelper.writeFile(context, Constant.TEMP_VIEW_BY, inputText);
         switch (which) {
             case 0:
+                txtViewBy.setText(inputText);
+                break;
             case 1:
+                txtViewBy.setText(inputText);
+                insertNestedFragment(new ReportViewByMonth());
+                break;
             case 2:
+                txtViewBy.setText(inputText);
+                break;
             case 3:
                 txtViewBy.setText(inputText);
                 break;
