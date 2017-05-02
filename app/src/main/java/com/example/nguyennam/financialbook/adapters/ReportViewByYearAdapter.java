@@ -25,7 +25,7 @@ public class ReportViewByYearAdapter extends RecyclerView.Adapter<ReportViewByYe
 
     @Override
     public ReportViewByYearAdapter.ReportViewByYearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.report_view_by_month_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.report_view_by_year_item, parent, false);
         return new ReportViewByYearAdapter.ReportViewByYearViewHolder(view);
     }
 

@@ -27,7 +27,6 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
     ImageView imgHistory;
     public ArrayList<RecordSpinner> customListViewValuesArr = new ArrayList<>();
     RecordSpinnerAdapter adapter;
-//    Bundle bundle;
 
     @Override
     public void onAttach(Context context) {
@@ -83,7 +82,7 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
 //        String item = parent.getItemAtPosition(position).toString();
         ExpenseFormInput expenseFormInput = new ExpenseFormInput();
         IncomeFormInput incomeFormInput = new IncomeFormInput();
-        TransferFormInput transferFormInput = new TransferFormInput();
+//        TransferFormInput transferFormInput = new TransferFormInput();
         switch (position) {
             case 0:
                 insertNestedFragment(expenseFormInput);
@@ -91,12 +90,10 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
             case 1:
                 insertNestedFragment(incomeFormInput);
                 break;
-            case 2:
-                insertNestedFragment(transferFormInput);
-                break;
+//            case 2:
+//                insertNestedFragment(transferFormInput);
+//                break;
         }
-        // Showing selected spinner item
-//        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -107,6 +104,6 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
     public void setListData() {
         customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Expense), getResources().getString(R.string.ExpenseDescription)));
         customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Income), getResources().getString(R.string.IncomeDescription)));
-        customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Transfer), getResources().getString(R.string.TransferDescription)));
+//        customListViewValuesArr.add(new RecordSpinner(getResources().getString(R.string.Transfer), getResources().getString(R.string.TransferDescription)));
     }
 }
