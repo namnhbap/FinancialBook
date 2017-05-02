@@ -37,7 +37,7 @@ public class CalendarSupport {
         return dateOfMonth[0];
     }
 
-    public static String getMonthAndYear(String input_date) {
+    public static String getMonthOfYear(String input_date) {
         for (int i = 0; i < input_date.length(); i++) {
             if ("/".equals(String.valueOf(input_date.charAt(i)))) {
                 input_date = input_date.substring(i+1, input_date.length());
@@ -48,7 +48,7 @@ public class CalendarSupport {
     }
 
     public static String getMonth(String input_date) {
-        input_date = getMonthAndYear(input_date);
+        input_date = getMonthOfYear(input_date);
         for (int i = 0; i < input_date.length(); i++) {
             if ("/".equals(String.valueOf(input_date.charAt(i)))) {
                 input_date = input_date.substring(0, i);
@@ -59,7 +59,7 @@ public class CalendarSupport {
     }
 
     public static String getYear (String input_date) {
-        input_date = getMonthAndYear(input_date);
+        input_date = getMonthOfYear(input_date);
         for (int i = 0; i < input_date.length(); i++) {
             if ("/".equals(String.valueOf(input_date.charAt(i)))) {
                 input_date = input_date.substring(i+1, input_date.length());

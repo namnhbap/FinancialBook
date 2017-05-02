@@ -117,7 +117,7 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         for (String date : dateExpenseList) {
             dateOfWeek = CalendarSupport.getDateOfWeek(context, date);
             dateOfMonth = CalendarSupport.getDateOfMonth(date);
-            month = CalendarSupport.getMonthAndYear(date);
+            month = CalendarSupport.getMonthOfYear(date);
             List<String> moneyExpenseList = expenseDAO.getMoneyByDate(date);
             moneyExpense = getMoneyOneDate(moneyExpenseList);
             List<String> moneyIncomeList = incomeDAO.getMoneyByDate(date);
