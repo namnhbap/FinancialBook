@@ -77,14 +77,16 @@ public class ReportViewByYear extends Fragment implements ReportViewByYearAdapte
                     }
                     data.add(new ReportYear(year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 } else {
+                    amountMoneyExpense = 0;
+                    amountMoneyIncome = 0;
                     for (int j = 0; j < mangId.length; j++) {
                         List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
                         for (Expense expense : expenseList) {
-                            amountMoneyExpense = Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                            amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
                         }
                         List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
                         for (Income income : incomeList) {
-                            amountMoneyIncome = Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+                            amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
                         }
                     }
                     data.add(new ReportYear(year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));

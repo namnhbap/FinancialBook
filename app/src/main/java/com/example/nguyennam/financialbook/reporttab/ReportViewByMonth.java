@@ -77,14 +77,17 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
                     }
                     data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 } else {
+                    amountMoneyExpense = 0;
+                    amountMoneyIncome = 0;
                     for (int j = 0; j < mangId.length; j++) {
                         List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
                         for (Expense expense : expenseList) {
-                            amountMoneyExpense = Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                            amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                            data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                         }
                         List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
                         for (Income income : incomeList) {
-                            amountMoneyIncome = Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+                            amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
                         }
                     }
                     data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
@@ -117,6 +120,8 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
                 amountMoneyIncome = 0;
             }
         }
+//        data.add(new ReportMonth("4", "2017", "1.000.000", "1.000.000"));
+//        data.add(new ReportMonth("3", "2017", "2.000.000", "2.000.000"));
         ReportViewByMonthAdapter myAdapter = new ReportViewByMonthAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
