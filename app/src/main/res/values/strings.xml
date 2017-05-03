@@ -66,10 +66,7 @@
     <string name="tvExpense">Chi:</string>
     <string name="dateOfWeek">Thứ</string>
     <string name="budgetName">Tên hạn mức</string>
-    <string name="frequency">Lặp lại</string>
-    <string name="dateStart">Ngày bắt đầu</string>
-    <string name="moveNextBudget">Dồn sang kỳ sau</string>
-    <string name="checkedDescription">(Số tiền dư hoặc bội chi sẽ được chuyển sang kỳ sau)</string>
+    <string name="date">Thời gian</string>
     <string name="editBudget">Sửa hạn mức</string>
     <string name="budgetCategory">Hạng mục:</string>
     <string name="budgetExpense">Đã chi:</string>
@@ -102,10 +99,13 @@
     <string name="fromDate">Từ ngày</string>
     <string name="toDate">Đến ngày</string>
     <string name="ok">Đồng ý</string>
-    <string name="pickTime">Chọn thời gian báo cáo</string>
+    <string name="pickTime">Chọn thời gian</string>
     <string name="all">Tất cả tài khoản</string>
     <string name="open">(</string>
     <string name="close">%)</string>
+    <string name="close2">)</string>
+    <string name="noticeNoDate">Bạn chưa nhập \"Thời gian\".</string>
+    <string name="noticeNoBudget">Bạn chưa nhập \"Tên hạn mức\".</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

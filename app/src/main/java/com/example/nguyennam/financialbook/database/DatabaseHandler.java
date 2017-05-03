@@ -20,36 +20,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Table Column
     class AccountColumn implements BaseColumns {
-        static final String KEY_ACCOUNTNAME = "accountname";
-        static final String KEY_ACCOUNTTYPE = "accounttype";
-        static final String KEY_MONEYTYPE = "moneytype";
-        static final String KEY_MONEYSTART = "moneystart";
+        static final String KEY_ACCOUNTNAME = "account_name";
+        static final String KEY_ACCOUNTTYPE = "account_type";
+        static final String KEY_MONEYTYPE = "money_type";
+        static final String KEY_MONEYSTART = "money_start";
         static final String KEY_DESCRIPTION = "description";
-        static final String KEY_AMOUNTMONEY = "amountmoney";
+        static final String KEY_AMOUNTMONEY = "amount_money";
     }
 
     class ExpenseColumn implements BaseColumns {
-        static final String KEY_AMOUNTMONEY = "amountmoney";
-        static final String KEY_EXPENSECATEGORY = "expensecategory";
+        static final String KEY_AMOUNTMONEY = "amount_money";
+        static final String KEY_EXPENSECATEGORY = "expense_category";
         static final String KEY_DESCRIPTION = "record_description";
-        static final String KEY_ACCOUNTID = "accountid";
-        static final String KEY_EXPENSEDATE = "expensedate";
-        static final String KEY_EXPENSEEVENT = "expenseevent";
-        static final String KEY_EXPENSECATEGORYCHILD = "expensecategorychild";
+        static final String KEY_ACCOUNTID = "account_id";
+        static final String KEY_EXPENSEDATE = "expense_date";
+        static final String KEY_EXPENSEEVENT = "expense_event";
+        static final String KEY_EXPENSECATEGORYCHILD = "expense_category_child";
     }
 
     class IncomeColumn implements BaseColumns {
-        static final String KEY_AMOUNTMONEY = "amountmoney";
-        static final String KEY_INCOMECATEGORY = "incomecategory";
+        static final String KEY_AMOUNTMONEY = "amount_money";
+        static final String KEY_INCOMECATEGORY = "income_category";
         static final String KEY_DESCRIPTION = "record_description";
-        static final String KEY_ACCOUNTID = "accountid";
+        static final String KEY_ACCOUNTID = "account_id";
         static final String KEY_DATE = "date";
         static final String KEY_EVENT = "event";
     }
 
     class BudgetCollumn implements BaseColumns {
-        static final String KEY_ACCOUNTNAME = "name";
-        static final String KEY_AMOUNTMONEY = "balance";
+        static final String KEY_BUDGETNAME = "budget_name";
+        static final String KEY_AMOUNTMONEY = "amount_money";
+        static final String KEY_ACCOUNTID = "account_id";
+        static final String KEY_CATEGORY = "category";
+        static final String KEY_DATE = "date";
+        static final String KEY_REMAINMONEY = "remain_money";
+        static final String KEY_EXPENSEMONEY = "expense_money";
     }
 
     public DatabaseHandler(Context context) {
@@ -79,8 +84,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DROP_INCOME_TABLE = "DROP TABLE IF EXISTS " + TABLE_INCOME;
 
     private static final String CREATE_BUDGET_TABLE = "CREATE TABLE " + TABLE_BUDGET + "("
-            + BudgetCollumn._ID + " INTEGER PRIMARY KEY," + BudgetCollumn.KEY_ACCOUNTNAME + " TEXT,"
-            + BudgetCollumn.KEY_AMOUNTMONEY + " TEXT" + ")";
+            + BudgetCollumn._ID + " INTEGER PRIMARY KEY," + BudgetCollumn.KEY_BUDGETNAME + " TEXT,"
+            + BudgetCollumn.KEY_AMOUNTMONEY + " TEXT," + BudgetCollumn.KEY_ACCOUNTID + " TEXT,"
+            + BudgetCollumn.KEY_CATEGORY + " TEXT," + BudgetCollumn.KEY_DATE + " TEXT,"
+            + BudgetCollumn.KEY_REMAINMONEY + " TEXT," + BudgetCollumn.KEY_EXPENSEMONEY + " TEXT" + ")";
     private static final String DROP_BUDGET_TABLE = "DROP TABLE IF EXISTS " + TABLE_BUDGET;
 
     @Override

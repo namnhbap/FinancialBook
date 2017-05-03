@@ -10,8 +10,13 @@ import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_ACCOUNTID;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_AMOUNTMONEY;
-import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_ACCOUNTNAME;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_BUDGETNAME;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_CATEGORY;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_DATE;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_EXPENSEMONEY;
+import static com.example.nguyennam.financialbook.database.DatabaseHandler.BudgetCollumn.KEY_REMAINMONEY;
 import static com.example.nguyennam.financialbook.database.DatabaseHandler.TABLE_BUDGET;
 
 
@@ -28,8 +33,13 @@ public class BudgetRecyclerViewDAO {
     public void addBudget(BudgetRecyclerView budgetRecyclerView) {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_ACCOUNTNAME, budgetRecyclerView.getTxtBudgetName());
-        values.put(KEY_AMOUNTMONEY, budgetRecyclerView.getTxtBudgetMoney());
+        values.put(KEY_BUDGETNAME, budgetRecyclerView.getBudgetName());
+        values.put(KEY_AMOUNTMONEY, budgetRecyclerView.getAmountMoney());
+        values.put(KEY_ACCOUNTID, budgetRecyclerView.getAccountID());
+        values.put(KEY_CATEGORY, budgetRecyclerView.getCategory());
+        values.put(KEY_DATE, budgetRecyclerView.getDate());
+        values.put(KEY_REMAINMONEY, budgetRecyclerView.getRemainMoney());
+        values.put(KEY_EXPENSEMONEY, budgetRecyclerView.getExpenseMoney());
         // Inserting Row
         db.insert(TABLE_BUDGET, null, values);
         db.close(); // Closing database connection
@@ -39,14 +49,17 @@ public class BudgetRecyclerViewDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
 
         Cursor cursor = db.query(TABLE_BUDGET, new String[]{DatabaseHandler.BudgetCollumn._ID,
-                        KEY_ACCOUNTNAME, KEY_AMOUNTMONEY}, DatabaseHandler.BudgetCollumn._ID + "=?",
+                        KEY_BUDGETNAME, KEY_AMOUNTMONEY, KEY_ACCOUNTID,
+                        KEY_CATEGORY, KEY_DATE, KEY_REMAINMONEY,
+                        KEY_EXPENSEMONEY}, DatabaseHandler.BudgetCollumn._ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
         BudgetRecyclerView budgetRecyclerView = new BudgetRecyclerView(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2));
+                cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)), cursor.getString(4),
+                cursor.getString(5), cursor.getString(6), cursor.getString(7));
         // return budgetRecyclerView
         return budgetRecyclerView;
     }
@@ -64,8 +77,13 @@ public class BudgetRecyclerViewDAO {
             do {
                 BudgetRecyclerView budgetRecyclerView = new BudgetRecyclerView();
                 budgetRecyclerView.setId(Integer.parseInt(cursor.getString(0)));
-                budgetRecyclerView.setTxtBudgetName(cursor.getString(1));
-                budgetRecyclerView.setTxtBudgetMoney(cursor.getString(2));
+                budgetRecyclerView.setBudgetName(cursor.getString(1));
+                budgetRecyclerView.setAmountMoney(cursor.getString(2));
+                budgetRecyclerView.setAccountID(Integer.parseInt(cursor.getString(3)));
+                budgetRecyclerView.setCategory(cursor.getString(4));
+                budgetRecyclerView.setDate(cursor.getString(5));
+                budgetRecyclerView.setRemainMoney(cursor.getString(6));
+                budgetRecyclerView.setExpenseMoney(cursor.getString(7));
                 // Adding account to list
                 budgetList.add(budgetRecyclerView);
             } while (cursor.moveToNext());
@@ -88,8 +106,13 @@ public class BudgetRecyclerViewDAO {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ACCOUNTNAME, budgetRecyclerView.getTxtBudgetName());
-        values.put(KEY_AMOUNTMONEY, budgetRecyclerView.getTxtBudgetMoney());
+        values.put(KEY_BUDGETNAME, budgetRecyclerView.getBudgetName());
+        values.put(KEY_AMOUNTMONEY, budgetRecyclerView.getAmountMoney());
+        values.put(KEY_ACCOUNTID, budgetRecyclerView.getAccountID());
+        values.put(KEY_CATEGORY, budgetRecyclerView.getCategory());
+        values.put(KEY_DATE, budgetRecyclerView.getDate());
+        values.put(KEY_REMAINMONEY, budgetRecyclerView.getRemainMoney());
+        values.put(KEY_EXPENSEMONEY, budgetRecyclerView.getExpenseMoney());
 
         // updating row
         return db.update(TABLE_BUDGET, values, DatabaseHandler.BudgetCollumn._ID + " = ?",

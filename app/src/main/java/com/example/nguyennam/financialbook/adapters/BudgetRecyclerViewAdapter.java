@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 
 import java.util.List;
@@ -31,9 +32,20 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
 
     @Override
     public void onBindViewHolder(BudgetViewHolder holder, int position) {
+        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
         BudgetRecyclerView budget = data.get(position);
-        holder.txtBudgetName.setText(budget.getTxtBudgetName());
-        holder.txtBudgetMoney.setText(budget.getTxtBudgetMoney());
+        holder.txtBudgetName.setText(budget.getBudgetName());
+        holder.txtAmountMoney.setText(budget.getAmountMoney());
+        holder.txtAccount.setText(accountDAO.getAccountById(budget.getAccountID()).getAccountName());
+        holder.txtCategory.setText(budget.getCategory());
+        holder.txtDate.setText(budget.getDate());
+        holder.txtRemainMoney.setText(budget.getRemainMoney());
+        holder.txtExpenseMoney.setText(budget.getExpenseMoney());
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return data.get(position).getId();
     }
 
     @Override
@@ -44,15 +56,25 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
     //TODO
     public class BudgetViewHolder extends RecyclerView.ViewHolder {
         TextView txtBudgetName;
-        TextView txtBudgetMoney;
+        TextView txtAmountMoney;
+        TextView txtAccount;
+        TextView txtCategory;
+        TextView txtDate;
+        TextView txtRemainMoney;
+        TextView txtExpenseMoney;
         public BudgetViewHolder(View itemView) {
             super(itemView);
             txtBudgetName = (TextView) itemView.findViewById(R.id.txtBudgetName);
-            txtBudgetMoney = (TextView) itemView.findViewById(R.id.txtBudgetMoney);
+            txtAmountMoney = (TextView) itemView.findViewById(R.id.txtAmountMoney);
+            txtAccount = (TextView) itemView.findViewById(R.id.txtAccount);
+            txtCategory = (TextView) itemView.findViewById(R.id.txtCategory);
+            txtDate = (TextView) itemView.findViewById(R.id.txtDate);
+            txtRemainMoney = (TextView) itemView.findViewById(R.id.txtRemainMoney);
+            txtExpenseMoney = (TextView) itemView.findViewById(R.id.txtExpenseMoney);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick(getAdapterPosition());
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getId());
                 }
             });
         }

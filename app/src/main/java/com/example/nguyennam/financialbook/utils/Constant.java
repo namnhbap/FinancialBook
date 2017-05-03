@@ -20,4 +20,6 @@ public class Constant {
     public static final String TEMP_EVENT = "temp_event.tmp";
     public static final String TEMP_DATE = "temp_date.tmp";
     public static final String TEMP_VIEW_BY = "temp_view_by.tmp";
+    public static final String TEMP_BUDGET_DATE = "temp_budget_date.tmp";
+
 }

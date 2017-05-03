@@ -10,21 +10,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center">
 
         <TextView
             android:id="@+id/txtBudgetName"
             style="@style/FormEditValue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/txtBudgetDetailTime"
             style="@style/FormEditTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/open" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            style="@style/FormEditTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/FormEditTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/ReportNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accounts" />
+
+        <TextView
+            android:id="@+id/txtAccount"
+            style="@style/ReportNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 
@@ -39,7 +71,7 @@
             android:text="@string/budgetCategory" />
 
         <TextView
-            android:id="@+id/txtBudgetCategory"
+            android:id="@+id/txtCategory"
             style="@style/ReportNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +92,7 @@
             android:text="@string/budgetMoney" />
 
         <TextView
-            android:id="@+id/txtBudgetMoney"
+            android:id="@+id/txtAmountMoney"
             style="@style/ReportNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +126,7 @@
                 android:text="@string/budgetExpense" />
 
             <TextView
-                android:id="@+id/txtBudgetExpense"
+                android:id="@+id/txtExpenseMoney"
                 style="@style/ReportNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,7 +157,7 @@
                 android:textColor="@color/textTab" />
 
             <TextView
-                android:id="@+id/txtBudgetRemain"
+                android:id="@+id/txtRemainMoney"
                 style="@style/ReportNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,7 +210,6 @@
         android:id="@+id/lnWithDayOfBudget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="-21dp"
         android:gravity="center"
         android:orientation="vertical">

@@ -34,28 +34,6 @@ public class ReportPickTimeDialog extends DialogFragment implements View.OnClick
     public ReportPickTimeDialog () {
 
     }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.report_pick_time_dialog, container);
-//        LinearLayout btnOk = (LinearLayout) view.findViewById(R.id.btnOk);
-//        btnOk.setOnClickListener(this);
-//        RelativeLayout rlFromDate = (RelativeLayout) view.findViewById(R.id.rlFromDate);
-//        rlFromDate.setOnClickListener(this);
-//        RelativeLayout rlToDate = (RelativeLayout) view.findViewById(R.id.rlToDate);
-//        rlToDate.setOnClickListener(this);
-//        return view;
-//    }
-//
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        // Get field from view
-//        txtFromDate = (TextView) view.findViewById(R.id.txtFromDate);
-//        txtToDate = (TextView) view.findViewById(R.id.txtToDate);
-//        getDialog().setTitle(R.string.accountName);
-//    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
