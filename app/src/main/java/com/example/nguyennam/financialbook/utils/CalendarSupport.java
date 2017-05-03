@@ -1,6 +1,7 @@
 package com.example.nguyennam.financialbook.utils;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.nguyennam.financialbook.R;
 
@@ -56,6 +57,25 @@ public class CalendarSupport {
             }
         }
         return input_date;
+    }
+
+    public static String getQuarter(String input_date) {
+        input_date = getMonth(input_date);
+        switch (Integer.parseInt(input_date)) {
+            case 1:
+            case 2:
+            case 3:
+                return "I";
+            case 4:
+            case 5:
+            case 6:
+                return "II";
+            case 7:
+            case 8:
+            case 9:
+                return "III";
+        }
+        return "IV";
     }
 
     public static String getYear (String input_date) {

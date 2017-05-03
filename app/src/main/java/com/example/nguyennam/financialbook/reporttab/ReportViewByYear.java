@@ -57,6 +57,7 @@ public class ReportViewByYear extends Fragment implements ReportViewByYearAdapte
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_view_by_year, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewYearReport);
+        data = new ArrayList<>();
         getDateExpenseIncome();
         setDataForReport();
         setApdater();
@@ -98,7 +99,6 @@ public class ReportViewByYear extends Fragment implements ReportViewByYearAdapte
         // get id account from account name form
         String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
         mangId = idAccount.split(";");
-        data = new ArrayList<>();
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
         for (int i = 0; i < dateExpenseList.size(); i++) {
             String year = CalendarSupport.getYear(dateExpenseList.get(i));
