@@ -72,7 +72,9 @@ public class BudgetExpenseHistory extends Fragment implements View.OnClickListen
         txtEdit = (TextView) view.findViewById(R.id.txtEdit);
         txtEdit.setOnClickListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        getDataExpense();
+        if (data.isEmpty()) {
+            getDataExpense();
+        }
         BudgetExpenseHistoryAdapter myAdapter = new BudgetExpenseHistoryAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
@@ -113,9 +115,11 @@ public class BudgetExpenseHistory extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBack:
+                FileHelper.deleteFile(context, Constant.TEMP_BUDGET_ID);
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.txtEdit:
+                ((MainActivity) context).replaceFragment(new EditBudget(), true);
                 break;
         }
     }

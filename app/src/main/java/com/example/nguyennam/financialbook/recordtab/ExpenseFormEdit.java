@@ -55,7 +55,8 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        expense = new ExpenseDAO(context).getExpenseById(Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_EXPENSE_ID)));
+        expense = new ExpenseDAO(context).getExpenseById(
+                Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_EXPENSE_ID)));
     }
 
     @Nullable
