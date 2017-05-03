@@ -9,15 +9,6 @@ public class FinancialHistoryChild {
     private String category;
     private String description;
 
-//    public FinancialHistoryChild(boolean isExpense, String moneyAmount, String account, String category, String description) {
-//        this.isExpense = isExpense;
-//        this.moneyAmount = moneyAmount;
-//        this.account = account;
-//        this.category = category;
-//        this.description = description;
-//    }
-
-
     public FinancialHistoryChild(boolean isExpense, String moneyAmount, String account, String category, String description, int id) {
         this.isExpense = isExpense;
         this.moneyAmount = moneyAmount;

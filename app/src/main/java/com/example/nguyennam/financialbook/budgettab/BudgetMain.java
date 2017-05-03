@@ -18,6 +18,7 @@ import com.example.nguyennam.financialbook.adapters.BudgetRecyclerViewAdapter;
 import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
 
@@ -46,7 +47,6 @@ public class BudgetMain extends Fragment implements View.OnClickListener, Budget
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewBudget);
         BudgetRecyclerViewDAO allBudget = new BudgetRecyclerViewDAO(context);
         data = allBudget.getAllBudget();
-        Log.d(Constant.TAG, "onCreateView: " + data);
         BudgetRecyclerViewAdapter myAdapter = new BudgetRecyclerViewAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
@@ -66,6 +66,7 @@ public class BudgetMain extends Fragment implements View.OnClickListener, Budget
 
     @Override
     public void onClick(int position) {
-
+        FileHelper.writeFile(context, Constant.TEMP_BUDGET_ID, "" + position);
+        ((MainActivity)context).replaceFragment(new BudgetExpenseHistory(), true);
     }
 }

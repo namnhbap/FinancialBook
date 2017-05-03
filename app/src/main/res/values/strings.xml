@@ -106,6 +106,7 @@
     <string name="close2">)</string>
     <string name="noticeNoDate">Bạn chưa nhập \"Thời gian\".</string>
     <string name="noticeNoBudget">Bạn chưa nhập \"Tên hạn mức\".</string>
+    <string name="edit">Sửa</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
