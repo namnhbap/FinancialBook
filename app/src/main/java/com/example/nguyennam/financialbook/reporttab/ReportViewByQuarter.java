@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ReportViewByMonthAdapter;
 import com.example.nguyennam.financialbook.adapters.ReportViewByQuarterAdapter;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.ReportMonth;
 import com.example.nguyennam.financialbook.model.ReportQuater;
+import com.example.nguyennam.financialbook.utils.CalendarSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,9 @@ import java.util.List;
 public class ReportViewByQuarter extends Fragment implements ReportViewByQuarterAdapter.ReportQuarterViewHolderOnClickListener {
 
     Context context;
-    List<ReportQuater> data;
+    ExpenseDAO expenseDAO;
+    IncomeDAO incomeDAO;
+    List<String> dateExpenseList;
 
     @Override
     public void onAttach(Context context) {
@@ -40,9 +45,8 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_view_by_quarter, container, false);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewQuarterReport);
-        data = new ArrayList<>();
-        data.add(new ReportQuater("IV","2017","10.000.000", "10.000.000"));
-        data.add(new ReportQuater("III","2017","20.000.000", "20.000.000"));
+
+        List<ReportQuater> data = new ArrayList<>();
 
         ReportViewByQuarterAdapter myAdapter = new ReportViewByQuarterAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
@@ -50,6 +54,16 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         return v;
+    }
+
+    private void getDateExpenseIncome() {
+        // get date from income and expense
+        expenseDAO = new ExpenseDAO(context);
+        incomeDAO = new IncomeDAO(context);
+        dateExpenseList = expenseDAO.getDateExpense();
+        List<String> dateIncomeList = incomeDAO.getDateIncome();
+        // sort date from now to past and avoid duplicate date
+        CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
     }
 
     @Override

@@ -34,6 +34,11 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
     ExpenseDAO expenseDAO;
     IncomeDAO incomeDAO;
     List<String> dateExpenseList;
+    String[] mangId;
+    double amountMoneyExpense = 0;
+    double amountMoneyIncome = 0;
+    RecyclerView recyclerView;
+    List<ReportMonth> data;
 
     @Override
     public void onAttach(Context context) {
@@ -50,84 +55,33 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.report_view_by_month, container, false);
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewMonthReport);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewMonthReport);
+        data = new ArrayList<>();
         getDateExpenseIncome();
-        // get id account from account name form
-        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
-        String[] mangId = idAccount.split(";");
-        List<ReportMonth> data = new ArrayList<>();
-        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
-        double amountMoneyExpense = 0;
-        double amountMoneyIncome = 0;
-        for (int i = 0; i < dateExpenseList.size(); i++) {
-            String month = CalendarSupport.getMonth(dateExpenseList.get(i));
-            String year = CalendarSupport.getYear(dateExpenseList.get(i));
-            if (i == dateExpenseList.size() - 1) {
-                if (CalendarSupport.getMonthOfYear(dateExpenseList.get(i))
-                        .equals(CalendarSupport.getMonthOfYear(dateExpenseList.get(i - 1)))) {
-                    for (int j = 0; j < mangId.length; j++) {
-                        List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                        for (Expense expense : expenseList) {
-                            amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-                        }
-                        List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                        for (Income income : incomeList) {
-                            amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
-                        }
-                    }
-                    data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
-                } else {
-                    amountMoneyExpense = 0;
-                    amountMoneyIncome = 0;
-                    for (int j = 0; j < mangId.length; j++) {
-                        List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                        for (Expense expense : expenseList) {
-                            amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-                            data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
-                        }
-                        List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                        for (Income income : incomeList) {
-                            amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
-                        }
-                    }
-                    data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
-                }
-            } else if (CalendarSupport.getMonthOfYear(dateExpenseList.get(i))
-                    .equals(CalendarSupport.getMonthOfYear(dateExpenseList.get(i + 1)))) {
-                for (int j = 0; j < mangId.length; j++) {
-                    List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                    for (Expense expense : expenseList) {
-                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-                    }
-                    List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                    for (Income income : incomeList) {
-                        amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
-                    }
-                }
-            } else {
-                for (int j = 0; j < mangId.length; j++) {
-                    List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                    for (Expense expense : expenseList) {
-                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-                    }
-                    List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), dateExpenseList.get(i));
-                    for (Income income : incomeList) {
-                        amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
-                    }
-                }
-                data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
-                amountMoneyExpense = 0;
-                amountMoneyIncome = 0;
-            }
-        }
-//        data.add(new ReportMonth("4", "2017", "1.000.000", "1.000.000"));
-//        data.add(new ReportMonth("3", "2017", "2.000.000", "2.000.000"));
+        setDataForReport();
+        setApdater();
+        return v;
+    }
+
+    private void setApdater() {
         ReportViewByMonthAdapter myAdapter = new ReportViewByMonthAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
-        return v;
+    }
+
+    private void evalAmountMoney(String date) {
+        for (int j = 0; j < mangId.length; j++) {
+            List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), date);
+            for (Expense expense : expenseList) {
+                amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+            }
+            List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), date);
+            for (Income income : incomeList) {
+                amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+            }
+        }
     }
 
     private void getDateExpenseIncome() {
@@ -138,6 +92,37 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
         List<String> dateIncomeList = incomeDAO.getDateIncome();
         // sort date from now to past and avoid duplicate date
         CalendarSupport.sortDateList(dateExpenseList, dateIncomeList);
+    }
+
+    private void setDataForReport() {
+        // get id account from account name form
+        String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
+        mangId = idAccount.split(";");
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+        for (int i = 0; i < dateExpenseList.size(); i++) {
+            String month = CalendarSupport.getMonth(dateExpenseList.get(i));
+            String year = CalendarSupport.getYear(dateExpenseList.get(i));
+            if (i == dateExpenseList.size() - 1) {
+                if (CalendarSupport.getMonthOfYear(dateExpenseList.get(i))
+                        .equals(CalendarSupport.getMonthOfYear(dateExpenseList.get(i - 1)))) {
+                    evalAmountMoney(dateExpenseList.get(i));
+                    data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                } else {
+                    amountMoneyExpense = 0;
+                    amountMoneyIncome = 0;
+                    evalAmountMoney(dateExpenseList.get(i));
+                    data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                }
+            } else if (CalendarSupport.getMonthOfYear(dateExpenseList.get(i))
+                    .equals(CalendarSupport.getMonthOfYear(dateExpenseList.get(i + 1)))) {
+                evalAmountMoney(dateExpenseList.get(i));
+            } else {
+                evalAmountMoney(dateExpenseList.get(i));
+                data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                amountMoneyExpense = 0;
+                amountMoneyIncome = 0;
+            }
+        }
     }
 
     @Override
