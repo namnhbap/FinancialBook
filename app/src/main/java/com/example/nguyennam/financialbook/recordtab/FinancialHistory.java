@@ -154,7 +154,11 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
             moneyAmount = expense.get_amountMoney();
             AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
             account = accountDAO.getAccountById(expense.get_accountID()).getAccountName();
-            category = expense.get_category();
+            if ("".equals(expense.get_categoryChild())) {
+                category = expense.get_category();
+            } else {
+                category = expense.get_categoryChild();
+            }
             description = expense.get_description();
             financialChild = new FinancialHistoryChild(true, moneyAmount, account, category, description, expense.get_id());
             financialChildList.add(financialChild);
