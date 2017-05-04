@@ -80,14 +80,14 @@ public class AccountFinancialAdapter extends RecyclerView.Adapter<AccountFinanci
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick(getAdapterPosition());
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getFinancial(), data.get(getAdapterPosition()).getId());
                 }
             });
         }
     }
 
     public interface FinancialOnClickListener {
-        void onClick(int position);
+        void onClick(String financial, int position);
     }
 
     FinancialOnClickListener myOnClickListener;

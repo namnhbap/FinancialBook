@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.AccountFinancialAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
@@ -22,6 +23,7 @@ import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.FinancialRecyclerView;
 import com.example.nguyennam.financialbook.model.Income;
+import com.example.nguyennam.financialbook.recordtab.FinancialHistoryDetail;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
@@ -65,9 +67,9 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
         TextView txtAmountMoney = (TextView) v.findViewById(R.id.txtAmountMoney);
         txtAmountMoney.setText(account.getAmountMoney());
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-        //Calculate history amount money of account
+        // clear old data and Calculate history amount money of account
+        data.clear();
         getDataFinancialAccount();
-
         AccountFinancialAdapter myAdapter = new AccountFinancialAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
@@ -95,7 +97,7 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
             incomeList = incomeDAO.getIncomeByAccountID(account.getId(), date);
             for (Income income : incomeList) {
                 if (isFirstRow) {
-                    data.add(new FinancialRecyclerView("Thu:", income.get_category(),
+                    data.add(new FinancialRecyclerView(income.get_id(), "Thu:", income.get_category(),
                             income.get_date(), income.get_amountMoney(), remainMoney));
                     tempAmountMoney = income.get_amountMoney();
                     isFirstRow = false;
@@ -103,13 +105,13 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
                 } else if (isIncome){
                     //calculate remain money
                     remainMoney = calculateRemainMoneyIncome(tempAmountMoney, remainMoney);
-                    data.add(new FinancialRecyclerView("Thu:", income.get_category(),
+                    data.add(new FinancialRecyclerView(income.get_id(), "Thu:", income.get_category(),
                             income.get_date(), income.get_amountMoney(), remainMoney));
                     tempAmountMoney = income.get_amountMoney();
                     isIncome = true;
                 } else {
                     remainMoney = calculateRemainMoneyExpense(tempAmountMoney, remainMoney);
-                    data.add(new FinancialRecyclerView("Thu:", income.get_category(),
+                    data.add(new FinancialRecyclerView(income.get_id(), "Thu:", income.get_category(),
                             income.get_date(), income.get_amountMoney(), remainMoney));
                     tempAmountMoney = income.get_amountMoney();
                     isIncome = true;
@@ -119,7 +121,7 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
             expenseList = expenseDAO.getExpenseByAccountID(account.getId(), date);
             for (Expense expense : expenseList) {
                 if (isFirstRow) {
-                    data.add(new FinancialRecyclerView("Chi:", expense.get_category(),
+                    data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
                             expense.get_date(), expense.get_amountMoney(), remainMoney));
                     tempAmountMoney = expense.get_amountMoney();
                     isFirstRow = false;
@@ -127,13 +129,13 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
                 } else if (isIncome){
                     //calculate remain money
                     remainMoney = calculateRemainMoneyIncome(tempAmountMoney, remainMoney);
-                    data.add(new FinancialRecyclerView("Chi:", expense.get_category(),
+                    data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
                             expense.get_date(), expense.get_amountMoney(), remainMoney));
                     tempAmountMoney = expense.get_amountMoney();
                     isIncome = false;
                 } else {
                     remainMoney = calculateRemainMoneyExpense(tempAmountMoney, remainMoney);
-                    data.add(new FinancialRecyclerView("Chi:", expense.get_category(),
+                    data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
                             expense.get_date(), expense.get_amountMoney(), remainMoney));
                     tempAmountMoney = expense.get_amountMoney();
                     isIncome = false;
@@ -159,7 +161,15 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
     }
 
     @Override
-    public void onClick(int position) {
+    public void onClick(String financial, int position) {
+        if ("Thu:".equals(financial)) {
+            FileHelper.writeFile(context, Constant.TEMP_ISEXPENSE, "false");
+            FileHelper.writeFile(context, Constant.TEMP_INCOME_ID, "" + position);
+        } else {
+            FileHelper.writeFile(context, Constant.TEMP_ISEXPENSE, "true");
+            FileHelper.writeFile(context, Constant.TEMP_EXPENSE_ID, "" + position);
+        }
+        ((MainActivity) context).replaceFragment(new FinancialHistoryDetail(), true);
     }
 
     @Override
