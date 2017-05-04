@@ -18,10 +18,13 @@ import android.widget.Toast;
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
+import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
@@ -29,6 +32,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class ExpenseFormInput extends Fragment implements View.OnClickListener {
@@ -184,7 +189,6 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         //add expense into database
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
         expenseDAO.addExpense(expense);
-        Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllExpense());
         //update amountmoney of account
         updateAmountMoneyAccount();
         //clear text

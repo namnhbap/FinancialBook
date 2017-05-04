@@ -37,7 +37,11 @@ public class BudgetExpenseHistoryAdapter extends RecyclerView.Adapter<BudgetExpe
         holder.txtMoney.setText(expense.get_amountMoney());
         holder.txtDescription.setText(expense.get_description());
         holder.txtAccountType.setText(accountDAO.getAccountById(expense.get_accountID()).getAccountName());
-        holder.txtCategory.setText(expense.get_category());
+        if ("".equals(expense.get_categoryChild())) {
+            holder.txtCategory.setText(expense.get_category());
+        } else {
+            holder.txtCategory.setText(expense.get_categoryChild());
+        }
     }
 
     @Override

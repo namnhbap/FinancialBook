@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,9 @@ import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
-import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import com.example.nguyennam.financialbook.recordtab.Accounts;
 import com.example.nguyennam.financialbook.recordtab.Calculator;
-import com.example.nguyennam.financialbook.recordtab.DeleteFinancialHistoryDialog;
 import com.example.nguyennam.financialbook.recordtab.ExpenseCategory;
 import com.example.nguyennam.financialbook.reporttab.ReportPickTimeDialog;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
@@ -150,11 +147,10 @@ public class EditBudget extends Fragment implements View.OnClickListener,
                 break;
             case R.id.txtDone:
             case R.id.lnSave:
-//                if ("".equals(txtBudgetName.getText().toString())) {
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
-//                            Toast.LENGTH_LONG).show();
-//                } else
-                    if ("".equals(txtAmount.getText().toString())) {
+                if ("".equals(txtBudgetName.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtAmount.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
                 } else if ("".equals(txtCategory.getText().toString())) {
@@ -182,7 +178,6 @@ public class EditBudget extends Fragment implements View.OnClickListener,
         //add budget into database
         BudgetRecyclerViewDAO budgetDAO = new BudgetRecyclerViewDAO(context);
         budgetDAO.updateBudget(budget);
-        Log.d(Constant.TAG, "onClick: " + budgetDAO.getAllBudget());
         //clear temp file
         clearTempFile();
         //exit

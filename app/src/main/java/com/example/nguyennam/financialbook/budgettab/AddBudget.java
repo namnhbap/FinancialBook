@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,11 +115,10 @@ public class AddBudget extends Fragment implements View.OnClickListener,
                 break;
             case R.id.txtDone:
             case R.id.lnSave:
-//                if ("".equals(txtBudgetName.getText().toString())) {
-//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
-//                            Toast.LENGTH_LONG).show();
-//                } else
-                    if ("".equals(txtAmount.getText().toString())) {
+                if ("".equals(txtBudgetName.getText().toString())) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
+                            Toast.LENGTH_LONG).show();
+                } else if ("".equals(txtAmount.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
                 } else if ("".equals(txtCategory.getText().toString())) {
@@ -147,7 +145,6 @@ public class AddBudget extends Fragment implements View.OnClickListener,
         //add budget into database
         BudgetRecyclerViewDAO budgetDAO = new BudgetRecyclerViewDAO(context);
         budgetDAO.addBudget(budget);
-        Log.d(Constant.TAG, "onClick: " + budgetDAO.getAllBudget());
         //clear temp file
         clearTempFile();
         //exit
