@@ -73,9 +73,9 @@ public class BudgetExpenseHistory extends Fragment implements View.OnClickListen
         txtEdit = (TextView) view.findViewById(R.id.txtEdit);
         txtEdit.setOnClickListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        if (data.isEmpty()) {
-            getDataExpense();
-        }
+        // clear old data and load new
+        data.clear();
+        getDataExpense();
         BudgetExpenseHistoryAdapter myAdapter = new BudgetExpenseHistoryAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);

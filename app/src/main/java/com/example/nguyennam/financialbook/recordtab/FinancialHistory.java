@@ -64,7 +64,8 @@ public class FinancialHistory extends Fragment implements SearchView.OnQueryText
         search.setIconifiedByDefault(false);
         search.setOnQueryTextListener(this);
         search.setOnCloseListener(this);
-        //display the list, expand all groups
+        //clear old list, display the list, expand all groups
+        financialGroupList.clear();
         loadHistoryData();
         //get reference to the ExpandableListView
         myList = (ExpandableListView) view.findViewById(R.id.expandableHistory);
