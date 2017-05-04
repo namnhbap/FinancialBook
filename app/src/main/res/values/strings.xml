@@ -107,6 +107,8 @@
     <string name="noticeNoDate">Bạn chưa nhập \"Thời gian\".</string>
     <string name="noticeNoBudget">Bạn chưa nhập \"Tên hạn mức\".</string>
     <string name="edit">Sửa</string>
+    <string name="deleteBudgetTitle">Xóa hạn mức chi!</string>
+    <string name="deleteBudgetMessage">Bạn có thực sự muốn xóa hạn mức chi này không?</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

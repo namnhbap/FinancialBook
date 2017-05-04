@@ -203,7 +203,6 @@ public class Calculator extends Fragment implements View.OnClickListener {
                 } else {
                     FileHelper.writeFile(context, Constant.TEMP_CALCULATOR, edtTinh.getText().toString());
                     getActivity().getSupportFragmentManager().popBackStack();
-//                    ((MainActivity) context).replaceFragment(new RecordMain(), false);
                 }
                 break;
         }

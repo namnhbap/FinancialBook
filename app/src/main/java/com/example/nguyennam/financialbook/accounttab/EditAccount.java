@@ -186,10 +186,10 @@ public class EditAccount extends Fragment implements View.OnClickListener,
     @Override
     public void onFinishDeleteDialog(boolean isDelete) {
         if (isDelete) {
-            String temp_account_id = "temp_account_id.tmp";
             deleteAllFinancial();
-            if (account.getId() == Integer.parseInt(FileHelper.readFile(context, temp_account_id))) {
-                FileHelper.deleteFile(context, temp_account_id);
+            //check if account id edit = account id display in form input
+            if (account.getId() == Integer.parseInt(FileHelper.readFile(context, Constant.TEMP_ACCOUNT_ID))) {
+                FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID);
             }
             accountDAO.deleteAccount(account);
             getActivity().getSupportFragmentManager().popBackStack();

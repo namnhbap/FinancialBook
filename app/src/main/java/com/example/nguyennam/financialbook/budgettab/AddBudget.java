@@ -116,10 +116,11 @@ public class AddBudget extends Fragment implements View.OnClickListener,
                 break;
             case R.id.txtDone:
             case R.id.lnSave:
-                if ("".equals(txtBudgetName.getText().toString())) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
-                            Toast.LENGTH_LONG).show();
-                } else if ("".equals(txtAmount.getText().toString())) {
+//                if ("".equals(txtBudgetName.getText().toString())) {
+//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
+//                            Toast.LENGTH_LONG).show();
+//                } else
+                    if ("".equals(txtAmount.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
                 } else if ("".equals(txtCategory.getText().toString())) {
@@ -165,6 +166,7 @@ public class AddBudget extends Fragment implements View.OnClickListener,
 
     private void clearTempFile() {
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR_EDIT);
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY_CHILD);
         FileHelper.deleteFile(context, Constant.TEMP_BUDGET_DATE);

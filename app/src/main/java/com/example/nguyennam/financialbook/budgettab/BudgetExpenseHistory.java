@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +95,10 @@ public class BudgetExpenseHistory extends Fragment implements View.OnClickListen
             if (!date.before(startDate) && !date.after(endDate)) {
                 List<Expense> expenseList = expenseDAO.getExpenseByDate(expenseDate);
                 for (Expense expense : expenseList) {
-                    data.add(expense);
+                    if (budget.getCategory().equals(expense.get_category()) ||
+                            budget.getCategory().equals(expense.get_categoryChild())) {
+                        data.add(expense);
+                    }
                 }
             }
         }

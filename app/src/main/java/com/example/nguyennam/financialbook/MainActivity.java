@@ -185,4 +185,27 @@ public class MainActivity extends FragmentActivity {
 //        fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
         fragmentTransaction.commit();
     }
+
+    public void replaceFragment(Fragment someFragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (!someFragment.isAdded()) {
+            fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
+            fragmentTransaction.addToBackStack("some_fragment");
+        } else {
+            fragmentTransaction.show(someFragment);
+        }
+        fragmentTransaction.commit();
+    }
+
+    public void addFragment(Fragment someFragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (!someFragment.isAdded()) {
+            fragmentTransaction.add(R.id.realtabcontent, someFragment, "SomeFragment");
+        } else {
+            fragmentTransaction.show(someFragment);
+        }
+        fragmentTransaction.commit();
+    }
 }

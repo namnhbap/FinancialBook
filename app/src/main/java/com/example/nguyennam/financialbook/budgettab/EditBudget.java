@@ -23,6 +23,7 @@ import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import com.example.nguyennam.financialbook.recordtab.Accounts;
 import com.example.nguyennam.financialbook.recordtab.Calculator;
+import com.example.nguyennam.financialbook.recordtab.DeleteFinancialHistoryDialog;
 import com.example.nguyennam.financialbook.recordtab.ExpenseCategory;
 import com.example.nguyennam.financialbook.reporttab.ReportPickTimeDialog;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
@@ -33,7 +34,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class EditBudget extends Fragment implements View.OnClickListener,
-        ReportPickTimeDialog.ReportPickTimeListener {
+        ReportPickTimeDialog.ReportPickTimeListener, DeleteBudgetDialog.DeleteDialogListener {
 
     Context context;
     EditText txtBudgetName;
@@ -143,14 +144,17 @@ public class EditBudget extends Fragment implements View.OnClickListener,
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.lnDelete:
-
+                DeleteBudgetDialog deleteBudgetDialog = new DeleteBudgetDialog();
+                deleteBudgetDialog.setTargetFragment(EditBudget.this, 271);
+                deleteBudgetDialog.show(getActivity().getSupportFragmentManager(), "delete_budget");
                 break;
             case R.id.txtDone:
             case R.id.lnSave:
-                if ("".equals(txtBudgetName.getText().toString())) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
-                            Toast.LENGTH_LONG).show();
-                } else if ("".equals(txtAmount.getText().toString())) {
+//                if ("".equals(txtBudgetName.getText().toString())) {
+//                    Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoBudget),
+//                            Toast.LENGTH_LONG).show();
+//                } else
+                    if ("".equals(txtAmount.getText().toString())) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.noticeNoMoney),
                             Toast.LENGTH_LONG).show();
                 } else if ("".equals(txtCategory.getText().toString())) {
@@ -182,7 +186,7 @@ public class EditBudget extends Fragment implements View.OnClickListener,
         //clear temp file
         clearTempFile();
         //exit
-        getActivity().getSupportFragmentManager().popBackStack();
+        getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     private void setBudget() {
@@ -217,5 +221,15 @@ public class EditBudget extends Fragment implements View.OnClickListener,
     public void onFinishPickTime(String inputText) {
         FileHelper.writeFile(context, Constant.TEMP_BUDGET_DATE, inputText);
         txtDate.setText(inputText);
+    }
+
+    @Override
+    public void onFinishDeleteDialog(boolean isDelete) {
+        if (isDelete) {
+            BudgetRecyclerViewDAO budgetDAO = new BudgetRecyclerViewDAO(context);
+            budgetDAO.deleteBudget(budget);
+            clearTempFile();
+            getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 }

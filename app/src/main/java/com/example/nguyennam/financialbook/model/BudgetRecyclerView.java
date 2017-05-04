@@ -40,6 +40,13 @@ public class BudgetRecyclerView {
         this.expenseMoney = expenseMoney;
     }
 
+    public String toString() {
+        return id + ";" + budgetName +";" + amountMoney
+                + ";" + accountID +";" + category
+                + ";" + date +";" + remainMoney +";" + expenseMoney;
+    }
+
+
     public int getId() {
         return id;
     }
