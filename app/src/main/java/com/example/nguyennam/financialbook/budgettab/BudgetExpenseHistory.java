@@ -19,28 +19,18 @@ import android.widget.TextView;
 import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.BudgetExpenseHistoryAdapter;
-import com.example.nguyennam.financialbook.adapters.FinancialHistoryAdapter;
-import com.example.nguyennam.financialbook.adapters.RecordAccountAdapter;
-import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
-import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.BudgetRecyclerView;
 import com.example.nguyennam.financialbook.model.Expense;
-import com.example.nguyennam.financialbook.model.FinancialHistoryChild;
-import com.example.nguyennam.financialbook.model.FinancialHistoryGroup;
-import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.recordtab.FinancialHistoryDetail;
-import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class BudgetExpenseHistory extends Fragment implements View.OnClickListener,
         BudgetExpenseHistoryAdapter.BudgetExpenseOnClickListener {
@@ -97,7 +87,7 @@ public class BudgetExpenseHistory extends Fragment implements View.OnClickListen
                 for (Expense expense : expenseList) {
                     if (budget.getCategory().equals(expense.get_category()) ||
                             budget.getCategory().equals(expense.get_categoryChild())) {
-                        data.add(expense);
+                        if (budget.getAccountID() == expense.get_accountID()) data.add(expense);
                     }
                 }
             }
@@ -131,5 +121,8 @@ public class BudgetExpenseHistory extends Fragment implements View.OnClickListen
     @Override
     public void onClick(int position) {
         //get detail expense here
+        FileHelper.writeFile(context, Constant.TEMP_ISEXPENSE, "true");
+        FileHelper.writeFile(context, Constant.TEMP_EXPENSE_ID, "" + position);
+        ((MainActivity) context).replaceFragment(new FinancialHistoryDetail(), true);
     }
 }

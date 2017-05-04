@@ -280,6 +280,7 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);
         FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID_EDIT);
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR_EDIT);
+        FileHelper.deleteFile(context, Constant.TEMP_ISEXPENSE);
     }
 
     @Override

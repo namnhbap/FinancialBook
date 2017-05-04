@@ -72,6 +72,7 @@ public class FinancialHistoryDetail extends Fragment implements View.OnClickList
     }
 
     private void clearTempFile() {
+        FileHelper.deleteFile(context, Constant.TEMP_ISEXPENSE);
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
