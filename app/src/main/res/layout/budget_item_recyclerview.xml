@@ -197,7 +197,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
@@ -226,22 +226,25 @@
 
     <LinearLayout
         android:id="@+id/lnWithDayOfBudget"
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-21dp"
-        android:gravity="center"
         android:orientation="vertical">
 
         <View
             android:layout_width="1dp"
             android:layout_height="33dp"
             android:layout_marginBottom="-18dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
             android:background="@color/black" />
 
         <TextView
             android:id="@+id/txtToday"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
             android:background="@drawable/budget_today"
             android:gravity="center"
             android:textColor="@color/black"

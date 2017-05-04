@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
@@ -27,8 +28,7 @@ public class ReportCategoryIncomeAdapter extends RecyclerView.Adapter<ReportCate
     @Override
     public ReportCategoryIncomeAdapter.ReportIncomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.report_period_time_income_item, parent, false);
-        ReportCategoryIncomeAdapter.ReportIncomeViewHolder myViewHolder = new ReportCategoryIncomeAdapter.ReportIncomeViewHolder(view);
-        return myViewHolder;
+        return new ReportCategoryIncomeAdapter.ReportIncomeViewHolder(view);
     }
 
     @Override
@@ -37,6 +37,10 @@ public class ReportCategoryIncomeAdapter extends RecyclerView.Adapter<ReportCate
         holder.txtCategoryIncome.setText(categoryIncome.getName());
         holder.txtAmountMoney.setText(categoryIncome.getMoney());
         holder.txtMoneyPercent.setText(categoryIncome.getPercent());
+        final float scale = context.getApplicationContext().getResources().getDisplayMetrics().density;
+        int width = (int) (2.4 * Float.parseFloat(categoryIncome.getPercent()) * scale + 0.5f);
+        int height = (int) (10 * scale + 0.5f);
+        holder.lnPercent.setLayoutParams(new LinearLayout.LayoutParams(width, height));
     }
 
     @Override
@@ -45,6 +49,7 @@ public class ReportCategoryIncomeAdapter extends RecyclerView.Adapter<ReportCate
     }
 
     public class ReportIncomeViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout lnPercent;
         TextView txtCategoryIncome;
         TextView txtAmountMoney;
         TextView txtMoneyPercent;
@@ -53,6 +58,7 @@ public class ReportCategoryIncomeAdapter extends RecyclerView.Adapter<ReportCate
             txtCategoryIncome = (TextView) itemView.findViewById(R.id.txtCategoryIncome);
             txtAmountMoney = (TextView) itemView.findViewById(R.id.txtAmountMoney);
             txtMoneyPercent = (TextView) itemView.findViewById(R.id.txtMoneyPercent);
+            lnPercent = (LinearLayout) itemView.findViewById(R.id.lnPercent);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -28,6 +28,7 @@ import com.example.nguyennam.financialbook.recordtab.RecordMain;
 import com.example.nguyennam.financialbook.reporttab.ReportMain;
 import com.example.nguyennam.financialbook.settingtab.SettingMain;
 import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
 
@@ -183,29 +184,6 @@ public class MainActivity extends FragmentActivity {
 //            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //        }
 //        fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
-        fragmentTransaction.commit();
-    }
-
-    public void replaceFragment(Fragment someFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!someFragment.isAdded()) {
-            fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
-            fragmentTransaction.addToBackStack("some_fragment");
-        } else {
-            fragmentTransaction.show(someFragment);
-        }
-        fragmentTransaction.commit();
-    }
-
-    public void addFragment(Fragment someFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!someFragment.isAdded()) {
-            fragmentTransaction.add(R.id.realtabcontent, someFragment, "SomeFragment");
-        } else {
-            fragmentTransaction.show(someFragment);
-        }
         fragmentTransaction.commit();
     }
 }

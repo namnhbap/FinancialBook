@@ -18,6 +18,7 @@ import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.RecordSpinnerAdapter;
 import com.example.nguyennam.financialbook.model.RecordSpinner;
 import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class RecordMain extends Fragment implements View.OnClickListener, Adapte
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FileHelper.clearTempFile(context);
         // Set data in arraylist
         setListData();
     }
