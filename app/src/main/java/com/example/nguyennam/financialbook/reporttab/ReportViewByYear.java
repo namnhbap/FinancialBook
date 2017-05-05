@@ -11,13 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.adapters.ReportViewByMonthAdapter;
 import com.example.nguyennam.financialbook.adapters.ReportViewByYearAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.Income;
-import com.example.nguyennam.financialbook.model.ReportMonth;
 import com.example.nguyennam.financialbook.model.ReportYear;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
@@ -103,7 +101,10 @@ public class ReportViewByYear extends Fragment implements ReportViewByYearAdapte
         for (int i = 0; i < dateExpenseList.size(); i++) {
             String year = CalendarSupport.getYear(dateExpenseList.get(i));
             if (i == dateExpenseList.size() - 1) {
-                if (year.equals(CalendarSupport.getYear(dateExpenseList.get(i - 1)))) {
+                if (dateExpenseList.size() == 1) {
+                    evalAmountMoney(dateExpenseList.get(i));
+                    data.add(new ReportYear(year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                } else if (year.equals(CalendarSupport.getYear(dateExpenseList.get(i - 1)))) {
                     evalAmountMoney(dateExpenseList.get(i));
                     data.add(new ReportYear(year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 } else {

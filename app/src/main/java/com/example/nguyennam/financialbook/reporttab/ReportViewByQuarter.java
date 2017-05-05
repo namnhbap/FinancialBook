@@ -92,7 +92,10 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
             String quarter = CalendarSupport.getQuarter(dateExpenseList.get(i));
             String year = CalendarSupport.getYear(dateExpenseList.get(i));
             if (i == dateExpenseList.size() - 1) {
-                if (quarter.equals(CalendarSupport.getQuarter(dateExpenseList.get(i - 1))) &&
+                if (dateExpenseList.size() == 1) {
+                    evalAmountMoney(dateExpenseList.get(i));
+                    data.add(new ReportQuater(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                } else if (quarter.equals(CalendarSupport.getQuarter(dateExpenseList.get(i - 1))) &&
                         year.equals(CalendarSupport.getYear(dateExpenseList.get(i - 1)))) {
                     evalAmountMoney(dateExpenseList.get(i));
                     data.add(new ReportQuater(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
