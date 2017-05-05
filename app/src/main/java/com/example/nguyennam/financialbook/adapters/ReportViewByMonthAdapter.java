@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.ReportMonth;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 
@@ -51,6 +49,7 @@ public class ReportViewByMonthAdapter extends RecyclerView.Adapter<ReportViewByM
                 Double.parseDouble(CalculatorSupport.formatExpression(reportMonth.getMoneyExpense()))
                         / sum * 100
                         * 10) / 10);
+        // total width = 150dp
         int widthIncome = (int) (1.5 * Float.parseFloat(incomePercent) * scale + 0.5f);
         int widthExpense = (int) (1.5 * Float.parseFloat(expensePercent) * scale + 0.5f);
         if (widthExpense > widthIncome) {

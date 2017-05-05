@@ -73,6 +73,9 @@ public class ReportExpenseIncome extends Fragment implements View.OnClickListene
                 }
             }
             txtAccount.setText(accountList);
+        } else {
+            FileHelper.writeFile(context, Constant.TEMP_ID, "" + 1);
+            txtAccount.setText(new AccountRecyclerViewDAO(context).getAccountById(1).getAccountName());
         }
         if (!"".equals(txtAccount.getText().toString()) && !"".equals(txtViewBy.getText().toString())) {
             if (arrayViewBy[0].equals(txtViewBy.getText().toString())) {

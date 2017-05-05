@@ -13,9 +13,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by NguyenNam on 4/10/2017.
- */
 
 public class CalendarSupport {
     public static String getDateOfWeek(Context context, String input_date) {
@@ -36,6 +33,16 @@ public class CalendarSupport {
     public static String getDateOfMonth (String input_date) {
         String[] dateOfMonth = input_date.split("/");
         return dateOfMonth[0];
+    }
+
+    public static String getDateAndMonth(String input_date) {
+        for (int i = input_date.length() - 1; i >= 0 ; i--) {
+            if ("/".equals(String.valueOf(input_date.charAt(i)))) {
+                input_date = input_date.substring(0, i);
+                break;
+            }
+        }
+        return input_date;
     }
 
     public static String getMonthOfYear(String input_date) {
