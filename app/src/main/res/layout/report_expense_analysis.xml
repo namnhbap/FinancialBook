@@ -43,7 +43,7 @@
                 android:layout_centerVertical="true"
                 android:clickable="false"
                 android:padding="4dp"
-                android:text="@string/Category" />
+                android:text="@string/categories" />
 
             <TextView
                 android:id="@+id/txtCategory"
@@ -98,7 +98,7 @@
                 android:layout_centerVertical="true"
                 android:clickable="false"
                 android:padding="4dp"
-                android:text="@string/Accounts" />
+                android:text="@string/accounts" />
 
             <TextView
                 android:id="@+id/txtAccount"
@@ -151,10 +151,10 @@
                 android:layout_centerVertical="true"
                 android:clickable="false"
                 android:padding="4dp"
-                android:text="@string/time" />
+                android:text="@string/viewBy" />
 
             <TextView
-                android:id="@+id/txtTime"
+                android:id="@+id/txtViewBy"
                 style="@style/FormEditValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -171,18 +171,9 @@
 
     </LinearLayout>
 
-    <TextView
-        style="@style/TextViewByStyle"
+    <FrameLayout
+        android:id="@+id/fragmentReport"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/expense" />
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.github.mikephil.charting.charts.PieChart>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

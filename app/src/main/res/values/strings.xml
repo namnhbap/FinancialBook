@@ -72,7 +72,7 @@
     <string name="budgetExpense">Đã chi:</string>
     <string name="budgetRemain">Còn:</string>
     <string name="budgetMoney">Hạn mức:</string>
-    <string name="viewBy">Thời gian:</string>
+    <string name="viewBy">Xem theo:</string>
     <string name="expense">CHI</string>
     <string name="ReportExpenseIncome">Tình hình thu chi</string>
     <string name="ReportExpenseAnalysis">Phân tích chi tiêu</string>
@@ -109,6 +109,7 @@
     <string name="edit">Sửa</string>
     <string name="deleteBudgetTitle">Xóa hạn mức chi!</string>
     <string name="deleteBudgetMessage">Bạn có thực sự muốn xóa hạn mức chi này không?</string>
+    <string name="categories">Hạng mục chi:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>

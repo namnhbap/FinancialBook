@@ -53,8 +53,8 @@ public class ReportViewByYear extends Fragment implements ReportViewByYearAdapte
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.report_view_by_year, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewYearReport);
+        View v = inflater.inflate(R.layout.report_view_by, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewReport);
         data = new ArrayList<>();
         getDateExpenseIncome();
         setDataForReport();

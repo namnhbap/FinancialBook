@@ -11,15 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.adapters.ReportViewByMonthAdapter;
 import com.example.nguyennam.financialbook.adapters.ReportViewByQuarterAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.Expense;
 import com.example.nguyennam.financialbook.model.Income;
-import com.example.nguyennam.financialbook.model.ReportMonth;
 import com.example.nguyennam.financialbook.model.ReportQuater;
-import com.example.nguyennam.financialbook.model.ReportYear;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
@@ -56,8 +53,8 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.report_view_by_quarter, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewQuarterReport);
+        View v = inflater.inflate(R.layout.report_view_by, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewReport);
         data = new ArrayList<>();
         getDateExpenseIncome();
         setDataForReport();

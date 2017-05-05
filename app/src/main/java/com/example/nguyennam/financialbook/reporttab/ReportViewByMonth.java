@@ -54,8 +54,8 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.report_view_by_month, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewMonthReport);
+        View v = inflater.inflate(R.layout.report_view_by, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewReport);
         data = new ArrayList<>();
         getDateExpenseIncome();
         setDataForReport();
