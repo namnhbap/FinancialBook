@@ -73,15 +73,6 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
             holder.viewToday.setVisibility(View.GONE);
             holder.lnToday.setVisibility(View.GONE);
         } else if (currentDate.after(endDate)) {
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-//                    (int) (scale + 0.5f), (int) (33 * scale + 0.5f));
-//            int marginLeft = (int) (300 * scale + 0.5f);
-//            layoutParams.setMargins(marginLeft, 0, 0,(int) ((-18) * scale + 0.5f));
-//            holder.viewToday.setLayoutParams(layoutParams);
-//            LinearLayout.LayoutParams layoutLnToday = new LinearLayout.LayoutParams(
-//                    (int) (36 * scale + 0.5f), (int) (36 * scale + 0.5f));
-//            layoutLnToday.setMargins((int) (264 * scale + 0.5f), 0, 0, 0);
-//            holder.lnToday.setLayoutParams(layoutLnToday);
             holder.viewToday.setVisibility(View.GONE);
             holder.lnToday.setVisibility(View.GONE);
         } else {
@@ -106,6 +97,10 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
             holder.lnToday.setLayoutParams(layoutLnToday);
             //set text in oval
             holder.txtToday.setText(CalendarSupport.getDateAndMonth(getDate()));
+            // if expense money > today
+            if (widthExpense > nowPercent) {
+                holder.lnTotalExpensedDetail.setBackgroundColor(context.getResources().getColor(R.color.expenseColor));
+            }
         }
     }
 
