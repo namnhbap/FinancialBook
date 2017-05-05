@@ -164,7 +164,7 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);
 //        data.setValueTypeface(mTfLight);
         mChart.setData(data);
         // undo all highlights
