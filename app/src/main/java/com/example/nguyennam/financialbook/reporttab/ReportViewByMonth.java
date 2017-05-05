@@ -103,7 +103,11 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
             String month = CalendarSupport.getMonth(dateExpenseList.get(i));
             String year = CalendarSupport.getYear(dateExpenseList.get(i));
             if (i == dateExpenseList.size() - 1) {
-                if (CalendarSupport.getMonthOfYear(dateExpenseList.get(i))
+                Log.d(Constant.TAG, "setDataForReport: " + i + dateExpenseList.size());
+                if (dateExpenseList.size() == 1) {
+                    evalAmountMoney(dateExpenseList.get(i));
+                    data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                } else if (CalendarSupport.getMonthOfYear(dateExpenseList.get(i))
                         .equals(CalendarSupport.getMonthOfYear(dateExpenseList.get(i - 1)))) {
                     evalAmountMoney(dateExpenseList.get(i));
                     data.add(new ReportMonth(month, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
