@@ -9,8 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.model.ReportMonth;
-import com.example.nguyennam.financialbook.model.ReportQuater;
+import com.example.nguyennam.financialbook.model.ReportQuarter;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 
 import java.util.List;
@@ -18,9 +17,9 @@ import java.util.List;
 public class ReportViewByQuarterAdapter extends RecyclerView.Adapter<ReportViewByQuarterAdapter.ReportViewByQuarterViewHolder> {
 
     Context context;
-    List<ReportQuater> data;
+    List<ReportQuarter> data;
 
-    public ReportViewByQuarterAdapter(Context context, List<ReportQuater> data) {
+    public ReportViewByQuarterAdapter(Context context, List<ReportQuarter> data) {
         this.context = context;
         this.data = data;
     }
@@ -33,21 +32,21 @@ public class ReportViewByQuarterAdapter extends RecyclerView.Adapter<ReportViewB
 
     @Override
     public void onBindViewHolder(ReportViewByQuarterAdapter.ReportViewByQuarterViewHolder holder, int position) {
-        ReportQuater reportQuater = data.get(position);
-        holder.txtQuarter.setText(reportQuater.getQuarter());
-        holder.txtYear.setText(reportQuater.getYear());
-        holder.txtMoneyIncome.setText(reportQuater.getMoneyIncome());
-        holder.txtMoneyExpense.setText(reportQuater.getMoneyExpense());
+        ReportQuarter reportQuarter = data.get(position);
+        holder.txtQuarter.setText(reportQuarter.getQuarter());
+        holder.txtYear.setText(reportQuarter.getYear());
+        holder.txtMoneyIncome.setText(reportQuarter.getMoneyIncome());
+        holder.txtMoneyExpense.setText(reportQuarter.getMoneyExpense());
         // convert dp to pxl and calculate percent to display the width of line
         final float scale = context.getApplicationContext().getResources().getDisplayMetrics().density;
-        float sum = Float.parseFloat(CalculatorSupport.formatExpression(reportQuater.getMoneyExpense()))
-                + Float.parseFloat(CalculatorSupport.formatExpression(reportQuater.getMoneyIncome()));
+        float sum = Float.parseFloat(CalculatorSupport.formatExpression(reportQuarter.getMoneyExpense()))
+                + Float.parseFloat(CalculatorSupport.formatExpression(reportQuarter.getMoneyIncome()));
         String incomePercent = Double.toString((double) Math.round(
-                Double.parseDouble(CalculatorSupport.formatExpression(reportQuater.getMoneyIncome()))
+                Double.parseDouble(CalculatorSupport.formatExpression(reportQuarter.getMoneyIncome()))
                         / sum * 100
                         * 10) / 10);
         String expensePercent = Double.toString((double) Math.round(
-                Double.parseDouble(CalculatorSupport.formatExpression(reportQuater.getMoneyExpense()))
+                Double.parseDouble(CalculatorSupport.formatExpression(reportQuarter.getMoneyExpense()))
                         / sum * 100
                         * 10) / 10);
         int widthIncome = (int) (1.5 * Float.parseFloat(incomePercent) * scale + 0.5f);

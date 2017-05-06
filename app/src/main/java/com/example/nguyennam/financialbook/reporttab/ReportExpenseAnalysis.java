@@ -92,7 +92,7 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
             if (arrayViewBy[0].equals(txtViewBy.getText().toString())) {
                 insertNestedFragment(new ReportExpenseMonth());
             } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
-                insertNestedFragment(new ReportViewByQuarter());
+                insertNestedFragment(new ReportExpenseQuarter());
             } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
                 insertNestedFragment(new ReportViewByYear());
             } else {
@@ -137,7 +137,7 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
                 break;
             case 1:
                 txtViewBy.setText(inputText);
-                insertNestedFragment(new ReportViewByQuarter());
+                insertNestedFragment(new ReportExpenseQuarter());
                 break;
             case 2:
                 txtViewBy.setText(inputText);

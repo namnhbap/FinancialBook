@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nguyennam.financialbook.R;
-import com.example.nguyennam.financialbook.adapters.ReportViewByQuarterAdapter;
+import com.example.nguyennam.financialbook.adapters.ReportExpenseQuarterAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
 import com.example.nguyennam.financialbook.database.IncomeDAO;
 import com.example.nguyennam.financialbook.model.Expense;
-import com.example.nguyennam.financialbook.model.Income;
 import com.example.nguyennam.financialbook.model.ReportQuarter;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
@@ -27,17 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ReportViewByQuarter extends Fragment implements ReportViewByQuarterAdapter.ReportQuarterViewHolderOnClickListener {
+public class ReportExpenseQuarter extends Fragment implements ReportExpenseQuarterAdapter.ReportExpenseQuarterOnClickListener {
 
     Context context;
     ExpenseDAO expenseDAO;
     IncomeDAO incomeDAO;
     List<String> dateExpenseList;
-    RecyclerView recyclerView;
-    List<ReportQuarter> data;
     String[] mangId;
     double amountMoneyExpense = 0;
-    double amountMoneyIncome = 0;
+    RecyclerView recyclerView;
+    List<ReportQuarter> data;
 
     @Override
     public void onAttach(Context context) {
@@ -56,18 +54,36 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
         View v = inflater.inflate(R.layout.report_view_by, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewReport);
         data = new ArrayList<>();
+        data.clear();
         getDateExpenseIncome();
         setDataForReport();
-        setApdater();
+        setAdapter();
         return v;
     }
 
-    private void setApdater() {
-        ReportViewByQuarterAdapter myAdapter = new ReportViewByQuarterAdapter(context, data);
+    private void setAdapter() {
+        ReportExpenseQuarterAdapter myAdapter = new ReportExpenseQuarterAdapter(context, data);
         myAdapter.setMyOnClickListener(this);
         recyclerView.setAdapter(myAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void evalAmountMoney(String date) {
+        for (int j = 0; j < mangId.length; j++) {
+            List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), date);
+            for (Expense expense : expenseList) {
+                if ("".equals(FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD))) {
+                    if (FileHelper.readFile(context, Constant.TEMP_CATEGORY).equals(expense.get_category())) {
+                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                    }
+                } else {
+                    if (FileHelper.readFile(context, Constant.TEMP_CATEGORY_CHILD).equals(expense.get_categoryChild())) {
+                        amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
+                    }
+                }
+            }
+        }
     }
 
     private void getDateExpenseIncome() {
@@ -81,7 +97,7 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
     }
 
     private void setDataForReport() {
-        /// get id account from account name form
+        // get id account from account name form
         String idAccount = FileHelper.readFile(context, Constant.TEMP_ID);
         mangId = idAccount.split(";");
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
@@ -91,40 +107,42 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
             if (i == dateExpenseList.size() - 1) {
                 if (dateExpenseList.size() == 1) {
                     evalAmountMoney(dateExpenseList.get(i));
-                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyExpense)));
                 } else if (quarter.equals(CalendarSupport.getQuarter(dateExpenseList.get(i - 1))) &&
                         year.equals(CalendarSupport.getYear(dateExpenseList.get(i - 1)))) {
                     evalAmountMoney(dateExpenseList.get(i));
-                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyExpense)));
                 } else {
                     amountMoneyExpense = 0;
-                    amountMoneyIncome = 0;
                     evalAmountMoney(dateExpenseList.get(i));
-                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyExpense)));
                 }
             } else if (quarter.equals(CalendarSupport.getQuarter(dateExpenseList.get(i + 1))) &&
                     year.equals(CalendarSupport.getYear(dateExpenseList.get(i + 1)))) {
                 evalAmountMoney(dateExpenseList.get(i));
             } else {
                 evalAmountMoney(dateExpenseList.get(i));
-                data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyExpense)));
                 amountMoneyExpense = 0;
-                amountMoneyIncome = 0;
             }
         }
+        findMaxExpense();
     }
 
-    private void evalAmountMoney(String date) {
-        for (int j = 0; j < mangId.length; j++) {
-            List<Expense> expenseList = expenseDAO.getExpenseByAccountID(Integer.parseInt(mangId[j]), date);
-            for (Expense expense : expenseList) {
-                amountMoneyExpense += Double.parseDouble(CalculatorSupport.formatExpression(expense.get_amountMoney()));
-            }
-            List<Income> incomeList = incomeDAO.getIncomeByAccountID(Integer.parseInt(mangId[j]), date);
-            for (Income income : incomeList) {
-                amountMoneyIncome += Double.parseDouble(CalculatorSupport.formatExpression(income.get_amountMoney()));
+    private void findMaxExpense() {
+        double maxExpense = 0;
+        for (int i = data.size() - 1; i >= 0 ; i--) {
+            if ("0".equals(data.get(i).getMoneyExpense())) {
+                data.remove(i);
+            } else {
+                if (Double.parseDouble(CalculatorSupport.
+                        formatExpression(data.get(i).getMoneyExpense())) > maxExpense) {
+                    maxExpense = Double.parseDouble(CalculatorSupport.
+                            formatExpression(data.get(i).getMoneyExpense()));
+                }
             }
         }
+        FileHelper.writeFile(context, Constant.TEMP_MAX, "" + maxExpense);
     }
 
     @Override

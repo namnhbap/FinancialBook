@@ -1,16 +1,22 @@
 package com.example.nguyennam.financialbook.model;
 
 
-public class ReportQuater {
+public class ReportQuarter {
     private String quarter;
     private String year;
     private String moneyIncome;
     private String moneyExpense;
 
-    public ReportQuater(String quarter, String year, String moneyIncome, String moneyExpense) {
+    public ReportQuarter(String quarter, String year, String moneyIncome, String moneyExpense) {
         this.quarter = quarter;
         this.year = year;
         this.moneyIncome = moneyIncome;
+        this.moneyExpense = moneyExpense;
+    }
+
+    public ReportQuarter(String quarter, String year, String moneyExpense) {
+        this.quarter = quarter;
+        this.year = year;
         this.moneyExpense = moneyExpense;
     }
 
