@@ -12,6 +12,11 @@ public class ReportYear {
         this.moneyExpense = moneyExpense;
     }
 
+    public ReportYear(String year, String moneyExpense) {
+        this.year = year;
+        this.moneyExpense = moneyExpense;
+    }
+
     public String getYear() {
         return year;
     }
