@@ -14,6 +14,13 @@ public class ReportMonth {
         this.moneyExpense = moneyExpense;
     }
 
+
+    public ReportMonth(String month, String year, String moneyExpense) {
+        this.month = month;
+        this.year = year;
+        this.moneyExpense = moneyExpense;
+    }
+
     public String getMonth() {
         return month;
     }

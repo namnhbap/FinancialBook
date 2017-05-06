@@ -87,9 +87,10 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
             FileHelper.writeFile(context, Constant.TEMP_ID, "" + 1);
             txtAccount.setText(new AccountRecyclerViewDAO(context).getAccountById(1).getAccountName());
         }
-        if (!"".equals(txtAccount.getText().toString()) && !"".equals(txtViewBy.getText().toString())) {
+        if (!"".equals(txtAccount.getText().toString()) && !"".equals(txtViewBy.getText().toString())
+                && !"".equals(txtCategory.getText().toString())) {
             if (arrayViewBy[0].equals(txtViewBy.getText().toString())) {
-                insertNestedFragment(new ReportViewByMonth());
+                insertNestedFragment(new ReportExpenseMonth());
             } else if (arrayViewBy[1].equals(txtViewBy.getText().toString())) {
                 insertNestedFragment(new ReportViewByQuarter());
             } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
@@ -132,7 +133,7 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
         switch (which) {
             case 0:
                 txtViewBy.setText(inputText);
-                insertNestedFragment(new ReportViewByMonth());
+                insertNestedFragment(new ReportExpenseMonth());
                 break;
             case 1:
                 txtViewBy.setText(inputText);

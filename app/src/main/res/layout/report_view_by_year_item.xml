@@ -27,8 +27,7 @@
                     android:id="@+id/txtYear"
                     style="@style/ReportBold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2017" />
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 

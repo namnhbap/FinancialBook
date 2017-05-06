@@ -22,5 +22,6 @@ public class Constant {
     public static final String TEMP_VIEW_BY = "temp_view_by.tmp";
     public static final String TEMP_BUDGET_DATE = "temp_budget_date.tmp";
     public static final String TEMP_BUDGET_ID = "temp_budget_ID.tmp";
+    public static final String TEMP_MAX = "temp_max.tmp";
 
 }
