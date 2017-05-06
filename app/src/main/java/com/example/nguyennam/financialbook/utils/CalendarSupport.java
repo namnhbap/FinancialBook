@@ -26,8 +26,7 @@ public class CalendarSupport {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dt1);
         String[] days = context.getResources().getStringArray(R.array.day_of_week);
-        String day = days[calendar.get(Calendar.DAY_OF_WEEK)];
-        return day;
+        return days[calendar.get(Calendar.DAY_OF_WEEK)];
     }
 
     public static String getDateOfMonth (String input_date) {
@@ -101,6 +100,26 @@ public class CalendarSupport {
         dateExpenseList.removeAll(dateIncomeList);
         // add date income to expense
         dateExpenseList.addAll(dateIncomeList);
+        // sort date from now to past
+        Collections.sort(dateExpenseList, new Comparator<String>() {
+            @Override
+            public int compare(String arg1, String arg0) {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                int compareResult = 0;
+                try {
+                    Date arg0Date = format.parse(arg0);
+                    Date arg1Date = format.parse(arg1);
+                    compareResult = arg0Date.compareTo(arg1Date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    compareResult = arg0.compareTo(arg1);
+                }
+                return compareResult;
+            }
+        });
+    }
+
+    public static void sortDateList(List<String> dateExpenseList) {
         // sort date from now to past
         Collections.sort(dateExpenseList, new Comparator<String>() {
             @Override

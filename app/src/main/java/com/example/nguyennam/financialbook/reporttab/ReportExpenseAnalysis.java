@@ -96,9 +96,8 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
             } else if (arrayViewBy[2].equals(txtViewBy.getText().toString())) {
                 insertNestedFragment(new ReportExpenseYear());
             } else {
-                //TODO
                 //expense by date
-                insertNestedFragment(new ReportPeriodTime());
+                insertNestedFragment(new ReportExpensePeriodTime());
             }
         }
     }
@@ -112,7 +111,6 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlCategory:
-                //TODO
                 ((MainActivity) context).replaceFragment(new ExpenseCategory(), true);
                 break;
             case R.id.rlAccount:
@@ -154,11 +152,10 @@ public class ReportExpenseAnalysis extends Fragment implements View.OnClickListe
 
     @Override
     public void onFinishPickTime(String inputText) {
-        //TODO
         FileHelper.writeFile(context, Constant.TEMP_VIEW_BY, inputText);
         txtViewBy.setText(inputText);
         if (!"".equals(txtAccount.getText().toString())) {
-            insertNestedFragment(new ReportPeriodTime());
+            insertNestedFragment(new ReportExpensePeriodTime());
         }
     }
 }

@@ -75,7 +75,7 @@
     <string name="viewBy">Xem theo:</string>
     <string name="expense">CHI</string>
     <string name="ReportExpenseIncome">Tình hình thu chi</string>
-    <string name="ReportExpenseAnalysis">Phân tích chi tiêu</string>
+    <string name="ReportExpenseAnalysis">Thống kê chi tiêu</string>
     <string name="time">Thời gian</string>
     <string name="noticeNoMoney">Bạn chưa nhập \"Số tiền\".</string>
     <string name="noticeNoCategory">Bạn chưa nhập \"Mục thu\".</string>
