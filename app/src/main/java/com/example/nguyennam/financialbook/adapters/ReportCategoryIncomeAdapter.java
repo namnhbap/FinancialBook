@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.model.CategoryIncome;
+import com.example.nguyennam.financialbook.utils.CalculatorSupport;
+import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
 
@@ -38,7 +41,12 @@ public class ReportCategoryIncomeAdapter extends RecyclerView.Adapter<ReportCate
         holder.txtAmountMoney.setText(categoryIncome.getMoney());
         holder.txtMoneyPercent.setText(categoryIncome.getPercent());
         final float scale = context.getApplicationContext().getResources().getDisplayMetrics().density;
-        int width = (int) (2.4 * Float.parseFloat(categoryIncome.getPercent()) * scale + 0.5f);
+        double maxIncome = Double.parseDouble(FileHelper.readFile(context, Constant.TEMP_MAX));
+        String incomeLine = Double.toString((double) Math.round(
+                Double.parseDouble(CalculatorSupport.formatExpression(categoryIncome.getMoney()))
+                        / maxIncome * 100
+                        * 10) / 10);
+        int width = (int) (2.4 * Float.parseFloat(incomeLine) * scale + 0.5f);
         int height = (int) (10 * scale + 0.5f);
         holder.lnPercent.setLayoutParams(new LinearLayout.LayoutParams(width, height));
     }

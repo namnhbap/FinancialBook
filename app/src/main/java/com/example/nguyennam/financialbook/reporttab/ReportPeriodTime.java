@@ -178,7 +178,7 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
         if (e == null)
             return;
         Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + categoryGroupList.get((int)h.getX()).getName()
+                "Value: " + e.getY() + ", index: " + categoryGroupList.get((int) h.getX()).getName()
                         + ", DataSet index: " + h.getDataSetIndex());
     }
 
@@ -190,7 +190,7 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     private void getDateStartEnd() {
         // get date start and date end from view by
         String viewByDate = FileHelper.readFile(context, Constant.TEMP_VIEW_BY);
-        String [] dateArray = viewByDate.split("-");
+        String[] dateArray = viewByDate.split("-");
         for (int i = 0; i < dateArray.length; i++) {
             dateArray[i] = dateArray[i].trim();
         }
@@ -276,24 +276,37 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
             txtIncomeMoney.setText(nf.format(amountMoneyIncome));
         }
         // remove object money = 0
-        for (int i = categoryGroupList.size() - 1; i >= 0 ; i--) {
+        for (int i = categoryGroupList.size() - 1; i >= 0; i--) {
             if ("0".equals(categoryGroupList.get(i).getMoney())) {
                 categoryGroupList.remove(i);
             }
         }
-        for (int i = categoryIncomeList.size() - 1; i >= 0 ; i--) {
+        for (int i = categoryIncomeList.size() - 1; i >= 0; i--) {
             if ("0".equals(categoryIncomeList.get(i).getMoney())) {
                 categoryIncomeList.remove(i);
             }
         }
         // calculate percent
-        for (int i = categoryIncomeList.size() - 1; i >= 0 ; i--) {
+        for (int i = categoryIncomeList.size() - 1; i >= 0; i--) {
             String temp = Double.toString((double) Math.round(
                     Double.parseDouble(CalculatorSupport.formatExpression(categoryIncomeList.get(i).getMoney()))
-                    / amountMoneyIncome * 100
+                            / amountMoneyIncome * 100
                             * 10) / 10);
             categoryIncomeList.get(i).setPercent(temp);
         }
+        findMaxIncome();
+    }
+
+    private void findMaxIncome() {
+        double maxIncome = 0;
+        for (int i = categoryIncomeList.size() - 1; i >= 0; i--) {
+            if (Double.parseDouble(CalculatorSupport.
+                    formatExpression(categoryIncomeList.get(i).getMoney())) > maxIncome) {
+                maxIncome = Double.parseDouble(CalculatorSupport.
+                        formatExpression(categoryIncomeList.get(i).getMoney()));
+            }
+        }
+        FileHelper.writeFile(context, Constant.TEMP_MAX, "" + maxIncome);
     }
 
     @Override
