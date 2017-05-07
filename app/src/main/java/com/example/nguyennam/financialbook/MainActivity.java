@@ -178,12 +178,6 @@ public class MainActivity extends FragmentActivity {
         } else {
             fragmentTransaction.show(someFragment);
         }
-//        if (addToBackStack) {
-//            fragmentTransaction.addToBackStack(null);
-//        } else {
-//            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//        }
-//        fragmentTransaction.replace(R.id.realtabcontent, someFragment, "SomeFragment");
         fragmentTransaction.commit();
     }
 }

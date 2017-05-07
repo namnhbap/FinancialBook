@@ -121,22 +121,37 @@ public class AccountFinancialHistory extends Fragment implements AccountFinancia
             expenseList = expenseDAO.getExpenseByAccountID(account.getId(), date);
             for (Expense expense : expenseList) {
                 if (isFirstRow) {
-                    data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
-                            expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    if ("".equals(expense.get_categoryChild())) {
+                        data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
+                                expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    } else {
+                        data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_categoryChild(),
+                                expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    }
                     tempAmountMoney = expense.get_amountMoney();
                     isFirstRow = false;
                     isIncome = false;
                 } else if (isIncome){
                     //calculate remain money
                     remainMoney = calculateRemainMoneyIncome(tempAmountMoney, remainMoney);
-                    data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
-                            expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    if ("".equals(expense.get_categoryChild())) {
+                        data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
+                                expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    } else {
+                        data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_categoryChild(),
+                                expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    }
                     tempAmountMoney = expense.get_amountMoney();
                     isIncome = false;
                 } else {
                     remainMoney = calculateRemainMoneyExpense(tempAmountMoney, remainMoney);
-                    data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
-                            expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    if ("".equals(expense.get_categoryChild())) {
+                        data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_category(),
+                                expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    } else {
+                        data.add(new FinancialRecyclerView(expense.get_id(), "Chi:", expense.get_categoryChild(),
+                                expense.get_date(), expense.get_amountMoney(), remainMoney));
+                    }
                     tempAmountMoney = expense.get_amountMoney();
                     isIncome = false;
                 }
