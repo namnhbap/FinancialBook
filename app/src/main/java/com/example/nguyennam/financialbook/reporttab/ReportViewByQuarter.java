@@ -91,23 +91,27 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
             if (i == dateExpenseList.size() - 1) {
                 if (dateExpenseList.size() == 1) {
                     evalAmountMoney(dateExpenseList.get(i));
-                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                    if (!(amountMoneyExpense == 0 && amountMoneyIncome == 0))
+                        data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 } else if (quarter.equals(CalendarSupport.getQuarter(dateExpenseList.get(i - 1))) &&
                         year.equals(CalendarSupport.getYear(dateExpenseList.get(i - 1)))) {
                     evalAmountMoney(dateExpenseList.get(i));
-                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                    if (!(amountMoneyExpense == 0 && amountMoneyIncome == 0))
+                        data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 } else {
                     amountMoneyExpense = 0;
                     amountMoneyIncome = 0;
                     evalAmountMoney(dateExpenseList.get(i));
-                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                    if (!(amountMoneyExpense == 0 && amountMoneyIncome == 0))
+                        data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 }
             } else if (quarter.equals(CalendarSupport.getQuarter(dateExpenseList.get(i + 1))) &&
                     year.equals(CalendarSupport.getYear(dateExpenseList.get(i + 1)))) {
                 evalAmountMoney(dateExpenseList.get(i));
             } else {
                 evalAmountMoney(dateExpenseList.get(i));
-                data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
+                if (!(amountMoneyExpense == 0 && amountMoneyIncome == 0))
+                    data.add(new ReportQuarter(quarter, year, nf.format(amountMoneyIncome), nf.format(amountMoneyExpense)));
                 amountMoneyExpense = 0;
                 amountMoneyIncome = 0;
             }
