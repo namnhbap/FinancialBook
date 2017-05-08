@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Financial Book</string>
+    <string name="app_name">Sổ thu chi</string>
     <string name="Key1">1</string>
     <string name="Key2">2</string>
     <string name="Key3">3</string>
@@ -31,14 +31,13 @@
     <string name="IncomeDescription">Khi có khoản thu nhập, thu nợ, đi vay.</string>
     <string name="Transfer">Chuyển khoản</string>
     <string name="TransferDescription">Chuyển tiền giữa các tài khoản trong Sổ của bạn.</string>
-    <string name="SoTien">Số tiền</string>
-    <string name="MucChi">Mục chi</string>
-    <string name="tuTaiKhoan">Từ tài khoản</string>
+    <string name="Amount">Amount</string>
+    <string name="category">Mục chi</string>
     <string name="Date">Ngày</string>
     <string name="Event">Sự kiện</string>
-    <string name="MucThu">Mục thu</string>
-    <string name="DienGiai">Diễn giải</string>
-    <string name="VaoTaiKhoan">Vào tài khoản</string>
+    <string name="CategoryIncome">Mục thu</string>
+    <string name="Description">Diễn giải</string>
+    <string name="ToAccount">Vào tài khoản</string>
     <string name="Category">Hạng mục chi</string>
     <string name="search">Tìm kiếm</string>
     <string name="changePositionAccount">Change position Account</string>
@@ -125,6 +124,7 @@
         <item>Thưởng</item>
         <item>Được cho/tặng</item>
         <item>Thu nợ</item>
+        <item>Khác</item>
     </string-array>
     <string-array name="group_row_category">
         <item>Ăn uống</item>

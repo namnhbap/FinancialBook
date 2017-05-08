@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Financial Book</string>
+    <string name="Key1">1</string>
+    <string name="Key2">2</string>
+    <string name="Key3">3</string>
+    <string name="Key4">4</string>
+    <string name="Key5">5</string>
+    <string name="Key6">6</string>
+    <string name="Key7">7</string>
+    <string name="Key8">8</string>
+    <string name="Key9">9</string>
+    <string name="Key0">0</string>
+    <string name="KeyC">C</string>
+    <string name="KeyDivide">÷</string>
+    <string name="KeyMulti">×</string>
+    <string name="KeyMinus">-</string>
+    <string name="KeyAdd">+</string>
+    <string name="KeyDot">,</string>
+    <string name="KeyEqual">=</string>
+    <string name="Key000">000</string>
+    <string name="KeyDone">OK</string>
+    <string name="noname" />
+    <string name="Records">Records</string>
+    <string name="Accounts">Accounts</string>
+    <string name="Budget">Budget</string>
+    <string name="Reports">Reports</string>
+    <string name="Setting">Settings</string>
+    <string name="Expense">Expense</string>
+    <string name="ExpenseDescription">When expending, lending, paying debts.</string>
+    <string name="Income">Income</string>
+    <string name="IncomeDescription">When having incomes, borrowing, collecting debts.</string>
+    <string name="Transfer">Transfer</string>
+    <string name="TransferDescription">When transferring money between 2 of your accounts.</string>
+    <string name="Amount">Amount</string>
+    <string name="category">Category</string>
+    <string name="Date">Date</string>
+    <string name="Event">Event</string>
+    <string name="CategoryIncome">Category</string>
+    <string name="Description">Description</string>
+    <string name="ToAccount">To Account</string>
+    <string name="Category">Expense Categories</string>
+    <string name="search">Search</string>
+    <string name="changePositionAccount">Change position Account</string>
+    <string name="addAccount">Add Account</string>
+    <string name="money">$</string>
+    <string name="editAccount">Edit Account</string>
+    <string name="Balance">Balance:</string>
+    <string name="Save">Save</string>
+    <string name="fromAccount">Account</string>
+    <string name="financialHistory">Transactions</string>
+    <string name="selecteAccount">Select Account</string>
+    <string name="previous">Back</string>
+    <string name="description">Description</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="addBudget">Add Budget</string>
+    <string name="expenseHistory">Expense:</string>
+    <string name="soTienBanDau">Initial balance</string>
+    <string name="name">Name</string>
+    <string name="accountType">Type</string>
+    <string name="moneyType">Currency</string>
+    <string name="accountName">Account name</string>
+    <string name="Delete">Delete</string>
+    <string name="tvIncome">Income:</string>
+    <string name="tvExpense">Expense:</string>
+    <string name="dateOfWeek">dateOfWeek</string>
+    <string name="budgetName">Budget Name</string>
+    <string name="date">Date</string>
+    <string name="editBudget">Edit Budget</string>
+    <string name="budgetCategory">Category:</string>
+    <string name="budgetExpense">Expensed:</string>
+    <string name="budgetRemain">Balance:</string>
+    <string name="budgetMoney">Budget:</string>
+    <string name="viewBy">View by:</string>
+    <string name="expense">EXPENSE</string>
+    <string name="ReportExpenseIncome">Expense vs Income</string>
+    <string name="ReportExpenseAnalysis">Expense analysis</string>
+    <string name="time">Please select</string>
+    <string name="noticeNoMoney">Amount can not be empty.</string>
+    <string name="noticeNoCategory">Category can not be empty.</string>
+    <string name="noticeNoCategoryExpense">Category can not be empty.</string>
+    <string name="noticeNoAccount">To Account can not be empty.</string>
+    <string name="noticeNoAccountExpense">Account can not be empty.</string>
+    <string name="IncomeCategory">Income categories</string>
+    <string name="incomeHistory">Income:</string>
+    <string name="noticeNoAccountName">Name can not be empty.</string>
+    <string name="noticeNoAccountType">Type can not be empty.</string>
+    <string name="noticeNoMoneyType">Currency  can not be empty.</string>
+    <string name="deleteTitle">Delete Account!</string>
+    <string name="deleteMessage">Deleting this account will also, delete all transactions under this account. Deleted data cannot be recoverd. Are you sure you want to proceed?</string>
+    <string name="remainMoney">Balance</string>
+    <string name="startMoney">Initial balance</string>
+    <string name="remain">Balance:</string>
+    <string name="deleteFinancialTitle">Delete Transaction!</string>
+    <string name="deleteFinancialMessage">Are you sure you want to delete?</string>
+    <string name="income">INCOME</string>
+    <string name="accounts">Account:</string>
+    <string name="fromDate">From date</string>
+    <string name="toDate">To date</string>
+    <string name="ok">Agree</string>
+    <string name="pickTime">Please select</string>
+    <string name="all">All Accounts</string>
+    <string name="open">(</string>
+    <string name="close">%)</string>
+    <string name="close2">)</string>
+    <string name="noticeNoDate">Date can not be empty.</string>
+    <string name="noticeNoBudget">Name can not be empty.</string>
+    <string name="edit">Edit</string>
+    <string name="deleteBudgetTitle">Delete Budget!</string>
+    <string name="deleteBudgetMessage">Are you sure you want to delete this budget?</string>
+    <string name="categories">Category:</string>
+    <string-array name="day_of_week">
+        <item>\"\"</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+    <string-array name="income_category">
+        <item>Salary</item>
+        <item>Bonus</item>
+        <item>Awarded</item>
+        <item>Collecting debts</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="group_row_category">
+        <item>Food and Dining</item>
+        <item>Auto and Transport</item>
+        <item>Utilities</item>
+        <item>Kids</item>
+        <item>Clothing</item>
+        <item>Gifts and Donations</item>
+        <item>Home</item>
+        <item>Entertainment</item>
+        <item>Health and Fitness</item>
+        <item>Personal</item>
+    </string-array>
+    <string-array name="child_row_anuong">
+        <item>Bars and Coffee</item>
+        <item>Groceries</item>
+        <item>Restaurant</item>
+    </string-array>
+    <string-array name="child_row_dilai">
+        <item>Fuel</item>
+        <item>Repair vehicles</item>
+        <item>Service and Parts</item>
+        <item>Taxi</item>
+        <item>Bus</item>
+    </string-array>
+    <string-array name="child_row_dichvusinhhoat">
+        <item>Electricity and Water</item>
+        <item>Internet</item>
+        <item>Mobile phone</item>
+        <item>Gas</item>
+        <item>Cable TV</item>
+    </string-array>
+    <string-array name="child_row_concai">
+        <item>Tuition</item>
+        <item>Books</item>
+        <item>Baby Supplies</item>
+        <item>Toys</item>
+        <item>Allowance</item>
+    </string-array>
+    <string-array name="child_row_trangphuc">
+        <item>Clothes</item>
+        <item>Shoes</item>
+        <item>Accessories</item>
+    </string-array>
+    <string-array name="child_row_hieuhi">
+        <item>Marriages</item>
+        <item>Funerals</item>
+        <item>Charity</item>
+        <item>Gifts</item>
+    </string-array>
+    <string-array name="child_row_nhacua">
+        <item>Furnishing</item>
+        <item>Home services</item>
+        <item>Repair of buildings</item>
+    </string-array>
+    <string-array name="child_row_huongthu">
+        <item>Music/Game/Movie</item>
+        <item>Travel</item>
+        <item>Make up</item>
+    </string-array>
+    <string-array name="child_row_suckhoe">
+        <item>Doctor</item>
+        <item>Pharmacy</item>
+        <item>Sports</item>
+    </string-array>
+    <string-array name="child_row_phattrienbanthan">
+        <item>Education</item>
+        <item>Hobbies</item>
+    </string-array>
+    <string-array name="accounts">
+        <item>Cash</item>
+        <item>ATM</item>
+        <item>Savings deposit</item>
+    </string-array>
+    <string-array name="account_type">
+        <item>Cash</item>
+        <item>Bank Account</item>
+        <item>Credit Card</item>
+        <item>Investment</item>
+        <item>Savings deposit</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="money_type">
+        <item>VND</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+    </string-array>
+    <string-array name="report_view_by">
+        <item>Month</item>
+        <item>Quarter</item>
+        <item>Year</item>
+        <item>Period time</item>
+    </string-array>
+</resources>

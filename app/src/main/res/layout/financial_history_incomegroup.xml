@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:text="@string/SoTien"
+            android:text="@string/Amount"
             android:textColor="@color/textTab" />
 
         <TextView

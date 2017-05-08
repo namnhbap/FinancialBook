@@ -266,7 +266,7 @@
                     android:background="@color/white"
                     android:clickable="true"
                     android:gravity="end"
-                    android:hint="@string/SoTien"
+                    android:hint="@string/Amount"
                     android:paddingEnd="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"

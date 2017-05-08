@@ -64,7 +64,7 @@
                     style="@style/FormEditValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/SoTien" />
+                    android:text="@string/Amount" />
 
                 <TextView
                     style="@style/FormEditValue"

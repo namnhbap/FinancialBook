@@ -44,7 +44,7 @@
                 android:background="@color/white"
                 android:clickable="true"
                 android:gravity="end"
-                android:hint="@string/SoTien"
+                android:hint="@string/Amount"
                 android:paddingEnd="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -90,7 +90,7 @@
                     android:layout_centerVertical="true"
                     android:clickable="false"
                     android:padding="4dp"
-                    android:text="@string/MucChi" />
+                    android:text="@string/category" />
 
                 <TextView
                     android:id="@+id/txtCategory"
@@ -130,7 +130,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@string/DienGiai"
+                    android:contentDescription="@string/Description"
                     android:src="@drawable/disclosure" />
 
                 <TextView
@@ -143,7 +143,7 @@
                     android:layout_centerVertical="true"
                     android:clickable="false"
                     android:padding="4dp"
-                    android:text="@string/DienGiai" />
+                    android:text="@string/Description" />
 
                 <TextView
                     android:id="@+id/txtDescription"
@@ -199,7 +199,7 @@
                     android:layout_centerVertical="true"
                     android:clickable="false"
                     android:padding="4dp"
-                    android:text="@string/tuTaiKhoan" />
+                    android:text="@string/fromAccount" />
 
                 <TextView
                     android:id="@+id/txtAccountName"

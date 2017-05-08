@@ -100,7 +100,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/DienGiai"
+                android:contentDescription="@string/Description"
                 android:src="@drawable/disclosure" />
 
             <TextView
