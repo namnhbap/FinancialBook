@@ -138,7 +138,7 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
     private void setData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (CategoryGroup categoryGroup : categoryGroupList) {
-            entries.add(new PieEntry(Float.parseFloat(categoryGroup.getMoney()), categoryGroup.getName()));
+            entries.add(new PieEntry(Float.parseFloat(CalculatorSupport.formatExpression(categoryGroup.getMoney())), categoryGroup.getName()));
         }
         mChart.setDrawEntryLabels(false); //dont show xdata in chart
         PieDataSet dataSet = new PieDataSet(entries, "");

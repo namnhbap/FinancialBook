@@ -53,16 +53,14 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/ReportNormal"
-                        android:layout_width="32dp"
+                        style="@style/ReportNormal2"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/income" />
+                        android:text="@string/tvIncome" />
 
                     <LinearLayout
                         android:id="@+id/lnIncome"
-                        android:layout_width="150dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/report_percent_line">
 
@@ -84,16 +82,14 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/ReportNormal"
-                        android:layout_width="32dp"
+                        style="@style/ReportNormal2"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/expense" />
+                        android:text="@string/tvExpense" />
 
                     <LinearLayout
                         android:id="@+id/lnExpense"
-                        android:layout_width="150dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/report_percent_line">
 

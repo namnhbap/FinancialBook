@@ -49,16 +49,16 @@ public class ReportViewByQuarterAdapter extends RecyclerView.Adapter<ReportViewB
                 Double.parseDouble(CalculatorSupport.formatExpression(reportQuarter.getMoneyExpense()))
                         / sum * 100
                         * 10) / 10);
-        int widthIncome = (int) (1.5 * Float.parseFloat(incomePercent) * scale + 0.5f);
-        int widthExpense = (int) (1.5 * Float.parseFloat(expensePercent) * scale + 0.5f);
+        int widthIncome = (int) (1.2 * Float.parseFloat(incomePercent) * scale + 0.5f);
+        int widthExpense = (int) (1.2 * Float.parseFloat(expensePercent) * scale + 0.5f);
         if (widthExpense > widthIncome) {
-            widthExpense = (int) (150 * scale + 0.5f);
-            widthIncome = (int) (150 * Float.parseFloat(incomePercent) * scale / Float.parseFloat(expensePercent) + 0.5f);
+            widthExpense = (int) (120 * scale + 0.5f);
+            widthIncome = (int) (120 * Float.parseFloat(incomePercent) * scale / Float.parseFloat(expensePercent) + 0.5f);
         } else if (widthExpense < widthIncome) {
-            widthIncome = (int) (150 * scale + 0.5f);
-            widthExpense = (int) (150 * Float.parseFloat(expensePercent) * scale / Float.parseFloat(incomePercent) + 0.5f);
+            widthIncome = (int) (120 * scale + 0.5f);
+            widthExpense = (int) (120 * Float.parseFloat(expensePercent) * scale / Float.parseFloat(incomePercent) + 0.5f);
         } else {
-            widthExpense = widthIncome = (int) (150 * scale + 0.5f);
+            widthExpense = widthIncome = (int) (120 * scale + 0.5f);
         }
         int height = (int) (10 * scale + 0.5f);
         holder.lnIncome.setLayoutParams(new LinearLayout.LayoutParams(widthIncome, height));

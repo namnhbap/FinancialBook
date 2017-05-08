@@ -217,6 +217,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
 
     private void clearTempFile() {
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR_EDIT);
         FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);

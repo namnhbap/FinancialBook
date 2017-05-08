@@ -31,7 +31,7 @@
     <string name="IncomeDescription">Khi có khoản thu nhập, thu nợ, đi vay.</string>
     <string name="Transfer">Chuyển khoản</string>
     <string name="TransferDescription">Chuyển tiền giữa các tài khoản trong Sổ của bạn.</string>
-    <string name="Amount">Amount</string>
+    <string name="Amount">Số tiền</string>
     <string name="category">Mục chi</string>
     <string name="Date">Ngày</string>
     <string name="Event">Sự kiện</string>
@@ -42,7 +42,7 @@
     <string name="search">Tìm kiếm</string>
     <string name="changePositionAccount">Change position Account</string>
     <string name="addAccount">Thêm tài khoản</string>
-    <string name="money">đ</string>
+    <string name="money">₫</string>
     <string name="editAccount">Sửa tài khoản</string>
     <string name="Balance">Còn:</string>
     <string name="Save">Lưu</string>
