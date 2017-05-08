@@ -1,12 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundForm"
+    android:orientation="vertical"
+    tools:context="com.example.nguyennam.financialbook.budgettab.BudgetMain">
+
+    <RelativeLayout
+        android:id="@+id/budgetHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/Setting"
-        android:textSize="50sp"
-        android:gravity="center"/>
+        android:layout_height="@dimen/size48dp"
+        android:background="@drawable/selector_layout_green">
+
+        <TextView
+            android:id="@+id/lbBudget"
+            style="@style/TextViewStyleBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/Setting" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lnLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/selector_listview_ismac"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/noname"
+            android:src="@drawable/ic_language_new" />
+
+        <TextView
+            style="@style/TextViewStyleBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:text="@string/Language"
+            android:textColor="@color/SettingTextColor" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Line" />
+
+    <LinearLayout
+        android:id="@+id/lnResetData"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/selector_listview_ismac"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/noname"
+            android:src="@drawable/ic_reset_data_new" />
+
+        <TextView
+            style="@style/TextViewStyleBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:text="@string/ResetData"
+            android:textColor="@color/SettingTextColor" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Line" />
+
+    <LinearLayout
+        android:id="@+id/lnAbout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/selector_listview_ismac"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/noname"
+            android:src="@drawable/ic_infomation_new" />
+
+        <TextView
+            style="@style/TextViewStyleBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:text="@string/ProductInfomation"
+            android:textColor="@color/SettingTextColor" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Line" />
+
 </LinearLayout>

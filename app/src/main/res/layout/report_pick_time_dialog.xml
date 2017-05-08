@@ -13,7 +13,6 @@
         android:background="@drawable/selector_layout_green">
 
         <TextView
-            android:id="@+id/lbAddAccount"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/pickTime"

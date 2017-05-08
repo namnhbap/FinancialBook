@@ -76,4 +76,9 @@
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="TextViewStyleBlack">
+        <item name="android:textSize">19.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
 </resources>

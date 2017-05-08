@@ -24,12 +24,12 @@ public class DeleteAccountDialog extends DialogFragment {
                 .setIcon(android.R.drawable.stat_notify_error)
                 .setTitle(R.string.deleteTitle)
                 .setMessage(R.string.deleteMessage)
-                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         sendBackResult(true);
                     }
                 })
-                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.negative, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         sendBackResult(false);
                     }

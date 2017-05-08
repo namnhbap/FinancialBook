@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundForm"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/selector_layout_green">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/ProductInfomation"
+            android:gravity="center"
+            style="@style/TextViewStyleBold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customeditmoney"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:paddingBottom="0.5dp">
+
+            <TextView
+                android:id="@+id/lbFromDate"
+                style="@style/FormEditTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:padding="4dp"
+                android:text="@string/deleteMessage" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -15,4 +15,5 @@
     <color name="incomeColor">#ff37a3a0</color>
     <color name="gray">#ffe0e0e0</color>
     <color name="expenseColor">#c37676</color>
+    <color name="SettingTextColor">#ff000000</color>
 </resources>
