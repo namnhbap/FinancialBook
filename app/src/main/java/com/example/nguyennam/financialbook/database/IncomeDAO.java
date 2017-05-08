@@ -233,4 +233,10 @@ public class IncomeDAO {
                 new String[] { String.valueOf(incomeBEAN.get_id()) });
         db.close();
     }
+
+    public void deleteAllIncome() {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        db.delete(TABLE_INCOME, null, null);
+        db.close();
+    }
 }

@@ -117,4 +117,10 @@ public class AccountRecyclerViewDAO {
                 new String[]{String.valueOf(accountRecyclerView.getId())});
         db.close();
     }
+
+    public void deleteAllAccount() {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        db.delete(TABLE_ACCOUNTS, null, null);
+        db.close();
+    }
 }

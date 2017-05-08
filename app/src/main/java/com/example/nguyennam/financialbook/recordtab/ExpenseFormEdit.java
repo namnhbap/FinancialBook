@@ -289,6 +289,8 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
             recoverMoney();
             ExpenseDAO expenseDAO = new ExpenseDAO(context);
             expenseDAO.deleteExpense(expense);
+            clearTempFile();
+            Toast.makeText(context, R.string.deleteSuccessfully, Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager().popBackStack();
         }
     }

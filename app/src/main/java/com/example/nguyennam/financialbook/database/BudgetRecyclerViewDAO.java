@@ -125,4 +125,10 @@ public class BudgetRecyclerViewDAO {
                 new String[]{String.valueOf(budgetRecyclerView.getId())});
         db.close();
     }
+
+    public void deleteAllBudget() {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        db.delete(TABLE_BUDGET, null, null);
+        db.close();
+    }
 }

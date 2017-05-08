@@ -11,8 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
+import com.example.nguyennam.financialbook.database.BudgetRecyclerViewDAO;
+import com.example.nguyennam.financialbook.database.ExpenseDAO;
+import com.example.nguyennam.financialbook.database.IncomeDAO;
+import com.example.nguyennam.financialbook.model.AccountRecyclerView;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
@@ -107,6 +113,18 @@ public class SettingMain extends Fragment implements View.OnClickListener,
     @Override
     public void onFinishResetDialog(boolean isDelete) {
         // reset data
-
+        BudgetRecyclerViewDAO budgetDAO = new BudgetRecyclerViewDAO(context);
+        budgetDAO.deleteAllBudget();
+        ExpenseDAO expenseDAO = new ExpenseDAO(context);
+        expenseDAO.deleteAllExpense();
+        IncomeDAO incomeDAO = new IncomeDAO(context);
+        incomeDAO.deleteAllIncome();
+        AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
+        accountDAO.deleteAllAccount();
+        accountDAO.addAccount(new AccountRecyclerView("Ví", "Tiền mặt", "VND", "0", "", "0"));
+        accountDAO.addAccount(new AccountRecyclerView("ATM", "Tài khoản ngân hàng", "VND", "0", "", "0"));
+        accountDAO.addAccount(new AccountRecyclerView("Tiết Kiệm", "Tài khoản tiết kiệm", "VND", "0", "", "0"));
+        FileHelper.clearAllTempFile(context);
+        Toast.makeText(context, R.string.deleteSuccessfully, Toast.LENGTH_SHORT).show();
     }
 }

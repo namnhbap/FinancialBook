@@ -262,6 +262,7 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
         FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
         FileHelper.deleteFile(context, Constant.TEMP_EVENT);
         FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID_EDIT);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR_EDIT);
         FileHelper.deleteFile(context, Constant.TEMP_ISEXPENSE);
     }
 
@@ -271,6 +272,8 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
             recoverMoney();
             IncomeDAO incomeDAO = new IncomeDAO(context);
             incomeDAO.deleteIncome(income);
+            clearTempFile();
+            Toast.makeText(context, R.string.deleteSuccessfully, Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager().popBackStack();
         }
     }

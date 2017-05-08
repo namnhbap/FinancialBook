@@ -66,4 +66,24 @@ public class FileHelper {
         FileHelper.deleteFile(context, Constant.TEMP_BUDGET_ID);
         FileHelper.deleteFile(context, Constant.TEMP_MAX);
     }
+
+    public static void clearAllTempFile(Context context) {
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY);
+        FileHelper.deleteFile(context, Constant.TEMP_CATEGORY_CHILD);
+        FileHelper.deleteFile(context, Constant.TEMP_DESCRIPTION);
+        FileHelper.deleteFile(context, Constant.TEMP_EVENT);
+        FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID);
+        FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID_EDIT);
+        FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR_EDIT);
+        FileHelper.deleteFile(context, Constant.TEMP_ISEXPENSE);
+        FileHelper.deleteFile(context, Constant.TEMP_INCOME_ID);
+        FileHelper.deleteFile(context, Constant.TEMP_EXPENSE_ID);
+        FileHelper.deleteFile(context, Constant.TEMP_DATE);
+        FileHelper.deleteFile(context, Constant.TEMP_VIEW_BY);
+        FileHelper.deleteFile(context, Constant.TEMP_BUDGET_DATE);
+        FileHelper.deleteFile(context, Constant.TEMP_BUDGET_ID);
+        FileHelper.deleteFile(context, Constant.TEMP_MAX);
+        FileHelper.deleteFile(context, Constant.TEMP_ID);
+    }
 }

@@ -241,4 +241,10 @@ public class ExpenseDAO {
                 new String[]{String.valueOf(expenseBEAN.get_id())});
         db.close();
     }
+
+    public void deleteAllExpense() {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        db.delete(TABLE_EXPENSE, null, null);
+        db.close();
+    }
 }

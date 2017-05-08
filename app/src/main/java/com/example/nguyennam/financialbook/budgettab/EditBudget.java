@@ -224,6 +224,7 @@ public class EditBudget extends Fragment implements View.OnClickListener,
             BudgetRecyclerViewDAO budgetDAO = new BudgetRecyclerViewDAO(context);
             budgetDAO.deleteBudget(budget);
             clearTempFile();
+            Toast.makeText(context, R.string.deleteSuccessfully, Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }

@@ -192,6 +192,9 @@ public class EditAccount extends Fragment implements View.OnClickListener,
                 FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_ID);
             }
             accountDAO.deleteAccount(account);
+            FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
+            FileHelper.deleteFile(context, Constant.TEMP_ID);
+            Toast.makeText(context, R.string.deleteSuccessfully, Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager().popBackStack();
         }
     }
