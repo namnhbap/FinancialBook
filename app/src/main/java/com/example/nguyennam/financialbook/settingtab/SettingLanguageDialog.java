@@ -30,21 +30,21 @@ public class SettingLanguageDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         // The 'which' argument contains the index position
                         // of the selected item
-                        sendBackResult(which, arrays[which]);
+                        sendBackResult(which);
                     }
                 });
         return builder.create();
     }
 
     public interface SettingLanguageDialogListener {
-        void onFinishSettingLanguageDialog(int which, String inputText);
+        void onFinishSettingLanguageDialog(int which);
     }
 
     // Call this method to send the data back to the parent fragment
-    public void sendBackResult(int which, String viewBy) {
+    public void sendBackResult(int which) {
         // Notice the use of `getTargetFragment` which will be set when the dialog is displayed
         SettingLanguageDialogListener listener = (SettingLanguageDialogListener) getTargetFragment();
-        listener.onFinishSettingLanguageDialog(which, viewBy);
+        listener.onFinishSettingLanguageDialog(which);
         dismiss();
     }
 

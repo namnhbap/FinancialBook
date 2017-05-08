@@ -2,6 +2,7 @@ package com.example.nguyennam.financialbook;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,7 @@ import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends FragmentActivity {
 
@@ -71,7 +73,23 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    private void getLocaleLanguage(String languageToLoad) {
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getApplicationContext().getResources().updateConfiguration(config,
+                getApplicationContext().getResources().getDisplayMetrics());
+    }
+
     private void initView() {
+        //check app language
+        if ("1".equals(FileHelper.readFile(getApplicationContext(), Constant.TEMP_LANGUAGE))) {
+            getLocaleLanguage("en");
+        } else {
+            getLocaleLanguage("vi");
+        }
+        //add tabhost
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         mTabHost.addTab(

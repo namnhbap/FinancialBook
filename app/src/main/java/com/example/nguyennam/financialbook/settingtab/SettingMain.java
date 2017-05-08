@@ -1,6 +1,8 @@
 package com.example.nguyennam.financialbook.settingtab;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.utils.Constant;
+import com.example.nguyennam.financialbook.utils.FileHelper;
+
+import java.util.Locale;
 
 /**
  * Created by NguyenNam on 2/10/2017.
@@ -66,14 +72,41 @@ public class SettingMain extends Fragment implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void onFinishSettingLanguageDialog(int which, String inputText) {
-        // setting language
+    public void reStart() {
+        Intent i = context.getPackageManager()
+                .getLaunchIntentForPackage(context.getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
 
+    @Override
+    public void onFinishSettingLanguageDialog(int which) {
+        // setting language
+        if (which == 1) {
+            FileHelper.writeFile(context, Constant.TEMP_LANGUAGE, "" + which);
+            String languageToLoad = "en"; // your language
+            Locale locale = new Locale(languageToLoad);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            context.getResources().updateConfiguration(config,
+                    context.getResources().getDisplayMetrics());
+        } else {
+            FileHelper.writeFile(context, Constant.TEMP_LANGUAGE, "" + which);
+            String languageToLoad = "vi"; // your language
+            Locale locale = new Locale(languageToLoad);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            context.getResources().updateConfiguration(config,
+                    context.getResources().getDisplayMetrics());
+        }
+        reStart();
     }
 
     @Override
     public void onFinishResetDialog(boolean isDelete) {
         // reset data
+
     }
 }
