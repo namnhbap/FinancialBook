@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ReportViewByMonthAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
@@ -133,7 +134,9 @@ public class ReportViewByMonth extends Fragment implements ReportViewByMonthAdap
     }
 
     @Override
-    public void onClick() {
-
+    public void onClick(String month, String year) {
+        String date = month + "/" + year;
+        FileHelper.writeFile(context, Constant.TEMP_BUDGET_DATE, date);
+        ((MainActivity) context).replaceFragment(new ReportViewByMonthDetail(), true);
     }
 }

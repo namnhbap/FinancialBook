@@ -18,6 +18,14 @@ public class FinancialHistoryChild {
         this.id = id;
     }
 
+    public FinancialHistoryChild(boolean isExpense, String moneyAmount, String account, String category, String description) {
+        this.isExpense = isExpense;
+        this.moneyAmount = moneyAmount;
+        this.account = account;
+        this.category = category;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

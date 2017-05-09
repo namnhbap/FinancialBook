@@ -90,14 +90,15 @@ public class ReportViewByMonthAdapter extends RecyclerView.Adapter<ReportViewByM
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick();
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getMonth(),
+                            data.get(getAdapterPosition()).getYear());
                 }
             });
         }
     }
 
     public interface ReportViewByMonthOnClickListener {
-        void onClick();
+        void onClick(String month, String year);
     }
 
     ReportViewByMonthAdapter.ReportViewByMonthOnClickListener myOnClickListener;
