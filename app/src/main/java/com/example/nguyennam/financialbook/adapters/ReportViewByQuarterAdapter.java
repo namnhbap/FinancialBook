@@ -89,14 +89,15 @@ public class ReportViewByQuarterAdapter extends RecyclerView.Adapter<ReportViewB
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick();
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getQuarter(),
+                            data.get(getAdapterPosition()).getYear());
                 }
             });
         }
     }
 
     public interface ReportQuarterViewHolderOnClickListener {
-        void onClick();
+        void onClick(String quarter, String year);
     }
 
     ReportViewByQuarterAdapter.ReportQuarterViewHolderOnClickListener myOnClickListener;

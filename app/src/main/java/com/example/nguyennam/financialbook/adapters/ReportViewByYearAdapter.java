@@ -87,14 +87,14 @@ public class ReportViewByYearAdapter extends RecyclerView.Adapter<ReportViewByYe
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick();
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getYear());
                 }
             });
         }
     }
 
     public interface ReportYearOnClickListener {
-        void onClick();
+        void onClick(String year);
     }
 
     ReportViewByYearAdapter.ReportYearOnClickListener myOnClickListener;

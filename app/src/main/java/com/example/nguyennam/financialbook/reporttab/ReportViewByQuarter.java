@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ReportViewByQuarterAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
@@ -132,7 +133,9 @@ public class ReportViewByQuarter extends Fragment implements ReportViewByQuarter
     }
 
     @Override
-    public void onClick() {
-
+    public void onClick(String quarter, String year) {
+        String date = quarter + "/" + year;
+        FileHelper.writeFile(context, Constant.TEMP_BUDGET_DATE, date);
+        ((MainActivity) context).replaceFragment(new ReportViewByQuarterDetail(), true);
     }
 }
