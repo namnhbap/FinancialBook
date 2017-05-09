@@ -118,6 +118,7 @@
     <string name="resetDataMessage">This function will delete all transactions under this device. Deleted data cannot be recovered. Are you sure you want to proceed?</string>
     <string name="positive">Yes</string>
     <string name="negative">No</string>
+    <string name="overExpense">Over Expense:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Sunday</item>

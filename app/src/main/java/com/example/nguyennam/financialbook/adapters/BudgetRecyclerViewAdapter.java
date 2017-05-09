@@ -16,10 +16,12 @@ import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.CalendarSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecyclerViewAdapter.BudgetViewHolder> {
@@ -51,7 +53,19 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
         holder.txtAccount.setText(accountDAO.getAccountById(budget.getAccountID()).getAccountName());
         holder.txtCategory.setText(budget.getCategory());
         holder.txtDate.setText(budget.getDate());
-        holder.txtRemainMoney.setText(budget.getRemainMoney());
+        // over expense
+        double remainMoney = Double.parseDouble(CalculatorSupport.formatExpression(budget.getRemainMoney()));
+        if (remainMoney < 0) {
+            remainMoney = Math.abs(remainMoney);
+            NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
+            holder.lbRemain.setText(R.string.overExpense);
+            holder.lbRemain.setTextColor(context.getResources().getColor(R.color.expenseColor));
+            holder.txtRemainMoney.setText(nf.format(remainMoney));
+            holder.txtRemainMoney.setTextColor(context.getResources().getColor(R.color.expenseColor));
+            holder.lbCurrency.setTextColor(context.getResources().getColor(R.color.expenseColor));
+        } else {
+            holder.txtRemainMoney.setText(budget.getRemainMoney());
+        }
         holder.txtExpenseMoney.setText(budget.getExpenseMoney());
         // set width percent line
         final float scale = context.getApplicationContext().getResources().getDisplayMetrics().density;
@@ -151,6 +165,8 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
         TextView txtToday;
         View viewToday;
         LinearLayout lnToday;
+        TextView lbRemain;
+        TextView lbCurrency;
 
         public BudgetViewHolder(View itemView) {
             super(itemView);
@@ -165,6 +181,8 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
             viewToday = itemView.findViewById(R.id.viewToday);
             lnToday = (LinearLayout) itemView.findViewById(R.id.lnToday);
             txtToday = (TextView) itemView.findViewById(R.id.txtToday);
+            lbRemain = (TextView) itemView.findViewById(R.id.lbRemain);
+            lbCurrency = (TextView) itemView.findViewById(R.id.lbCurrency);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

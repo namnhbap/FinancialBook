@@ -118,6 +118,7 @@
     <string name="positive">Có</string>
     <string name="negative">Không</string>
     <string name="deleteSuccessfully">Xóa thành công!</string>
+    <string name="overExpense">Bội chi:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
