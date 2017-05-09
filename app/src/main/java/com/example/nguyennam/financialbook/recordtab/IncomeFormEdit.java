@@ -202,8 +202,6 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
     public void saveData() {
         // avoid bug can't set date current when click save
         FileHelper.deleteFile(context, Constant.TEMP_DATE);
-        //clear temp file
-        clearTempFile();
         //update amountmoney of account
         updateAmountMoneyAccount();
         //set expense
@@ -211,6 +209,9 @@ public class IncomeFormEdit extends Fragment implements View.OnClickListener,
         //add expense into database
         IncomeDAO incomeDAO = new IncomeDAO(context);
         incomeDAO.updateIncome(income);
+        Toast.makeText(context, R.string.editSuccessfully, Toast.LENGTH_SHORT).show();
+        //clear temp file
+        clearTempFile();
         //exit
         getActivity().getSupportFragmentManager().popBackStack();
     }

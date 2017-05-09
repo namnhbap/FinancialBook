@@ -117,7 +117,10 @@
     <string name="resetDataMessage">Chức năng này sẽ xóa toàn bộ dữ liệu Ghi chép trên thiết bị của bạn. Dữ liệu bị xóa sẽ không thể khôi phục lại được. Bạn có chắc chắn muốn thực hiện chức năng này không?</string>
     <string name="positive">Có</string>
     <string name="negative">Không</string>
+    <string name="saved">Đã lưu!</string>
+    <string name="addSuccessfully">Thêm thành công!</string>
     <string name="deleteSuccessfully">Xóa thành công!</string>
+    <string name="editSuccessfully">Chỉnh sửa thành công!</string>
     <string name="overExpense">Bội chi:</string>
     <string-array name="day_of_week">
         <item>\"\"</item>

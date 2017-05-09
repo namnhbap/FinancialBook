@@ -154,7 +154,7 @@ public class EditAccount extends Fragment implements View.OnClickListener,
         account.setDescription(txtDescription.getText().toString());
         account.setAmountMoney(getAmountMoneyUpdate(tempMoneyStart, txtAmount.getText().toString(),account.getAmountMoney()));
         accountDAO.updateAccount(account);
-//        Log.d(Constant.TAG, "saveData: " + account);
+        Toast.makeText(context, R.string.editSuccessfully, Toast.LENGTH_SHORT).show();
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
         FileHelper.deleteFile(context, Constant.TEMP_ID);
         getActivity().getSupportFragmentManager().popBackStack();

@@ -217,6 +217,7 @@ public class ExpenseFormEdit extends Fragment implements View.OnClickListener,
         //add expense into database
         ExpenseDAO expenseDAO = new ExpenseDAO(context);
         expenseDAO.updateExpense(expense);
+        Toast.makeText(context, R.string.editSuccessfully, Toast.LENGTH_SHORT).show();
         Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllExpense());
         //clear temp file
         clearTempFile();

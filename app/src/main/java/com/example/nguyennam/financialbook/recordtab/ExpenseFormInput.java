@@ -191,6 +191,7 @@ public class ExpenseFormInput extends Fragment implements View.OnClickListener {
         expenseDAO.addExpense(expense);
         //update amountmoney of account
         updateAmountMoneyAccount();
+        Toast.makeText(context, R.string.saved, Toast.LENGTH_SHORT).show();
         //clear text
         clearTextView();
         //clear temp file

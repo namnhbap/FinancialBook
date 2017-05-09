@@ -145,6 +145,7 @@ public class AddBudget extends Fragment implements View.OnClickListener,
         //add budget into database
         BudgetRecyclerViewDAO budgetDAO = new BudgetRecyclerViewDAO(context);
         budgetDAO.addBudget(budget);
+        Toast.makeText(context, R.string.addSuccessfully, Toast.LENGTH_SHORT).show();
         //clear temp file
         clearTempFile();
         //exit

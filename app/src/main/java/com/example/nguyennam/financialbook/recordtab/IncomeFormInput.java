@@ -180,7 +180,7 @@ public class IncomeFormInput extends Fragment implements View.OnClickListener {
         //add expense into database
         IncomeDAO expenseDAO = new IncomeDAO(context);
         expenseDAO.addIncome(income);
-        Log.d(Constant.TAG, "onClick: " + expenseDAO.getAllIncome());
+        Toast.makeText(context, R.string.saved, Toast.LENGTH_SHORT).show();
         //update amountmoney of account
         updateAmountMoneyAccount();
         //clear text

@@ -123,6 +123,7 @@ public class AddAccount extends Fragment implements View.OnClickListener,
         account.setDescription(txtDescription.getText().toString());
         AccountRecyclerViewDAO accountRecyclerViewDAO = new AccountRecyclerViewDAO(context);
         accountRecyclerViewDAO.addAccount(account);
+        Toast.makeText(context, R.string.addSuccessfully, Toast.LENGTH_SHORT).show();
         FileHelper.deleteFile(context, Constant.TEMP_CALCULATOR);
         getActivity().getSupportFragmentManager().popBackStack();
     }
