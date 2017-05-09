@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ReportExpenseYearAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
@@ -143,7 +144,8 @@ public class ReportExpenseYear extends Fragment implements ReportExpenseYearAdap
     }
 
     @Override
-    public void onClick() {
-
+    public void onClick(String year) {
+        FileHelper.writeFile(context, Constant.TEMP_BUDGET_DATE, year);
+        ((MainActivity) context).replaceFragment(new ReportExpenseYearDetail(), true);
     }
 }

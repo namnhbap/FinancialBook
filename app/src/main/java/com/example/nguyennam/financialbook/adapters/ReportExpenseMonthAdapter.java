@@ -72,14 +72,15 @@ public class ReportExpenseMonthAdapter extends RecyclerView.Adapter<ReportExpens
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myOnClickListener.onClick();
+                    myOnClickListener.onClick(data.get(getAdapterPosition()).getMonth(),
+                            data.get(getAdapterPosition()).getYear());
                 }
             });
         }
     }
 
     public interface ReportExpenseMonthOnClickListener {
-        void onClick();
+        void onClick(String month, String year);
     }
 
     ReportExpenseMonthAdapter.ReportExpenseMonthOnClickListener myOnClickListener;
