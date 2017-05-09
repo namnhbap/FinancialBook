@@ -156,8 +156,13 @@ public class ReportExpensePeriodTime extends Fragment {
                     if (FileHelper.readFile(context, Constant.TEMP_CATEGORY).equals(expense.get_category())) {
                         AccountRecyclerViewDAO accountDAO = new AccountRecyclerViewDAO(context);
                         account = accountDAO.getAccountById(expense.get_accountID()).getAccountName();
+                        if ("".equals(expense.get_categoryChild())) {
+                            category = expense.get_category();
+                        } else {
+                            category = expense.get_categoryChild();
+                        }
                         financialChild = new FinancialHistoryChild(true, expense.get_amountMoney(),
-                                account, expense.get_category(), expense.get_description(), expense.get_id());
+                                account, category, expense.get_description(), expense.get_id());
                         financialChildList.add(financialChild);
                     }
                 } else {

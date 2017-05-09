@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
 import com.example.nguyennam.financialbook.adapters.ReportCategoryIncomeAdapter;
 import com.example.nguyennam.financialbook.database.ExpenseDAO;
@@ -177,9 +179,13 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
 
         if (e == null)
             return;
+
         Log.i("VAL SELECTED",
                 "Value: " + e.getY() + ", index: " + categoryGroupList.get((int) h.getX()).getName()
                         + ", DataSet index: " + h.getDataSetIndex());
+        FileHelper.writeFile(context, Constant.TEMP_CATEGORY, categoryGroupList.get((int) h.getX()).getName());
+        ((MainActivity) context).replaceFragment(new ReportPeriodTimeExpenseDetail(), true);
+
     }
 
     @Override
@@ -311,6 +317,7 @@ public class ReportPeriodTime extends Fragment implements OnChartValueSelectedLi
 
     @Override
     public void onClick(String name) {
-
+        FileHelper.writeFile(context, Constant.TEMP_CATEGORY, name);
+        ((MainActivity) context).replaceFragment(new ReportPeriodTimeIncomeDetail(), true);
     }
 }
