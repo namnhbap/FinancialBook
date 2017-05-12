@@ -8,36 +8,98 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:background="@drawable/selector_layout_green"
         android:gravity="center"
-        android:background="@drawable/selector_layout_green">
+        android:orientation="vertical">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author"
+            android:layout_marginTop="10dp"
+            style="@style/TextViewStyleBold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/noname"
+            android:src="@mipmap/about_me" />
+
+        <TextView
+            style="@style/TextViewStyleBold"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="@string/ProductInfomation"
             android:gravity="center"
-            style="@style/TextViewStyleBold"/>
+            android:text="@string/about_me" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customeditmoney"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:paddingBottom="0.5dp">
+        android:background="@drawable/selector_listview_ismac">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/presentation"
+                android:contentDescription="@string/noname"/>
 
             <TextView
-                android:id="@+id/lbFromDate"
+                android:id="@+id/lbAppName"
                 style="@style/FormEditTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:padding="4dp"
-                android:text="@string/deleteMessage" />
+                android:text="@string/app_name" />
 
+            <TextView
+                android:id="@+id/lbVersion"
+                style="@style/FormEditTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:padding="4dp"
+                android:text="@string/version" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/lbTitle"
+                style="@style/FormEditValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:layout_marginBottom="10dp"
+                android:text="@string/final_project" />
+
+            <TextView
+                android:id="@+id/lbDescription"
+                style="@style/FormEditTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="@string/aboutDetail" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

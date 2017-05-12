@@ -123,6 +123,11 @@
     <string name="deleteSuccessfully">Delete successfully!</string>
     <string name="editSuccessfully">Edit successfully!</string>
     <string name="overExpense">Over Expense:</string>
+    <string name="about_me">Nguyen Hoai Nam</string>
+    <string name="version">Version 1.0</string>
+    <string name="final_project">Final Project</string>
+    <string name="aboutDetail">This product is created by Nguyen Hoai Nam - Faculty of IT, University of Science and Technology - The University of Danang</string>
+    <string name="author">Author</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Sunday</item>

@@ -111,7 +111,7 @@
     <string name="categories">Hạng mục chi:</string>
     <string name="Language">Ngôn ngữ</string>
     <string name="ResetData">Xóa dữ liệu</string>
-    <string name="ProductInfomation">Thông tin sản phẩm</string>
+    <string name="ProductInfomation">About</string>
     <string name="selectLanguage">Chọn ngôn ngữ</string>
     <string name="resetDataTitle">Xóa toàn bộ dữ liệu</string>
     <string name="resetDataMessage">Chức năng này sẽ xóa toàn bộ dữ liệu Ghi chép trên thiết bị của bạn. Dữ liệu bị xóa sẽ không thể khôi phục lại được. Bạn có chắc chắn muốn thực hiện chức năng này không?</string>
@@ -122,6 +122,12 @@
     <string name="deleteSuccessfully">Xóa thành công!</string>
     <string name="editSuccessfully">Chỉnh sửa thành công!</string>
     <string name="overExpense">Bội chi:</string>
+    <string name="about_me">Nguyễn Hoài Nam</string>
+    <string name="version">Version 1.0</string>
+    <string name="final_project">Đồ án tốt nghiệp</string>
+    <string name="aboutDetail">Sản phẩm được thực hiện bởi sinh viên Nguyễn Hoài Nam - Khoa CNTT - Trường ĐHBK - ĐHĐN</string>
+    <string name="author">Tác giả</string>
+    <string name="code">102120185</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
