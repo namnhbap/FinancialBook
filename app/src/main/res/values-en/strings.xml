@@ -43,7 +43,7 @@
     <string name="search">Search</string>
     <string name="changePositionAccount">Change position Account</string>
     <string name="addAccount">Add Account</string>
-    <string name="money">$</string>
+    <string name="money">₫</string>
     <string name="editAccount">Edit Account</string>
     <string name="Balance">Balance:</string>
     <string name="Save">Save</string>
