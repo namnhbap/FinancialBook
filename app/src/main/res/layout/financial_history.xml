@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundForm">
 
     <RelativeLayout
         android:id="@+id/tabHeader"
@@ -43,6 +44,9 @@
         android:id="@+id/searchHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/customeditmoney"
+        android:layout_margin="5dp"
+        android:padding="1dp"
         android:queryHint="@string/search"/>
 
     <ExpandableListView

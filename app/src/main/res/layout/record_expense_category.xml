@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/BackgroundForm">
 
     <RelativeLayout
         android:id="@+id/tabHeader"
@@ -13,50 +15,51 @@
             android:id="@+id/btnPrevious"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/previous"
-            android:contentDescription="@string/Category"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@drawable/selector_button_back"
-            android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/selector_button_back"
+            android:contentDescription="@string/Category"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:src="@drawable/previous" />
 
         <LinearLayout
             android:id="@+id/lnAddCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentTop="true">
+
             <ImageView
                 android:id="@+id/btnAddCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
+                android:background="@drawable/selector_button_back"
+                android:contentDescription="@string/Category"
                 android:paddingBottom="8dp"
                 android:paddingLeft="-20dp"
                 android:paddingRight="-20dp"
-                android:background="@drawable/selector_button_back"
-                android:src="@drawable/add"
-                android:contentDescription="@string/Category"/>
+                android:paddingTop="8dp"
+                android:src="@drawable/add" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/lbDescription"
+            style="@style/TextViewStyleBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnPrevious"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/btnPrevious"
             android:layout_toLeftOf="@id/lnAddCategory"
+            android:layout_toRightOf="@id/btnPrevious"
             android:layout_toStartOf="@id/lnAddCategory"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="@string/Category"
             android:gravity="center"
-            style="@style/TextViewStyleBold"/>
+            android:text="@string/Category" />
 
     </RelativeLayout>
 
@@ -64,12 +67,15 @@
         android:id="@+id/searchCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="@string/search"/>
+        android:background="@drawable/customeditmoney"
+        android:layout_margin="5dp"
+        android:padding="1dp"
+        android:queryHint="@string/search" />
 
     <ExpandableListView
         android:id="@+id/expandableCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:groupIndicator="@null"/>
+        android:groupIndicator="@null" />
 
 </LinearLayout>
