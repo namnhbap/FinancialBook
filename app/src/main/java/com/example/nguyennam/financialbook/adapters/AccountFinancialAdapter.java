@@ -38,7 +38,7 @@ public class AccountFinancialAdapter extends RecyclerView.Adapter<AccountFinanci
     @Override
     public void onBindViewHolder(final AccountFinancialAdapter.FinancialViewHolder holder, int position) {
         FinancialRecyclerView financialRecyclerView = data.get(position);
-        if ("Thu:".equals(financialRecyclerView.getFinancial())) {
+        if (context.getResources().getString(R.string.tvIncome).equals(financialRecyclerView.getFinancial())) {
             holder.txtFinancial.setTextColor(context.getResources().getColor(R.color.textTab));
             holder.txtCategory.setTextColor(context.getResources().getColor(R.color.textTab));
             holder.txtAmountMoney.setTextColor(context.getResources().getColor(R.color.textTab));
