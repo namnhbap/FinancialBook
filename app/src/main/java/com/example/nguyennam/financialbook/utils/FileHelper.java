@@ -85,5 +85,6 @@ public class FileHelper {
         FileHelper.deleteFile(context, Constant.TEMP_BUDGET_ID);
         FileHelper.deleteFile(context, Constant.TEMP_MAX);
         FileHelper.deleteFile(context, Constant.TEMP_ID);
+        FileHelper.deleteFile(context, Constant.TEMP_ACCOUNT_TYPE);
     }
 }

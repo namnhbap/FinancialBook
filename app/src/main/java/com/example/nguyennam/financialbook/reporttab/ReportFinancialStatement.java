@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.nguyennam.financialbook.MainActivity;
 import com.example.nguyennam.financialbook.R;
+import com.example.nguyennam.financialbook.accounttab.AccountMain;
 import com.example.nguyennam.financialbook.adapters.RecordAccountAdapter;
 import com.example.nguyennam.financialbook.adapters.ReportFinancialStatementAdapter;
 import com.example.nguyennam.financialbook.database.AccountRecyclerViewDAO;
 import com.example.nguyennam.financialbook.model.AccountRecyclerView;
+import com.example.nguyennam.financialbook.recordtab.Accounts;
 import com.example.nguyennam.financialbook.utils.CalculatorSupport;
 import com.example.nguyennam.financialbook.utils.Constant;
 import com.example.nguyennam.financialbook.utils.FileHelper;
@@ -101,7 +104,7 @@ public class ReportFinancialStatement extends Fragment implements
 
     @Override
     public void onClick(String accountType) {
-//
-//        FileHelper.writeFile(context, Constant.TEMP_ACCOUNT_ID, accountID);
+        FileHelper.writeFile(context, Constant.TEMP_ACCOUNT_TYPE, accountType);
+        ((MainActivity)context).replaceFragment(new ReportFinancialStatementDetail(), true);
     }
 }

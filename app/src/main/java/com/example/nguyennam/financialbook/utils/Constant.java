@@ -24,5 +24,5 @@ public class Constant {
     public static final String TEMP_BUDGET_ID = "temp_budget_ID.tmp";
     public static final String TEMP_MAX = "temp_max.tmp";
     public static final String TEMP_LANGUAGE = "temp_language.tmp";
-
+    public static final String TEMP_ACCOUNT_TYPE = "temp_account_type.tmp";
 }
