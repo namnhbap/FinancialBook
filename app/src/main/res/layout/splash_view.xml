@@ -6,14 +6,6 @@
     android:gravity="center"
     android:background="@color/BackgroundForm">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:layout_gravity="center"
-        style="@style/InputMoney"
-        android:layout_marginBottom="20dp"/>
-
     <ImageView
         android:id="@+id/splashscreen"
         android:layout_width="160dp"
@@ -21,20 +13,5 @@
         android:src="@drawable/splashlayer"
         android:contentDescription="@string/noname"
         android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_me"
-        android:layout_gravity="center"
-        style="@style/InputMoney"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/code"
-        android:layout_gravity="center"
-        style="@style/InputMoney"/>
 
 </LinearLayout>

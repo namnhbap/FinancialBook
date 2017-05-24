@@ -63,6 +63,7 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
             holder.txtRemainMoney.setText(nf.format(remainMoney));
             holder.txtRemainMoney.setTextColor(context.getResources().getColor(R.color.expenseColor));
             holder.lbCurrency.setTextColor(context.getResources().getColor(R.color.expenseColor));
+            holder.lnTotalExpensedDetail.setBackgroundColor(context.getResources().getColor(R.color.expenseColor));
         } else {
             holder.txtRemainMoney.setText(budget.getRemainMoney());
         }

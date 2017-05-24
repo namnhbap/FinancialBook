@@ -89,6 +89,7 @@ public class MainActivity extends FragmentActivity {
         } else {
             getLocaleLanguage("vi");
         }
+        FileHelper.clearTempFile(this);
         //add tabhost
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
@@ -110,6 +111,7 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 int selectedIndex = mTabHost.getCurrentTab();
                 setColorImage(selectedIndex);
             }
@@ -148,22 +150,27 @@ public class MainActivity extends FragmentActivity {
                     case 0:
                         image.setImageResource(R.drawable.note_selected);
                         iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
+                        replaceFragment(new RecordMain(), false);
                         break;
                     case 1:
                         image.setImageResource(R.drawable.wallet_selected);
                         iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
+                        replaceFragment(new AccountMain(), false);
                         break;
                     case 2:
                         image.setImageResource(R.drawable.tab_budget_selected);
                         iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
+                        replaceFragment(new BudgetMain(), false);
                         break;
                     case 3:
                         image.setImageResource(R.drawable.pie_chart_selected);
                         iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
+                        replaceFragment(new ReportMain(), false);
                         break;
                     case 4:
                         image.setImageResource(R.drawable.more_selected);
                         iconTitle.setTextColor(ResourcesCompat.getColor(getResources(), R.color.textTab, null));
+                        replaceFragment(new SettingMain(), false);
                         break;
                 }
             }
