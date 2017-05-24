@@ -72,6 +72,9 @@ public class ReportMain extends Fragment implements AdapterView.OnItemSelectedLi
             case 1:
                 insertNestedFragment(reportExpenseAnalysis);
                 break;
+            case 2:
+                insertNestedFragment(new ReportFinancialStatement());
+                break;
         }
     }
 
@@ -83,5 +86,6 @@ public class ReportMain extends Fragment implements AdapterView.OnItemSelectedLi
     public void setListData() {
         customListViewValuesArr.add(new ReportSpinner(getResources().getString(R.string.ReportExpenseIncome)));
         customListViewValuesArr.add(new ReportSpinner(getResources().getString(R.string.ReportExpenseAnalysis)));
+        customListViewValuesArr.add(new ReportSpinner(getResources().getString(R.string.ReportFinancialStatement)));
     }
 }

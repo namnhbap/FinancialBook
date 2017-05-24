@@ -15,7 +15,8 @@ public class AccountRecyclerView {
 
     }
 
-    public AccountRecyclerView(int id, String accountName, String accountType, String moneyType, String moneyStart, String description, String amountMoney) {
+    public AccountRecyclerView(int id, String accountName, String accountType, String moneyType,
+                               String moneyStart, String description, String amountMoney) {
         this.id = id;
         this.accountName = accountName;
         this.accountType = accountType;
@@ -25,7 +26,8 @@ public class AccountRecyclerView {
         this.amountMoney = amountMoney;
     }
 
-    public AccountRecyclerView(String accountName, String accountType, String moneyType, String moneyStart, String description, String amountMoney) {
+    public AccountRecyclerView(String accountName, String accountType, String moneyType,
+                               String moneyStart, String description, String amountMoney) {
         this.accountName = accountName;
         this.accountType = accountType;
         this.moneyType = moneyType;
@@ -34,10 +36,15 @@ public class AccountRecyclerView {
         this.amountMoney = amountMoney;
     }
 
+    public AccountRecyclerView(String accountType, String amountMoney) {
+        this.accountType = accountType;
+        this.amountMoney = amountMoney;
+    }
+
     public String toString() {
         return id + ";" + accountName +";" + accountType
                 + ";" + moneyType +";" + moneyStart
-                + ";" + amountMoney +";" + description;
+                +";" + description + ";" + amountMoney;
     }
 
     public int getId() {

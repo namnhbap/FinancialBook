@@ -128,6 +128,8 @@
     <string name="aboutDetail">Sản phẩm được thực hiện bởi sinh viên Nguyễn Hoài Nam - Khoa CNTT - Trường ĐHBK - ĐHĐN</string>
     <string name="author">Tác giả</string>
     <string name="code">102120185</string>
+    <string name="total">Tổng cộng</string>
+    <string name="ReportFinancialStatement">Tài chính hiện tại</string>
     <string-array name="day_of_week">
         <item>\"\"</item>
         <item>Chủ Nhật</item>
