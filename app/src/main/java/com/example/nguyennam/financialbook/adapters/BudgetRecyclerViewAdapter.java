@@ -104,6 +104,8 @@ public class BudgetRecyclerViewAdapter extends RecyclerView.Adapter<BudgetRecycl
             long leftLnToday;
             if (300 - now * eachDayWidth < 36) {
                 leftLnToday = 264;
+            } else if (now * eachDayWidth < 18) {
+                leftLnToday = 0;
             } else {
                 leftLnToday = now * eachDayWidth - 18;
             }

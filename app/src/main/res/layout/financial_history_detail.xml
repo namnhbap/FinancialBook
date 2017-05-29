@@ -30,31 +30,31 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/btnBack"
             android:layout_toEndOf="@id/btnBack"
-            android:layout_toLeftOf="@id/lnSave"
-            android:layout_toStartOf="@id/lnSave"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginRight="48dp"
+            android:layout_marginEnd="48dp"
             android:text="@string/financialHistory"
             android:gravity="center"
             style="@style/TextViewStyleBold"/>
 
-        <LinearLayout
-            android:id="@+id/lnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:background="@drawable/selector_button_back"
-                android:src="@drawable/save_icon_button"
-                android:contentDescription="@string/Save"/>
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/lnSave"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentEnd="true">-->
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:paddingBottom="8dp"-->
+                <!--android:background="@drawable/selector_button_back"-->
+                <!--android:src="@drawable/save_icon_button"-->
+                <!--android:contentDescription="@string/Save"/>-->
+        <!--</LinearLayout>-->
 
     </RelativeLayout>
 
